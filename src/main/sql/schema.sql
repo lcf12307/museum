@@ -43,7 +43,8 @@ create TABLE attachment(
     id int(11) primary key not null auto_increment comment '附件id',
     name VARCHAR(200) not null DEFAULT '' COMMENT '附件名',
     file VARCHAR(200) not null DEFAULT '' comment '文件路径',
-    type int(4) not null DEFAULT '' comment '附件类型'
+    type int(4) not null DEFAULT 0 comment '附件类型',
+    year int(4) not null DEFAULT 0 Comment '年份'
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 

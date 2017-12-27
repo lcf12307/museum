@@ -54,8 +54,8 @@ public class AttachmentEntity{
         this.type = type;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
+    @Override
+    public String toString() {
         return "AttachmentEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +

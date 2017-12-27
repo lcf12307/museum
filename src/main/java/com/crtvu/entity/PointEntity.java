@@ -76,8 +76,8 @@ public class PointEntity{
         this.type = type;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
+    @Override
+    public String toString() {
         return "PointEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
