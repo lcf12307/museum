@@ -26,7 +26,7 @@ create TABLE quota(
     name VARCHAR(200) not null DEFAULT '' COMMENT '类别名',
     quota_id int(11)  not null DEFAULT 0 comment '指标id',
     description VARCHAR(200) not null DEFAULT '' comment '专家简介',
-    year int(11) not null DEFAULT 0  comment '年份'
+    year VARCHAR(200) not null DEFAULT ''  comment '年份'
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
