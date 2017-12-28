@@ -14,7 +14,7 @@ public interface AttachmentDAO{
      * @param file
      * @param type
      */
-    void insertAttachment(@Param("name") String name,@Param("file") String file,@Param("type") int type);
+    void insertAttachment(@Param("name") String name,@Param("file") String file,@Param("type") int type,@Param("year") int year);
 
     int deleteAttachment(@Param("id") int id);
 

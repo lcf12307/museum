@@ -4,7 +4,7 @@
 
     <insert id = "insertAttachment">
         INSERT INTO attachment
-        VALUES (#{name},#{file},#{type})
+        set name = #{name} , file = #{file} , type = #{type} , year = #{year}
     </insert>
 
     <delete id = "deleteAttachment">
