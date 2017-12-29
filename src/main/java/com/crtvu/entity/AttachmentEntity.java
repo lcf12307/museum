@@ -5,6 +5,23 @@ public class AttachmentEntity{
     private String name;
     private String file;
     private int type;
+    private int year;
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public AttachmentEntity(String name, String file, int type, int year) {
+
+        this.name = name;
+        this.file = file;
+        this.type = type;
+        this.year = year;
+    }
 
     public AttachmentEntity() {
     }
@@ -14,6 +31,7 @@ public class AttachmentEntity{
         this.file = file;
         this.type = type;
     }
+
 
     public AttachmentEntity(int id, String name, String file, int type) {
         this.id = id;

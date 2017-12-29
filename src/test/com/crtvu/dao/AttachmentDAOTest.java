@@ -8,6 +8,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class AttachmentDAOTest {
 
     @Autowired
@@ -34,6 +36,7 @@ public class AttachmentDAOTest {
 
     @Test
     public void selectAttachment() throws Exception {
+        attachmentDAO.selectAttachment(1);
     }
 
     @Test
