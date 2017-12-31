@@ -5,7 +5,7 @@
 
     <insert id = "insertAttachment">
         INSERT INTO attachment
-        set name = #{name} , file = #{file} , type = #{type} , year = #{year}
+        set name = #{name} , file = #{file} , type = #{type} , year = #{year},addtime = #{addtime}
     </insert>
 
     <delete id = "deleteAttachment">
@@ -41,26 +41,26 @@
     <select id="selectAttachementByLimit" resultType="AttachmentEntity">
         SELECT *
         FROM attachment
-        Where name = #{name} and year = #{year}
+        Where name LIKE #{name} and year = #{year}
         Limit #{start},#{perpage}
     </select>
 
     <select id="selectAttachementByName" resultType="AttachmentEntity">
         SELECT *
         FROM attachment
-        Where name = #{name}
+        Where name LIKE #{name}
         Limit #{start},#{perpage}
     </select>
 
     <select id="countAttachementByLimit" resultType="int">
         SELECT COUNT(*) FROM attachment
-        Where name = #{name} and year = #{year}
+        Where name LIKE #{name} and year = #{year}
     </select>
 
     <select id="countAttachementByName" resultType="int">
         SELECT COUNT(*)
         FROM attachment
-        Where name = #{name}
+        Where name LIKE #{name}
     </select>
 
 </mapper>

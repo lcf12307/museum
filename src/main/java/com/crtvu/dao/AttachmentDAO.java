@@ -14,7 +14,7 @@ public interface AttachmentDAO{
      * @param file
      * @param type
      */
-    void insertAttachment(@Param("name") String name,@Param("file") String file,@Param("type") int type,@Param("year") int year);
+    void insertAttachment(@Param("name") String name,@Param("file") String file,@Param("type") int type,@Param("year") int year,@Param("addtime") int addtime);
 
     int deleteAttachment(@Param("id") int id);
 
@@ -29,9 +29,9 @@ public interface AttachmentDAO{
      * 分页
      * @return
      */
-    List<AttachmentEntity> selectAttachementByLimit(@Param("name") String name,@Param("year") int year,@Param("start") int page, @Param("perpage") int perpage);
+    List<AttachmentEntity> selectAttachementByLimit(@Param("name") String name,@Param("year") int year,@Param("start") int start, @Param("perpage") int perpage);
 
-    List<AttachmentEntity> selectAttachementByName(@Param("name") String name,@Param("page") int page, @Param("perpage") int perpage);
+    List<AttachmentEntity> selectAttachementByName(@Param("name") String name,@Param("start") int start, @Param("perpage") int perpage);
 
     int countAttachementByLimit(@Param("name") String name,@Param("year") int year);
 

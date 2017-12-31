@@ -6,6 +6,24 @@ public class AttachmentEntity{
     private String file;
     private int type;
     private int year;
+    private int addtime;
+
+    public int getAddtime() {
+        return addtime;
+    }
+
+    public void setAddtime(int addtime) {
+        this.addtime = addtime;
+    }
+
+    public AttachmentEntity(String name, String file, int type, int year, int addtime) {
+
+        this.name = name;
+        this.file = file;
+        this.type = type;
+        this.year = year;
+        this.addtime = addtime;
+    }
 
     public int getYear() {
         return year;

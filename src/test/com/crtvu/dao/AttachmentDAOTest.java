@@ -1,12 +1,13 @@
 package com.crtvu.dao;
 
+import com.crtvu.entity.AttachmentEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath*:spring/spring-dao.xml"})
@@ -18,7 +19,7 @@ public class AttachmentDAOTest {
     @Test
     public void insertAttachment() throws Exception {
 
-        attachmentDAO.insertAttachment("xiaoming","../../file/test.doc",1,2017);
+        attachmentDAO.insertAttachment("xiaoming","../../file/test.doc",1,2017,12321);
     }
 
     @Test
@@ -45,6 +46,8 @@ public class AttachmentDAOTest {
 
     @Test
     public void selectAttachementByLimit() throws Exception {
+        List<AttachmentEntity> result = attachmentDAO.selectAttachementByLimit("",2017,0,2);
+        System.out.print(result);
     }
 
     @Test
@@ -53,6 +56,8 @@ public class AttachmentDAOTest {
 
     @Test
     public void countAttachementByLimit() throws Exception {
+        int result = attachmentDAO.countAttachementByLimit("",2017);
+        System.out.print(result);
     }
 
     @Test
