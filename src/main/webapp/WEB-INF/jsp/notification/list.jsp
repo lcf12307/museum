@@ -3,11 +3,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>学生列表</title>
+    <title>申报书管理
+
+
+    </title>
     <%@include file="../common/head.jsp" %>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
     <script type="text/javascript">
+
+        $(document).ready(function(){
+            $("#submitBtn").on("click", function(){
+                $("#addForm").ajaxSubmit({
+                    success : function(data){
+                        alert(data);
+                    },
+                    error : function(){
+                        alert("请求错误");
+                    }
+                });
+            });
+
+        });
+        function  addFile() {
+            var input = '<input type=\"file\">';
+            document.getElementById("addDiv").append(input);
+        }
         function ahead(){
             name = request('name');
             year = request("year");
@@ -76,20 +97,8 @@
             }
             return args[strParame];
         }
-        $("#submitBtn").on("click", function(){
-            $("#addForm").ajaxSubmit({
-                success : function(data){
-                    alert(data);
-                },
-                error : function(){
-                    alert("请求错误");
-                }
-            });
-        });
-        $("#addUpload").on("click",function () {
 
-           $("#addUpload").append("<input type=\"file\">");
-        });
+
     </script>
 </head>
 <body>
@@ -118,11 +127,12 @@
                             <option value="2010">2010</option>
                         </select>
                     </div>
-                    <div name="addDiv">
-                        <input type="file" name="file1"/>  <button name="addUpload">添加文件</button>
+                    <div id="addDiv"   >
+                        <input type="file" name="file1"/>
                     </div>
-
-                    <br>
+                    <div align="right">
+                        <button name="addUpload" type="button" onclick="addFile()">添加文件</button>
+                    </div>                    <br>
                     <button type="button" class="btn btn-primary" name="submitBtn">提交更改</button>
                 </form>
 
