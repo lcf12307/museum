@@ -3,10 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>申报书管理
-
-
-    </title>
+    <title>专家打分表管理</title>
     <%@include file="../common/head.jsp" %>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
@@ -108,12 +105,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">上传申报书</h4>
+                <h4 class="modal-title" id="myModalLabel">上传专家定性评估意见书</h4>
             </div>
             <div class="modal-footer">
                 <form id="insertForm" action="/notification/insert" align="left" enctype="multipart/form-data">
                     <label>博物馆名称：</label>
-                    <input type="text" name="uploadName" placeholder="博物馆名字">
+                    <input type="text" name="uploadName" placeholder="专家名字">
                     <div align="left">
                         <label>请选择年份：</label>
                         <select id="uploadYear" name="uploadYear" form="insertForm">
@@ -129,11 +126,8 @@
                     </div>
                     <div id="addDiv"   >
                         <input type="file" name="file1"/>
-                    </div>
-                    <div align="right">
-                        <button name="addUpload" type="button" onclick="addFile()">添加文件</button>
-                    </div>                    <br>
-                    <button type="button" class="btn btn-primary" name="submitBtn">提交更改</button>
+                    </div>                   <br>
+                    <button type="button" class="btn btn-primary" name="submitBtn">提交</button>
                 </form>
 
             </div>
@@ -150,7 +144,7 @@
         <form class="navbar-form navbar-left" role="search">
             <div>
                 <div class="form-group">
-                    <label class="col-5">按博物馆名称进行搜索</label>
+                    <label class="col-5">按专家名称进行搜索</label>
                     <input type="text" class="form-control col-6 col-lg-offset-0" placeholder="输入" id="searchName" name="searchName">
                 </div>
                 <button type="button" class="btn btn-default" onclick="searchByName()">搜索</button>
@@ -175,7 +169,7 @@
 
         <div class="panel-body" >
             <div class="panel-body" align="left">
-                <td><a class = "btn btn-primary btn-lg"  data-toggle="modal" data-target="#myModal">上传申报书</a></td>
+                <td><a class = "btn btn-primary btn-lg"  data-toggle="modal" data-target="#myModal">上传专家定性评估意见书</a></td>
                 </tr>
             </div>
             <table class="table table-hover">
@@ -195,8 +189,8 @@
                         <td>${attachment.name}</td>
                         <td>${attachment.addtime}</td>
                         <td>${attachment.year}</td>
-                        <td><a class="btn btn-info" href="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=23712844,3482720731&fm=173&s=3280DC4B4D672D0F3EF8C9320300D001&w=229&h=243&img.JPEG" target="_blank">下载申报书</a>
-                                <a class="btn btn-info" href="/notification/management"  target="_blank">文件管理</a>
+                        <td><a class="btn btn-info" href="" target="_blank">下载打分表</a>
+                                <a class="btn btn-info" href="/score/detail"  target="_blank">详细信息</a>
                             <a class="btn btn-info" onclick="delAttachment(${attachment.id})" target="_blank">删除申报书</a>
                         </td>
                     </tr>

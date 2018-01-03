@@ -32,9 +32,9 @@ public class NotificationController {
     {
         try{
             name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
-            List<AttachmentEntity> list= AttachmentService.pagingAttachment(page,year , name);
+            List<AttachmentEntity> list= AttachmentService.pagingAttachment(page,year , name,1);
             model.addAttribute("count",page);
-            int pages = AttachmentService.page(year,name)/20 + 1;
+            int pages = AttachmentService.page(year,name,1)/20 + 1;
             model.addAttribute("list",list);
             model.addAttribute("pages",pages);
         }

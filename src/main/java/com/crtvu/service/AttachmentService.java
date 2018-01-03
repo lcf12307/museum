@@ -10,9 +10,9 @@ public interface AttachmentService {
         FAIL,
     }
 
-    public List<AttachmentEntity> pagingAttachment(int page, int year, String name);
+    public List<AttachmentEntity> pagingAttachment(int page, int year, String name,int type);
 
-    public int page(int year, String name);
+    public int page(int year, String name,int type);
 
     public int delete(int id);
 }

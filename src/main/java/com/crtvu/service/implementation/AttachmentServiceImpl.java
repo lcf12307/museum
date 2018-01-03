@@ -15,13 +15,13 @@ public class AttachmentServiceImpl implements AttachmentService {
     private AttachmentDAO attachmentDAO;
 
     @Override
-    public List<AttachmentEntity> pagingAttachment(int page, int year, String name) {
+    public List<AttachmentEntity> pagingAttachment(int page, int year, String name,int type) {
         name = "%"+name+"%";
         List<AttachmentEntity> attachments;
         if (year == 0){
-            attachments = attachmentDAO.selectAttachementByName(name,(page-1)*10,10);
+            attachments = attachmentDAO.selectAttachementByName(name,(page-1)*10,10,type);
         }else{
-            attachments = attachmentDAO.selectAttachementByLimit(name,year,(page-1)*10,10);
+            attachments = attachmentDAO.selectAttachementByLimit(name,year,(page-1)*10,10,type);
         }
 
         return attachments;
@@ -33,13 +33,13 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Override
-    public int page(int year, String name) {
+    public int page(int year, String name,int type) {
         name = "%"+name+"%";
         int page;
         if ( year == 0 ){
-            page = attachmentDAO.countAttachementByName(name);
+            page = attachmentDAO.countAttachementByName(name,type);
         } else {
-            page = attachmentDAO.countAttachementByLimit(name, year);
+            page = attachmentDAO.countAttachementByLimit(name, year,type);
         }
         return page;
     }

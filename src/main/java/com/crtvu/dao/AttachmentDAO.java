@@ -29,11 +29,11 @@ public interface AttachmentDAO{
      * 分页
      * @return
      */
-    List<AttachmentEntity> selectAttachementByLimit(@Param("name") String name,@Param("year") int year,@Param("start") int start, @Param("perpage") int perpage);
+    List<AttachmentEntity> selectAttachementByLimit(@Param("name") String name,@Param("year") int year,@Param("start") int start, @Param("perpage") int perpage,@Param("type") int type);
 
-    List<AttachmentEntity> selectAttachementByName(@Param("name") String name,@Param("start") int start, @Param("perpage") int perpage);
+    List<AttachmentEntity> selectAttachementByName(@Param("name") String name,@Param("start") int start, @Param("perpage") int perpage ,@Param("type") int type);
 
-    int countAttachementByLimit(@Param("name") String name,@Param("year") int year);
+    int countAttachementByLimit(@Param("name") String name,@Param("year") int year ,@Param("type") int type);
 
-    int countAttachementByName(@Param("name") String name);
+    int countAttachementByName(@Param("name") String name ,@Param("type") int type);
 }
