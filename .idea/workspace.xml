@@ -7,21 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bca8f1a5-0a91-4683-94e0-b1897f41ea48" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/jwgl.iml" afterPath="$PROJECT_DIR$/jwgl.iml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/crtvu/dao/AttachmentDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/crtvu/dao/AttachmentDAO.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/crtvu/entity/AttachmentEntity.java" afterPath="$PROJECT_DIR$/src/main/java/com/crtvu/entity/AttachmentEntity.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/crtvu/service/AttachmentService.java" afterPath="$PROJECT_DIR$/src/main/java/com/crtvu/service/AttachmentService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java" afterPath="$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/AttachmentDAO.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/AttachmentDAO.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/sql/schema.sql" afterPath="$PROJECT_DIR$/src/main/sql/schema.sql" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/point/index.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/point/index.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/commons-io-1.2.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/test/com/crtvu/dao/AttachmentDAOTest.java" afterPath="$PROJECT_DIR$/src/test/com/crtvu/dao/AttachmentDAOTest.java" />
-      <change beforePath="$PROJECT_DIR$/target/jwgl/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/target/jwgl/META-INF/MANIFEST.MF" />
-      <change beforePath="$PROJECT_DIR$/target/jwgl/WEB-INF/lib/commons-io-1.2.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,73 +24,18 @@
       <file leaf-file-name="NotificationController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="81" column="75" lean-forward="true" selection-start-line="81" selection-start-column="75" selection-end-line="81" selection-end-column="75" />
+            <state relative-caret-position="360">
+              <caret line="99" column="35" lean-forward="false" selection-start-line="99" selection-start-column="35" selection-end-line="99" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="schema.sql" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/sql/schema.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="45" column="4" lean-forward="false" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AttachmentDAOTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/com/crtvu/dao/AttachmentDAOTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AttachmentServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-              <folding>
-                <element signature="e#1798#1799#0" expanded="true" />
-                <element signature="e#1867#1868#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AttachmentDAO.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/AttachmentDAO.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="65" column="32" lean-forward="false" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="32" />
-              <folding>
-                <marker date="1514980607086" expanded="true" signature="221:342" ph="INSERT INTO attachment... " />
-                <marker date="1514980607086" expanded="true" signature="403:458" ph="DELETE FROM attachment" />
-                <marker date="1514980607086" expanded="true" signature="525:584" ph="DELETE FROM attachment" />
-                <marker date="1514980607086" expanded="true" signature="658:736" ph="DELETE FROM attachment" />
-                <marker date="1514980607086" expanded="true" signature="797:866" ph="UPDATE attachment... " />
-                <marker date="1514980607086" expanded="true" signature="959:1016" ph="SELECT * FRO... attachment" />
-                <marker date="1514980607086" expanded="true" signature="1113:1249" ph="SELECT * FRO... attachment" />
-                <marker date="1514980607086" expanded="true" signature="1345:1462" ph="SELECT * FRO... attachment" />
-                <marker date="1514980607086" expanded="true" signature="1545:1646" ph="SELECT COUNT... attachment" />
-                <marker date="1514980607086" expanded="true" signature="1728:1818" ph="SELECT COUNT... attachment" />
-                <marker date="1514980607086" expanded="true" signature="1894:1995" ph="SELECT COUNT... attachment" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="list.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="150" column="37" lean-forward="false" selection-start-line="150" selection-start-column="3" selection-end-line="150" selection-end-column="37" />
+            <state relative-caret-position="310">
+              <caret line="207" column="25" lean-forward="true" selection-start-line="207" selection-start-column="25" selection-end-line="207" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -113,26 +46,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="224">
               <caret line="171" column="50" lean-forward="false" selection-start-line="171" selection-start-column="50" selection-end-line="171" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AttachmentDAO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/crtvu/dao/AttachmentDAO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="16" column="151" lean-forward="false" selection-start-line="16" selection-start-column="151" selection-end-line="16" selection-end-column="151" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="185" column="21" lean-forward="false" selection-start-line="185" selection-start-column="21" selection-end-line="185" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -166,8 +79,9 @@
         <option value="$PROJECT_DIR$/src/test/com/crtvu/dao/AttachmentDAOTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/point/index.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java" />
         <option value="$PROJECT_DIR$/src/main/sql/schema.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp" />
       </list>
     </option>
   </component>
@@ -645,8 +559,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1514974245264</updated>
-      <workItem from="1514974248862" duration="7704000" />
+      <workItem from="1514974248862" duration="8450000" />
     </task>
+    <task id="LOCAL-00001" summary="fix">
+      <created>1514981979512</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1514981979512</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -682,7 +604,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7704000" />
+    <option name="totallyTimeSpent" value="8450000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1985" y="-6" width="1855" height="1086" extended-state="6" />
@@ -726,21 +648,13 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java</url>
-          <line>58</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java</url>
-          <line>53</line>
-          <properties />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/com/crtvu/dao/AttachmentDAOTest.java</url>
           <line>19</line>
@@ -749,8 +663,14 @@
           </properties>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java</url>
+          <line>101</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -803,10 +723,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/sql/schema.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="28" column="55" lean-forward="true" selection-start-line="28" selection-start-column="55" selection-end-line="28" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/crtvu/dao/AttachmentDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
           <caret line="16" column="151" lean-forward="false" selection-start-line="16" selection-start-column="151" selection-end-line="16" selection-end-column="151" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/point/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="171" column="50" lean-forward="false" selection-start-line="171" selection-start-column="50" selection-end-line="171" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -816,6 +752,17 @@
         <state relative-caret-position="234">
           <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding>
+            <element signature="e#1798#1799#0" expanded="true" />
+            <element signature="e#1867#1868#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -839,45 +786,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="150" column="37" lean-forward="false" selection-start-line="150" selection-start-column="3" selection-end-line="150" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/point/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="171" column="50" lean-forward="false" selection-start-line="171" selection-start-column="50" selection-end-line="171" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding>
-            <element signature="e#1798#1799#0" expanded="true" />
-            <element signature="e#1867#1868#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="81" column="75" lean-forward="true" selection-start-line="81" selection-start-column="75" selection-end-line="81" selection-end-column="75" />
+        <state relative-caret-position="360">
+          <caret line="99" column="35" lean-forward="false" selection-start-line="99" selection-start-column="35" selection-end-line="99" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/sql/schema.sql">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="45" column="4" lean-forward="false" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
+        <state relative-caret-position="310">
+          <caret line="207" column="25" lean-forward="true" selection-start-line="207" selection-start-column="25" selection-end-line="207" selection-end-column="25" />
           <folding />
         </state>
       </provider>

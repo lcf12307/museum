@@ -201,7 +201,7 @@
                         <td>${attachment.name}</td>
                         <td>${attachment.addtime}</td>
                         <td>${attachment.year}</td>
-                        <td><a class="btn btn-info" href="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=23712844,3482720731&fm=173&s=3280DC4B4D672D0F3EF8C9320300D001&w=229&h=243&img.JPEG" target="_blank">下载申报书</a>
+                        <td><a class="btn btn-info" href="/notification/listFile?dir=${attachment.file}" target="_blank">下载申报书</a>
                                 <a class="btn btn-info" href="/notification/management"  target="_blank">文件管理</a>
                             <a class="btn btn-info" onclick="delAttachment(${attachment.id})" target="_blank">删除申报书</a>
                         </td>

@@ -63,15 +63,8 @@ public class NotificationController {
         // 对name进行处理
         String filename ;
        for(MultipartFile mf :myfiles){
-           System.out.println("文件长度: " + mf.getSize());
-           System.out.println("文件类型: " + mf.getContentType());
-           System.out.println("文件名称: " + mf.getName());
-           System.out.println("文件原名: " + mf.getOriginalFilename());
-           System.out.println("========================================");
-
            String realPath = request.getSession().getServletContext()
                    .getRealPath("/WEB-INF/upload");
-           System.out.println(realPath);
            File uploadDir = new File(realPath+"/"+name+"_"+year);
            if (!uploadDir.exists()) {
                uploadDir.mkdirs();
@@ -98,16 +91,13 @@ public class NotificationController {
 
 
     @RequestMapping("/listFile")
-    public String listFile(HttpServletRequest request,
-                           HttpServletResponse response) {
-        // 获取上传文件的目录
-        ServletContext sc = request.getSession().getServletContext();
-        // 上传位置
-        String uploadFilePath = sc.getRealPath("/img") + "/"; // 设定文件保存的目录
-        // 存储要下载的文件名
+    public String listFile(@RequestParam("dir") String dir,
+                           HttpServletRequest request,   HttpServletResponse response) {
+
+
         Map<String, String> fileNameMap = new HashMap<String, String>();
         // 递归遍历filepath目录下的所有文件和目录，将文件的文件名存储到map集合中
-        File[] files = new File(uploadFilePath).listFiles();
+        File[] files = new File(dir).listFiles();
         for ( File file:files  ) {
             fileNameMap.put(file.getName(),file.getAbsolutePath());
         }
