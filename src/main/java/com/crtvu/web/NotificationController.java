@@ -3,16 +3,19 @@ package com.crtvu.web;
 import com.crtvu.dto.DeleteJson;
 import com.crtvu.entity.AttachmentEntity;
 import com.crtvu.service.AttachmentService;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -36,7 +39,7 @@ public class NotificationController {
             model.addAttribute("count",page);
             int pages = AttachmentService.page(year,name,1)/20 + 1;
             model.addAttribute("list",list);
-            model.addAttribute("pages",pages);
+            model.addAttribute("pages",pages>0?pages:1);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -50,6 +53,42 @@ public class NotificationController {
         int result = AttachmentService.delete(  Integer.parseInt(deletejson.getId()));
         deletejson.setId(Integer.toString(result));
         return deletejson;
+    }
+
+    @RequestMapping(value = "/upload")
+    public String handleFormUpload(@RequestParam("uploadName") String name,@RequestParam("uploadYear") String year,
+                                   @RequestParam("file") MultipartFile[] myfiles,HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("UTF-8");
+        name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
+        // 对name进行处理
+        String filename ;
+       for(MultipartFile mf :myfiles){
+           System.out.println("文件长度: " + mf.getSize());
+           System.out.println("文件类型: " + mf.getContentType());
+           System.out.println("文件名称: " + mf.getName());
+           System.out.println("文件原名: " + mf.getOriginalFilename());
+           System.out.println("========================================");
+
+           String realPath = request.getSession().getServletContext()
+                   .getRealPath("/WEB-INF/upload");
+           System.out.println(realPath);
+           File uploadDir = new File(realPath+"/"+name+"_"+year);
+           if (!uploadDir.exists()) {
+               uploadDir.mkdirs();
+           }
+           try {
+               filename  = new String(mf.getOriginalFilename().getBytes("ISO-8859-1"), "UTF-8");
+               File newfile = new File(uploadDir  + "/"+ filename);
+               InputStream is = mf.getInputStream();
+               System.out.println(is);
+               FileUtils.copyInputStreamToFile(mf.getInputStream(),newfile);
+
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+       }
+
+        return "redirect:/notification/list/1?upload=success";
     }
 
 

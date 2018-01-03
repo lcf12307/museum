@@ -6,6 +6,10 @@ import com.crtvu.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 @Service
@@ -30,6 +34,18 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
     public int delete(int id) {
         return attachmentDAO.deleteAttachment(id);
+    }
+
+    @Override
+    public void inputstreamtofile(InputStream ins,File file) throws Exception{
+        OutputStream os = new FileOutputStream(file);
+        int bytesRead = 0;
+        byte[] buffer = new byte[8192];
+        while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+            os.write(buffer, 0, bytesRead);
+        }
+        os.close();
+        ins.close();
     }
 
     @Override

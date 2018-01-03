@@ -22,6 +22,7 @@ public class PointController {
         DeleteJson deleteJson = new DeleteJson();
         return  deleteJson;
     }
+
     @RequestMapping(value = "/list")
     public String list(@RequestParam(value = "type") int type){
         return "";

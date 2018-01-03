@@ -10,29 +10,34 @@
     <%@include file="../common/head.jsp" %>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.form/4.2.1/jquery.form.min.js"
+            integrity="sha384-tIwI8+qJdZBtYYCKwRkjxBGQVZS3gGozr3CtI+5JF/oL1JmPEHzCEnIKbDbLTCer"
+            crossorigin="anonymous"></script>
     <script type="text/javascript">
 
         $(document).ready(function(){
-            $("#submitBtn").on("click", function(){
-                $("#addForm").ajaxSubmit({
-                    success : function(data){
-                        alert(data);
-                    },
-                    error : function(){
-                        alert("请求错误");
-                    }
-                });
-            });
-
+            if ( 'success' === getUrlParam("upload") ){
+                alert("上传成功");
+            }
+            if ( 'fail' === getUrlParam("upload") ){
+                alert("上传失败");
+            }
         });
+        //获取url中的参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
         function  addFile() {
-            var input = '<input type=\"file\">';
-            document.getElementById("addDiv").append(input);
+            var input = '<input type=\"file\" name="file">';
+            $("#addDiv").append(input);
         }
         function ahead(){
             name = request('name');
             year = request("year");
-            if(${pages} == 1 ) {
+            if(${page} == "1" ) {
                 alert("当前已是第一页");
             } else{
                 window.location.href="/notification/list/${page-1}?name="+name+"&year="+year;
@@ -71,6 +76,7 @@
             }
 
         }
+
         function search() {
             var name = $('#searchName').val();
             var year = $('#searchYear').val();
@@ -111,9 +117,9 @@
                 <h4 class="modal-title" id="myModalLabel">上传申报书</h4>
             </div>
             <div class="modal-footer">
-                <form id="insertForm" action="/notification/insert" align="left" enctype="multipart/form-data">
+                <form id="insertForm" action="/notification/upload" method="POST" enctype="multipart/form-data" align="left">
                     <label>博物馆名称：</label>
-                    <input type="text" name="uploadName" placeholder="博物馆名字">
+                    <input type="text" name="uploadName" id="uploadName" placeholder="博物馆名字">
                     <div align="left">
                         <label>请选择年份：</label>
                         <select id="uploadYear" name="uploadYear" form="insertForm">
@@ -128,12 +134,12 @@
                         </select>
                     </div>
                     <div id="addDiv"   >
-                        <input type="file" name="file1"/>
+                        <input type="file" name="file"/>
                     </div>
                     <div align="right">
                         <button name="addUpload" type="button" onclick="addFile()">添加文件</button>
                     </div>                    <br>
-                    <button type="button" class="btn btn-primary" name="submitBtn">提交更改</button>
+                    <button  class="btn btn-primary" name="submitBtn" id="submitBtn" >提交更改</button>
                 </form>
 
             </div>
