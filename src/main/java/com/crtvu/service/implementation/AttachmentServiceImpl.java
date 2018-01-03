@@ -49,6 +49,17 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Override
+    public int addAttachment(int year, String name, String dir, int type) {
+        String addtime = Long.toString(System.currentTimeMillis());
+        return attachmentDAO.insertAttachment(name,dir,type,year,addtime);
+    }
+
+    @Override
+    public int findAttachment(int year,String name,int type) {
+        return attachmentDAO.countAttachement(name,year,type);
+    }
+
+    @Override
     public int page(int year, String name,int type) {
         name = "%"+name+"%";
         int page;

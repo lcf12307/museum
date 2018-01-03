@@ -19,4 +19,8 @@ public interface AttachmentService {
     public int delete(int id);
 
     public void inputstreamtofile(InputStream ins, File file) throws Exception;
+
+    public int findAttachment(int year,String name,int type);
+
+    public int addAttachment(int year,String name,String dir,int type);
 }

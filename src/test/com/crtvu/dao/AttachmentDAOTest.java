@@ -19,7 +19,7 @@ public class AttachmentDAOTest {
     @Test
     public void insertAttachment() throws Exception {
 
-        attachmentDAO.insertAttachment("xiaoming","../../file/test.doc",1,2017,12321);
+        System.out.println(attachmentDAO.insertAttachment("博物馆23号","../../file/test.doc",1,2017,"1514980863247"));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class AttachmentDAOTest {
 
     @Test
     public void selectAttachementByLimit() throws Exception {
-        List<AttachmentEntity> result = attachmentDAO.selectAttachementByLimit("",2017,0,2);
+        List<AttachmentEntity> result = attachmentDAO.selectAttachementByLimit("",2017,0,2,1);
         System.out.print(result);
     }
 
@@ -56,12 +56,17 @@ public class AttachmentDAOTest {
 
     @Test
     public void countAttachementByLimit() throws Exception {
-        int result = attachmentDAO.countAttachementByLimit("",2017);
+        int result = attachmentDAO.countAttachementByLimit("海燕博物馆",2017,1);
         System.out.print(result);
     }
 
     @Test
     public void countAttachementByName() throws Exception {
+    }
+
+    @Test
+    public void countAttachement() throws Exception {
+        System.out.println(attachmentDAO.countAttachement("海燕博物馆",2017,1));
     }
 
 }

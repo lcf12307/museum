@@ -30,19 +30,14 @@
             }
         }
     </script>
-    <style>
-        .divclass {
-            border: 1px solid #F00 ;width: 800px;
-            position: absolute; left: 20%;
-            margin-left: -20px;
-        }
-    </style>
+
 </head>
 <body>
 
     <h2>生成分数和排名</h2>
 
-<div class="divclass">
+<div class="container">
+    <div class="panel panel-default">
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">定量数据计算</h3>
@@ -181,6 +176,7 @@
             </select>
             <button class="btn btn-primary" name="QuantitativeButton" id="allButton" onclick="window.location.href(www.baidu.com)">生成</button>
         </div>
+    </div>
     </div>
 </div>
 

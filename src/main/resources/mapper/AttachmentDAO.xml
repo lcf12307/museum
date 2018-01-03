@@ -63,4 +63,9 @@
         Where name LIKE #{name} and type = #{type}
     </select>
 
+    <select id="countAttachement" resultType="int">
+        SELECT COUNT(*) FROM attachment
+        Where name LIKE #{name} and year = #{year} and type = #{type}
+    </select>
+
 </mapper>

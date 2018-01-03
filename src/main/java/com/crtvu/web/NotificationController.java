@@ -56,7 +56,7 @@ public class NotificationController {
     }
 
     @RequestMapping(value = "/upload")
-    public String handleFormUpload(@RequestParam("uploadName") String name,@RequestParam("uploadYear") String year,
+    public String handleFormUpload(@RequestParam("uploadName") String name,@RequestParam("uploadYear") int year,
                                    @RequestParam("file") MultipartFile[] myfiles,HttpServletRequest request) throws Exception{
         request.setCharacterEncoding("UTF-8");
         name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
@@ -77,12 +77,17 @@ public class NotificationController {
                uploadDir.mkdirs();
            }
            try {
-               filename  = new String(mf.getOriginalFilename().getBytes("ISO-8859-1"), "UTF-8");
-               File newfile = new File(uploadDir  + "/"+ filename);
-               InputStream is = mf.getInputStream();
-               System.out.println(is);
-               FileUtils.copyInputStreamToFile(mf.getInputStream(),newfile);
 
+               if (AttachmentService.findAttachment(year,name,1) == 0){
+                   if (AttachmentService.addAttachment(year,name,realPath+"/"+name+"_"+year,1) > 0){
+                       filename  = new String(mf.getOriginalFilename().getBytes("ISO-8859-1"), "UTF-8");
+                       File newfile = new File(uploadDir  + "/"+ filename);
+                       InputStream is = mf.getInputStream();
+                       System.out.println(is);
+                       FileUtils.copyInputStreamToFile(mf.getInputStream(),newfile);
+                   }
+
+               }
            } catch (Exception e) {
                e.printStackTrace();
            }

@@ -6,17 +6,17 @@ public class AttachmentEntity{
     private String file;
     private int type;
     private int year;
-    private int addtime;
+    private String addtime;
 
-    public int getAddtime() {
+    public String getAddtime() {
         return addtime;
     }
 
-    public void setAddtime(int addtime) {
+    public void setAddtime(String addtime) {
         this.addtime = addtime;
     }
 
-    public AttachmentEntity(String name, String file, int type, int year, int addtime) {
+    public AttachmentEntity(String name, String file, int type, int year, String addtime) {
 
         this.name = name;
         this.file = file;

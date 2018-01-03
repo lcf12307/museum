@@ -14,7 +14,7 @@ public interface AttachmentDAO{
      * @param file
      * @param type
      */
-    void insertAttachment(@Param("name") String name,@Param("file") String file,@Param("type") int type,@Param("year") int year,@Param("addtime") int addtime);
+    int insertAttachment(@Param("name") String name,@Param("file") String file,@Param("type") int type,@Param("year") int year,@Param("addtime") String addtime);
 
     int deleteAttachment(@Param("id") int id);
 
@@ -36,4 +36,7 @@ public interface AttachmentDAO{
     int countAttachementByLimit(@Param("name") String name,@Param("year") int year ,@Param("type") int type);
 
     int countAttachementByName(@Param("name") String name ,@Param("type") int type);
+
+    int countAttachement(@Param("name") String name,@Param("year") int year ,@Param("type") int type);
+
 }
