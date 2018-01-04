@@ -37,7 +37,7 @@ public class NotificationController {
             name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
             List<AttachmentEntity> list= AttachmentService.pagingAttachment(page,year , name,1);
             model.addAttribute("count",page);
-            int pages = AttachmentService.page(year,name,1)/20 + 1;
+            int pages = AttachmentService.page(year,name,1)/10 + 1;
             model.addAttribute("list",list);
             model.addAttribute("pages",pages>0?pages:1);
         }
@@ -84,7 +84,9 @@ public class NotificationController {
                e.printStackTrace();
            }
        }
-
+        if (request.getParameter("add")=="1"){
+           return "redirect:/notification/listFile?dir="+name+"_"+year+"&add=1";
+        }
         return "redirect:/notification/list/1?upload=success";
     }
 
@@ -179,5 +181,32 @@ public class NotificationController {
         } catch (Exception e) {
 
         }
+    }
+    @RequestMapping(value = "deleteFile",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public DeleteJson deleteFiles(@RequestParam("dir") String dir,@RequestParam("filename") String filename,
+                                 HttpServletRequest request,   HttpServletResponse response){
+        DeleteJson deleteJson = new DeleteJson();
+        int res=0;
+        String realPath = request.getSession().getServletContext()
+                .getRealPath("/WEB-INF/upload");
+        try {
+            filename = new String(filename.getBytes("iso8859-1"), "UTF-8");
+            dir = realPath+"/"+dir;
+            dir = new String(dir.getBytes("iso8859-1"), "UTF-8");
+
+            // 得到要下载的文件
+            File file = new File(dir + "/" + filename);
+            if (!file.exists()) {
+                System.out.println("删除文件失败:" + filename + "不存在！");
+                deleteJson.setPage(0);
+            } else {
+                res = file.delete()==true?1:0;
+            }
+        } catch (Exception e) {
+
+        }
+        deleteJson.setPage(res);
+        return deleteJson;
     }
 }

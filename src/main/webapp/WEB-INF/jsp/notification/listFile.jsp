@@ -17,11 +17,31 @@
             $("#addDiv").append(input);
         }
 
-        $(document).ready(function () {
-            if ( "success" !== ${message}){
-                alert(${message});
+        function deleteAttachment(name) {
+            var dir = ${dir};
+            var url = "/notification/deleteFile";
+            if(confirm("确定要删除该附件吗")){
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    contentType:'application/json;charset=UTF-8',
+                    data:JSON.stringify({
+                        name:name,
+                        dir:dir
+                    }),  //提交json字符串数组
+                    success:function(data){
+                        if (data.page===1){
+                            window.location.reload();
+                        }else{
+                            alert("删除失败");
+                        }
+                    },
+                    error:function(){
+                    }
+                });
             }
-        })
+        }
 
     </script>
 
@@ -57,10 +77,8 @@
             </c:if>
             <table class="table table-hover">
                 <thead>
-                <th>
-                    <tr>文件名</tr>
-                    <tr>操作</tr>
-                </th>
+                <th>文件名  </th>
+                <th>操作</th>
                 </thead>
                 <tbody>
                 <c:forEach var="me" items="${fileNameMap}">
@@ -71,7 +89,12 @@
                         <c:param name="dir" value="${dir}"></c:param>
                     </c:url>
                         <td><label>${me.value}</label></td>
-                        <td><a class="btn btn-info" href="${downurl}">下载</a></td>
+                        <td>
+                            <a class="btn btn-info" href="${downurl}">下载</a>
+                            <c:if test="${add==1}">
+                                <a class="btn btn-info" onclick="deleteAttachment(${me.key})">删除</a>
+                            </c:if>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

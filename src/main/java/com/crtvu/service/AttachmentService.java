@@ -23,4 +23,8 @@ public interface AttachmentService {
     public int findAttachment(int year,String name,int type);
 
     public int addAttachment(int year,String name,String dir,int type);
+
+    public int deleteFile(String fileName);
+
+    public int deleteDirectory(String dir);
 }

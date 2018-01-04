@@ -35,17 +35,17 @@
             $("#addDiv").append(input);
         }
         function ahead(){
-            name = request('name');
-            year = request("year");
-            if(${page} == "1" ) {
+            name = typeof (request('name'))=="undefined"?"":request('name');
+            year = typeof (request('year'))=="undefined"?"":request('year');
+            if( 1 == ${page} ) {
                 alert("当前已是第一页");
             } else{
                 window.location.href="/notification/list/${page-1}?name="+name+"&year="+year;
             }
         }
         function behind(){
-            name = request('name');
-            year = request("year");
+            name = typeof (request('name'))=="undefined"?"":request('name');
+            year = typeof (request('year'))=="undefined"?"":request('year');
             if(${pages} == ${page}){
                 alert("当前已是最后一页");
             } else{
