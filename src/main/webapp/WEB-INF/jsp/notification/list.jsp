@@ -184,7 +184,7 @@
                 <td><a class = "btn btn-primary btn-lg"  data-toggle="modal" data-target="#myModal">上传申报书</a></td>
                 </tr>
             </div>
-            <table class="table table-hover">
+            <table class="table table-hover" border="1">
                 <thead>
                 <tr>
                     <th>序号</th>
@@ -201,8 +201,8 @@
                         <td>${attachment.name}</td>
                         <td>${attachment.addtime}</td>
                         <td>${attachment.year}</td>
-                        <td><a class="btn btn-info" href="/notification/listFile?dir=${attachment.file}" target="_blank">下载申报书</a>
-                                <a class="btn btn-info" href="/notification/management"  target="_blank">文件管理</a>
+                        <td><a class="btn btn-info" href="/notification/listFile?dir=${attachment.name}_${attachment.year}" target="_blank">下载申报书</a>
+                                <a class="btn btn-info" href="/notification/listFile?dir=${attachment.name}_${attachment.year}&add=1"  target="_blank">文件管理</a>
                             <a class="btn btn-info" onclick="delAttachment(${attachment.id})" target="_blank">删除申报书</a>
                         </td>
                     </tr>

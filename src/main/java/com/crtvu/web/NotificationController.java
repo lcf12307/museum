@@ -72,15 +72,14 @@ public class NotificationController {
            try {
 
                if (AttachmentService.findAttachment(year,name,1) == 0){
-                   if (AttachmentService.addAttachment(year,name,realPath+"/"+name+"_"+year,1) > 0){
-                       filename  = new String(mf.getOriginalFilename().getBytes("ISO-8859-1"), "UTF-8");
-                       File newfile = new File(uploadDir  + "/"+ filename);
-                       InputStream is = mf.getInputStream();
-                       System.out.println(is);
-                       FileUtils.copyInputStreamToFile(mf.getInputStream(),newfile);
-                   }
-
+                   AttachmentService.addAttachment(year,name,realPath+"/"+name+"_"+year,1) ;
                }
+               filename  = new String(mf.getOriginalFilename().getBytes("ISO-8859-1"), "UTF-8");
+               File newfile = new File(uploadDir  + "/"+ filename);
+               InputStream is = mf.getInputStream();
+               System.out.println(is);
+               FileUtils.copyInputStreamToFile(mf.getInputStream(),newfile);
+
            } catch (Exception e) {
                e.printStackTrace();
            }
@@ -90,47 +89,71 @@ public class NotificationController {
     }
 
 
+
     @RequestMapping("/listFile")
     public String listFile(@RequestParam("dir") String dir,
                            HttpServletRequest request,   HttpServletResponse response) {
 
+        try{
+            dir  = new String(dir.getBytes("ISO-8859-1"), "UTF-8");
+            request.setAttribute("dir",dir);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(request.getParameter("add").equals("1")){
+            String[] params = dir.split("_");
 
+            request.setAttribute("add",1);
+            request.setAttribute("name",params[0]);
+            request.setAttribute("year",params[1]);
+        } else {
+            request.setAttribute("add",0);
+        }
+        String realPath = request.getSession().getServletContext()
+                .getRealPath("/WEB-INF/upload");
+        dir = realPath+"/"+dir;
         Map<String, String> fileNameMap = new HashMap<String, String>();
         // 递归遍历filepath目录下的所有文件和目录，将文件的文件名存储到map集合中
-        File[] files = new File(dir).listFiles();
-        for ( File file:files  ) {
-            fileNameMap.put(file.getName(),file.getAbsolutePath());
+        String[] files = new File(dir).list();
+        if ( files != null) {
+            for ( String file:files  ) {
+
+                String[] names=file.split("/");
+                String filename = "";
+                for (String name:names){
+                    filename=name;
+                }
+                fileNameMap.put(filename,file);
+            }
         }
+
         // 将Map集合发送到listfile.jsp页面进行显示
         request.setAttribute("fileNameMap", fileNameMap);
-        return "listFile";
+        return "notification/listFile";
     }
 
     @RequestMapping("/downFile")
     public void downFile(HttpServletRequest request,
                          HttpServletResponse response) {
-        System.out.println("1");
         // 得到要下载的文件名
         String fileName = request.getParameter("filename");
-        System.out.println("2");
+        String dir = request.getParameter("dir");String realPath = request.getSession().getServletContext()
+                .getRealPath("/WEB-INF/upload");
+        dir = realPath+"/"+dir;
         try {
             fileName = new String(fileName.getBytes("iso8859-1"), "UTF-8");
-            System.out.println("3");
-            // 获取上传文件的目录
-            ServletContext sc = request.getSession().getServletContext();
-            System.out.println("4");
-            // 上传位置
-            String fileSaveRootPath = sc.getRealPath("/img");
+            dir = new String(dir.getBytes("iso8859-1"), "UTF-8");
 
-            System.out.println(fileSaveRootPath + "\\" + fileName);
             // 得到要下载的文件
-            File file = new File(fileSaveRootPath + "\\" + fileName);
+            File file = new File(dir + "/" + fileName);
 
             // 如果文件不存在
             if (!file.exists()) {
                 request.setAttribute("message", "您要下载的资源已被删除！！");
                 System.out.println("您要下载的资源已被删除！！");
                 return;
+            }else{
+                request.setAttribute("message", "success");
             }
             // 处理文件名
             String realname = fileName.substring(fileName.indexOf("_") + 1);
@@ -138,7 +161,7 @@ public class NotificationController {
             response.setHeader("content-disposition", "attachment;filename="
                     + URLEncoder.encode(realname, "UTF-8"));
             // 读取要下载的文件，保存到文件输入流
-            FileInputStream in = new FileInputStream(fileSaveRootPath + "\\" + fileName);
+            FileInputStream in = new FileInputStream(dir + "/" + fileName);
             // 创建输出流
             OutputStream out = response.getOutputStream();
             // 创建缓冲区
