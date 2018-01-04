@@ -49,7 +49,7 @@
             if(${pages} == ${page}){
                 alert("当前已是最后一页");
             } else{
-                window.location.href="/notification/list/${page-1}?name="+name+"&year="+year;
+                window.location.href="/notification/list/${page+1}?name="+name+"&year="+year;
             }
         }
         function delAttachment(id){

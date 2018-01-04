@@ -8,11 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bca8f1a5-0a91-4683-94e0-b1897f41ea48" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/crtvu/service/AttachmentService.java" afterPath="$PROJECT_DIR$/src/main/java/com/crtvu/service/AttachmentService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java" afterPath="$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/listFile.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/listFile.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NotificationController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NotificationController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="87" column="80" lean-forward="false" selection-start-line="87" selection-start-column="80" selection-end-line="87" selection-end-column="80" />
+            <state relative-caret-position="270">
+              <caret line="82" column="34" lean-forward="true" selection-start-line="82" selection-start-column="34" selection-end-line="83" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -57,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="list.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="39" column="21" lean-forward="false" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+            <state relative-caret-position="486">
+              <caret line="51" column="64" lean-forward="false" selection-start-line="51" selection-start-column="64" selection-end-line="51" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -70,8 +66,8 @@
       <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2880">
-              <caret line="160" column="16" lean-forward="false" selection-start-line="160" selection-start-column="16" selection-end-line="160" selection-end-column="16" />
+            <state relative-caret-position="2808">
+              <caret line="156" column="16" lean-forward="false" selection-start-line="156" selection-start-column="16" selection-end-line="156" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -127,8 +123,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/crtvu/service/implementation/AttachmentServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/crtvu/service/AttachmentService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/listFile.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp" />
       </list>
     </option>
   </component>
@@ -906,7 +902,7 @@
       <updated>1514974245264</updated>
       <workItem from="1514974248862" duration="8450000" />
       <workItem from="1514988192155" duration="2156000" />
-      <workItem from="1515029042775" duration="16576000" />
+      <workItem from="1515029042775" duration="16732000" />
     </task>
     <task id="LOCAL-00001" summary="fix">
       <created>1514981979512</created>
@@ -929,7 +925,14 @@
       <option name="project" value="LOCAL" />
       <updated>1515068775029</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Merge branch 'master' of https://github.com/lcf12307/museum&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1515074112439</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1515074112439</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -965,7 +968,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27182000" />
+    <option name="totallyTimeSpent" value="27338000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1985" y="-6" width="1855" height="1086" extended-state="6" />
@@ -1185,8 +1188,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2880">
-          <caret line="160" column="16" lean-forward="false" selection-start-line="160" selection-start-column="16" selection-end-line="160" selection-end-column="16" />
+        <state relative-caret-position="2808">
+          <caret line="156" column="16" lean-forward="false" selection-start-line="156" selection-start-column="16" selection-end-line="156" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -1215,10 +1218,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/listFile.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="39" column="21" lean-forward="false" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+        <state relative-caret-position="-288">
+          <caret line="35" column="30" lean-forward="false" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="82" column="34" lean-forward="true" selection-start-line="82" selection-start-column="34" selection-end-line="83" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -1231,18 +1242,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/listFile.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/notification/list.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-288">
-          <caret line="35" column="30" lean-forward="false" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/crtvu/web/NotificationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="87" column="80" lean-forward="false" selection-start-line="87" selection-start-column="80" selection-end-line="87" selection-end-column="80" />
+        <state relative-caret-position="486">
+          <caret line="51" column="64" lean-forward="false" selection-start-line="51" selection-start-column="64" selection-end-line="51" selection-end-column="64" />
           <folding />
         </state>
       </provider>
