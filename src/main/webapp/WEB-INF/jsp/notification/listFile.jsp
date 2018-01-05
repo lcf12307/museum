@@ -18,7 +18,7 @@
         }
 
         function deleteAttachment(name) {
-            var dir = ${dir};
+            var dir = request('dir');
             var url = "/notification/deleteFile";
             if(confirm("确定要删除该附件吗")){
                 $.ajax({
@@ -28,7 +28,7 @@
                     contentType:'application/json;charset=UTF-8',
                     data:JSON.stringify({
                         name:name,
-                        dir:dir
+                        id:dir
                     }),  //提交json字符串数组
                     success:function(data){
                         if (data.page===1){
@@ -42,7 +42,21 @@
                 });
             }
         }
+        function request(strParame) {
+            var args = new Object( );
+            var query = location.search.substring(1);
 
+            var pairs = query.split("&"); // Break at ampersand
+            for(var i = 0; i < pairs.length; i++) {
+                var pos = pairs[i].indexOf('=');
+                if (pos == -1) continue;
+                var argname = pairs[i].substring(0,pos);
+                var value = pairs[i].substring(pos+1);
+                value = decodeURIComponent(value);
+                args[argname] = value;
+            }
+            return args[strParame];
+        }
     </script>
 
 </head>
@@ -92,7 +106,7 @@
                         <td>
                             <a class="btn btn-info" href="${downurl}">下载</a>
                             <c:if test="${add==1}">
-                                <a class="btn btn-info" onclick="deleteAttachment(${me.key})">删除</a>
+                                <a class="btn btn-info" onclick="deleteAttachment('${me.key}')">删除</a>
                             </c:if>
                         </td>
                     </tr>

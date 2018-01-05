@@ -18,6 +18,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,11 @@ public class NotificationController {
         try{
             name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
             List<AttachmentEntity> list= AttachmentService.pagingAttachment(page,year , name,1);
+            String format = "yyyy-MM-dd HH:mm:ss";
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            for(AttachmentEntity attament:list){
+                attament.setAddtime(sdf.format(new Date(Long.valueOf(attament.getAddtime()))));
+            }
             model.addAttribute("count",page);
             int pages = AttachmentService.page(year,name,1)/10 + 1;
             model.addAttribute("list",list);
@@ -84,7 +91,7 @@ public class NotificationController {
                e.printStackTrace();
            }
        }
-        if (request.getParameter("add")=="1"){
+        if (request.getParameter("add").equals("1")){
            return "redirect:/notification/listFile?dir="+name+"_"+year+"&add=1";
         }
         return "redirect:/notification/list/1?upload=success";
@@ -182,18 +189,18 @@ public class NotificationController {
 
         }
     }
+
     @RequestMapping(value = "deleteFile",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public DeleteJson deleteFiles(@RequestParam("dir") String dir,@RequestParam("filename") String filename,
+    public DeleteJson deleteFiles(@RequestBody DeleteJson deleteJson,
                                  HttpServletRequest request,   HttpServletResponse response){
-        DeleteJson deleteJson = new DeleteJson();
         int res=0;
         String realPath = request.getSession().getServletContext()
                 .getRealPath("/WEB-INF/upload");
+        String filename,dir;
         try {
-            filename = new String(filename.getBytes("iso8859-1"), "UTF-8");
-            dir = realPath+"/"+dir;
-            dir = new String(dir.getBytes("iso8859-1"), "UTF-8");
+            filename = deleteJson.getName();
+            dir = realPath+"/"+deleteJson.getId();
 
             // 得到要下载的文件
             File file = new File(dir + "/" + filename);
@@ -201,7 +208,7 @@ public class NotificationController {
                 System.out.println("删除文件失败:" + filename + "不存在！");
                 deleteJson.setPage(0);
             } else {
-                res = file.delete()==true?1:0;
+                res = file.delete()?1:0;
             }
         } catch (Exception e) {
 
