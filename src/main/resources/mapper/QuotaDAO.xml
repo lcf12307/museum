@@ -1,0 +1,110 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crtvu.dao.QuotaDAO">
+    <!-- 添加样品 -->
+
+
+    <!-- 插入专家 -->
+    <insert id = "insertExpert" >
+        INSERT INTO quota(name,quota_id,description)
+        VALUES(#{name},#{quotaId},#{description})
+    </insert>
+
+    <!-- 删除专家 -->
+    <delete id = "deleteExpert"  parameterType = "String">
+
+        DELETE FROM quota
+        WHERE name = #{name}
+
+    </delete>
+
+    <!-- 修改专家的全部信息 -->
+    <update id = "updateExpert" >
+        UPDATE quota
+        set name = #{name},quota_id = #{quotaId},description = #{description}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 修改专家的简介-->
+    <update id = "updateExpertOnDesc" >
+        UPDATE quota
+        set description = #{description}
+        WHERE name = #{name}
+    </update>
+
+    <!-- 为专家指定年份 -->
+    <update id = "addExpertYear" >
+        UPDATE quota
+        set year = concat(year , #{year},';')
+        WHERE name = #{name}
+    </update>
+
+    <!-- 取消某专家的某年评审 -->
+    <update id = "movExpertYear" >
+        UPDATE quota
+        set year = replace(year , #{year},'')
+        WHERE name = #{name}
+    </update>
+
+
+    <!-- 通过名字查找专家信息-->
+    <select id = "selectExpert"  resultType = "com.crtvu.entity.Quota">
+        SELECT *
+        FROM quota
+        where name = #{name}
+    </select>
+
+
+    <!-- 通过名字查找专家信息-->
+    <select id = "selectById"  resultType = "com.crtvu.entity.Quota">
+        SELECT *
+        FROM quota
+        where id = #{id}
+    </select>
+
+    <!-- 通过名字模糊查找专家信息-->
+    <select id = "selectByName"  resultType = "com.crtvu.entity.Quota">
+        SELECT *
+        FROM quota
+        where name LIKE concat(concat('%',#{expertProperty}),'%')
+        LIMIT #{index},#{count}
+    </select>
+
+    <!-- 在该年份下参与评审的专家 -->
+    <select id="selectExpertByLimit" resultType="Quota">
+        SELECT *
+        FROM quota
+        WHERE year LIKE concat(concat('%',#{expertProperty}),'%')
+        LIMIT #{index},#{count}
+    </select>
+
+    <!-- 在该年份下参与评审的专家2 -->
+    <select id="selectExpertByYear" resultType="Quota">
+        SELECT *
+        FROM quota
+        WHERE year LIKE concat(concat('%',#{expertProperty}),'%')
+    </select>
+
+    <!-- 某年待参与评审的专家 -->
+    <select id="selectExpertByNoLimit" resultType="Quota">
+        SELECT *
+        FROM quota
+        WHERE year  NOT LIKE concat(concat('%',#{expertProperty}),'%')
+        LIMIT #{index},#{count}
+    </select>
+
+    <!-- 查找所有的专家 -->
+    <select id = "selectAllExpert"  resultType="Quota">
+        SELECT  name,quota_id,description
+        FROM quota
+    </select>
+
+    <select id="countAllExpert" resultType="int">
+        SELECT COUNT(*) FROM quota
+        WHERE year LIKE concat(concat('%',#{expertProperty}),'%')
+        OR  name LIKE concat(concat('%'),#{expertProperty},'%')
+
+    </select>
+
+</mapper>

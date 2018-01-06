@@ -27,4 +27,6 @@ public interface AttachmentService {
     public int deleteFile(String fileName);
 
     public int deleteDirectory(String dir);
+
+    public AttachmentEntity findById(int id);
 }

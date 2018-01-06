@@ -6,19 +6,8 @@
     <%@include file="../common/head.jsp" %>
     <script type="text/javascript">
 
-        $(document).ready(function(){
-            $("#submitBtn").on("click", function(){
-                $("#addForm").ajaxSubmit({
-                    success : function(data){
-                        alert(data);
-                    },
-                    error : function(){
-                        alert("请求错误");
-                    }
-                });
-            });
 
-        });
+
         function  addFile() {
             var input = '<input type=\"file\">';
             document.getElementById("addDiv").append(input);
@@ -44,7 +33,7 @@
         function delAttachment(id){
             var page = ${page};
             var id = id;
-            var url = "/notification/delete";
+            var url = "/score/deleteFile";
             if(confirm("确定要删除该附件吗")){
                 $.ajax({
                     type: 'POST',
@@ -52,8 +41,7 @@
                     dataType: 'json',
                     contentType:'application/json;charset=UTF-8',
                     data:JSON.stringify({
-                        id:id,
-                        page:page
+                        page:id
                     }),  //提交json字符串数组
                     success:function(){
                         window.location.reload();
@@ -71,6 +59,32 @@
             console.log(year);
             window.location.href="/notification/list/1?name="+name+"&year="+year;
         }
+
+       function getExperts() {
+           var year =  $('#uploadYear').val();
+           var url = "/score/getExperts"
+           $.ajax({
+               type: 'POST',
+               url: url,
+               dataType: 'json',
+               contentType:'application/json;charset=UTF-8',
+               data:JSON.stringify({
+                   name:year
+               }),  //提交json字符串数组
+               success:function(data){
+                   var selObj = $('#uploadName');
+                   $('#uploadName option').remove();
+                   for (var s in data){
+                       $('#uploadName').append("<option value='"+data[s]+"'>"+data[s]+"</option>")
+                   }
+
+               },
+               error:function(){
+                   alert("删除失败");
+               }
+           });
+       };
+
         function searchByName() {
             var name = $('#searchName').val();
             window.location.href="/notification/list/1?name="+name;
@@ -105,9 +119,9 @@
                 <h4 class="modal-title" id="myModalLabel">上传专家定性评估意见书</h4>
             </div>
             <div class="modal-footer">
-                <form id="insertForm" action="/notification/insert" align="left" enctype="multipart/form-data">
-                    <label>博物馆名称：</label>
-                    <input type="text" name="uploadName" placeholder="专家名字">
+                <form id="insertForm" action="/score/upload" method="POST" enctype="multipart/form-data" align="left">
+                    <label>专家名字：</label>
+                    <select id="uploadName" name="uploadName" form="insertForm" onclick="getExperts()"></select>
                     <div align="left">
                         <label>请选择年份：</label>
                         <select id="uploadYear" name="uploadYear" form="insertForm">
@@ -122,9 +136,9 @@
                         </select>
                     </div>
                     <div id="addDiv"   >
-                        <input type="file" name="file1"/>
+                        <input type="file" name="file"/>
                     </div>                   <br>
-                    <button type="button" class="btn btn-primary" name="submitBtn">提交</button>
+                    <button type="submit" class="btn btn-primary" name="submitBtn">提交</button>
                 </form>
 
             </div>
@@ -135,7 +149,7 @@
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading text-center">
-            <h2>附件列表</h2>
+            <h2>专家定性评估意见书</h2>
         </div>
 
         <form class="navbar-form navbar-left" role="search">
@@ -186,21 +200,39 @@
                         <td>${attachment.name}</td>
                         <td>${attachment.addtime}</td>
                         <td>${attachment.year}</td>
-                        <td><a class="btn btn-info" href="" target="_blank">下载打分表</a>
-                                <a class="btn btn-info" href="/score/detail"  target="_blank">详细信息</a>
-                            <a class="btn btn-info" onclick="delAttachment(${attachment.id})" target="_blank">删除申报书</a>
+                        <td><a class="btn btn-info" href="/score/downFile?file=${attachment.id}" target="_blank">下载打分表</a>
+                                <a class="btn btn-info" href="/score/detail?id=${attachment.id}"  target="_blank">详细信息</a>
+                            <a class="btn btn-info" onclick="delAttachment(${attachment.id})" target="_blank">删除</a>
                         </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
             <div align="right">
-                <td><a class="btn btn-info" href="/notification/list/1" target="_self">第一页</a></td>
+                <td><a class="btn btn-info" href="/score/list/1" target="_self">第一页</a></td>
                 <td><a class="btn btn-info" href="#" onclick="ahead()" target="_self">前一页</a></td>
                 <td><a class="btn btn-info" href="#" onclick="behind()" target="_self">下一页</a></td>
                 </tr>
             </div>
         </div>
+
+        <div class="panel-heading text-center">
+            <h2>未提交定性评估意见书专家名单</h2>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>专家名</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${experts}" var="expert">
+                <tr>
+                    <td>${expert}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
 </div>
 

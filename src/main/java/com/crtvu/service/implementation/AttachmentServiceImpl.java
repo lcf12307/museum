@@ -55,6 +55,11 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Override
+    public AttachmentEntity findById(int id) {
+        return  attachmentDAO.selectAttachment(id);
+    }
+
+    @Override
     public int findAttachment(int year,String name,int type) {
         return attachmentDAO.countAttachement(name,year,type);
     }

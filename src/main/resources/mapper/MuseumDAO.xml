@@ -1,0 +1,62 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crtvu.dao.MuseumDAO">
+    <insert id="insertMuseum">
+        INSERT INTO museum.museum(name,category,level,year,description )
+        VALUES (#{name},#{category},#{level},#{year},#{description})
+    </insert>
+
+    <update id="updateMuseum">
+        UPDATE museum.museum
+        set name = #{name}, category = #{category}, level = #{level}, year = #{year}, description = #{description}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteMuseum">
+        DELETE
+        FROM museum.museum
+        WHERE id = #{id}
+    </delete>
+
+    <select id="selectAllMuseum" resultType="MuseumEntity">
+        SELECT id,name,category,level,year
+        FROM museum.museum
+    </select>
+
+    <select id="selectMuseumByName" resultType="MuseumEntity">
+        SELECT id,name,category,level,year
+        FROM museum.museum
+        WHERE name = #{name}
+    </select>
+
+    <select id="selectMuseumByLimit" resultType="MuseumEntity">
+        SELECT id,name,category,level,year
+        FROM museum.museum
+        WHERE name LIKE CONCAT(CONCAT('%',#{museumProperty}),'%')
+        LIMIT #{index},#{count}
+    </select>
+
+    <select id="selectMuseumByYear" resultType="MuseumEntity">
+        SELECT id,name,category,level,year
+        FROM museum.museum
+        WHERE year LIKE CONCAT(CONCAT('%',#{museumProperty}),'%')
+        LIMIT #{index},#{count}
+    </select>
+
+    <select id="countAllMuseum" resultType="int">
+        SELECT count(*)
+        FROM museum.museum
+        WHERE name LIKE CONCAT(CONCAT('%',#{museumProperty}),'%')
+    </select>
+
+    <select id="selectMuseum" resultType="MuseumEntity">
+        SELECT *
+        FROM museum.museum
+        WHERE id = #{id}
+    </select>
+
+
+
+
+</mapper>
