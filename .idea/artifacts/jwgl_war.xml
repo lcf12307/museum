@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="jwgl:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="museum.war">
-      <element id="artifact" artifact-name="jwgl:war exploded" />
-    </root>
-  </artifact>
-</component>

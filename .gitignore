@@ -1,0 +1,9 @@
+test/
+.idea/
+*.jar
+target/
+/.*
+*.iml
+!.gitignore
+.idea
+target
