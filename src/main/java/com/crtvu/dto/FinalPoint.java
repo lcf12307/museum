@@ -1,4 +1,4 @@
-package com.crtvu.entity;
+package com.crtvu.dto;
 
 public class FinalPoint {
     private int id;

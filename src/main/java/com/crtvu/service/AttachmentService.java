@@ -12,17 +12,17 @@ public interface AttachmentService {
         FAIL,
     }
 
-    public List<AttachmentEntity> pagingAttachment(int page, int year, String name,int type);
+    public List<AttachmentEntity> pagingAttachment(int page, int year, String name, int type);
 
-    public int page(int year, String name,int type);
+    public int page(int year, String name, int type);
 
     public int delete(int id);
 
     public void inputstreamtofile(InputStream ins, File file) throws Exception;
 
-    public int findAttachment(int year,String name,int type);
+    public int findAttachment(int year, String name, int type);
 
-    public int addAttachment(int year,String name,String dir,int type);
+    public int addAttachment(int year, String name, String dir, int type);
 
     public int deleteFile(String fileName);
 

@@ -1,5 +1,4 @@
 <%@page contentType="text/html; charset=UTF-8" language="java" %>
-<%@include file="../common/tag.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +7,6 @@
 
     </title>
     <%@include file="../common/head.jsp" %>
-    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
-    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.form/4.2.1/jquery.form.min.js"
-            integrity="sha384-tIwI8+qJdZBtYYCKwRkjxBGQVZS3gGozr3CtI+5JF/oL1JmPEHzCEnIKbDbLTCer"
-            crossorigin="anonymous"></script>
     <script type="text/javascript">
 
         $(document).ready(function(){
@@ -219,10 +212,5 @@
     </div>
 </div>
 
-
-
-
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </body>
 </html>

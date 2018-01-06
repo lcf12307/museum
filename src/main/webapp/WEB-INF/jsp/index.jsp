@@ -1,47 +1,54 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Phoenix
-  Date: 2017/4/6
-  Time: 下午11:43
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="common/tag.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>北京化工大学教务管理系统</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/dist/js/app.min.js"></script>
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="/dist/css/skins/skin-blue.min.css">
-    <link rel="stylesheet" href="/css/loginPage.css">
+    <title>图书馆运行评估系统</title>
     <%@include file="common/head.jsp"%>
 </head>
-<body>
-<div id="main">
-    <div id="login-view">
-        <form class="sign-up" action="/login" method="post">
-            <h1 class="sign-up-title">用户登录</h1>
-            <input type="text" class="sign-up-input" placeholder="用户名" autofocus name="userId">
-            <input type="password" class="sign-up-input" placeholder="密码" name="userPassword">
-            <select class="sign-up-input" name="userType">
-                <option value = "1" class="sign-up-input" selected="selected">学生</option>
-                <option value = "2">教师</option>
-                <option value = "3">管理员</option>
-            </select>
-            <input type="submit" value="登陆" class="sign-up-button">
-        </form>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper" id="rrapp">
+    <header class="main-header">
+        <a href="javascript:void(0);" class="logo">
+            <span class="logo-mini"><b>博</b></span>
+            <span class="logo-lg"><b>博物馆运行评估系统</b></span>
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div style="float:left;color:#fff;padding:15px 10px;">欢迎</div>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li><a href="logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <jsp:include page="common/sidebar.jsp"/>
+    </aside>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <ol class="breadcrumb" id="nav_title" style="position:static;float:none;">
+                <li class="active"><i class="fa fa-home" style="font-size:20px;position:relative;top:2px;left:-3px;"></i> &nbsp; 博物馆运行评估系统</li>
+                <li class="active">首页</li>
+            </ol>
+        </section>
+        <section class="content" style="background:#fff;">
+            <iframe id="iframe" scrolling="yes" frameborder="0" style="width:100%;min-height:200px;overflow:visible;background:#fff;" src="main" onload="resize()"></iframe>
+        </section>
     </div>
-</div>
-<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="/bootstrap/js/bootstrap.min.js"></script>
-<script src="/dist/js/app.min.js"></script>
-</body>
 
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            Version 1.0.0
+        </div>
+        Copyright &copy; 2017 <b>museum</b> All Rights Reserved
+    </footer>
+
+    <div class="control-sidebar-bg"></div>
+	
+</div>
+
+</body>
 </html>

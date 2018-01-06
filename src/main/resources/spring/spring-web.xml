@@ -18,6 +18,34 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <!-- Kaptcha验证码生成器 -->
+    <bean name="producer" class="com.google.code.kaptcha.impl.DefaultKaptcha" scope="singleton">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <prop key="kaptcha.border">no</prop>
+                        <prop key="kaptcha.textproducer.font.color">black</prop>
+                        <prop key="kaptcha.textproducer.char.space">4</prop>
+                        <prop key="kaptcha.textproducer.char.length">1</prop>
+                        <prop key="kaptcha.textproducer.char.string">1</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <mvc:interceptors>
+        <!-- 多个拦截器,顺序执行 -->
+        <mvc:interceptor>
+            <!-- 如果不配置或/**,将拦截所有的Controller -->
+            <mvc:mapping path="/**" />
+            <!-- 在Freemarker界面展示之前做一些通用处理   -->
+            <bean class="com.crtvu.auth.AuthInterceptor"></bean>
+            <!-- Auth注解，实现简单的权限控制-->
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- 文件上传解析器 -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
