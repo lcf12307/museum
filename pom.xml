@@ -2,11 +2,24 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.cs1404</groupId>
-  <artifactId>jwgl</artifactId>
+  <artifactId>museum</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>jwgl Maven Webapp</name>
+  <name>museum Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  <repositories>
+    <repository>
+      <id>alimaven</id>
+      <name>aliyun maven</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
   <dependencies>
     <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
@@ -176,7 +189,6 @@
       <artifactId>commons-io</artifactId>
       <version>2.5</version>
     </dependency>
-
     <!-- 导入zip解压包 -->
     <dependency>
       <groupId>ant</groupId>
@@ -189,8 +201,6 @@
       <artifactId>junrar</artifactId>
       <version>0.7</version>
     </dependency>
-
-
     <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
     <dependency>
       <groupId>commons-fileupload</groupId>
@@ -211,13 +221,29 @@
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
-
-
-
-
+	<dependency>
+		<groupId>commons-lang</groupId>
+		<artifactId>commons-lang</artifactId>
+		<version>2.6</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-codec</groupId>
+	    <artifactId>commons-codec</artifactId>
+	    <version>1.11</version>
+	</dependency>
+    <dependency>
+      <groupId>com.github.axet</groupId>
+      <artifactId>kaptcha</artifactId>
+      <version>0.0.9</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jhlabs</groupId>
+      <artifactId>filters</artifactId>
+      <version>2.0.235-1</version>
+    </dependency>
   </dependencies>
   <build>
-    <finalName>jwgl</finalName>
+    <finalName>museum</finalName>
       <plugins>
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
