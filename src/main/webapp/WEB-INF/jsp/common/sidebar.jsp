@@ -1,4 +1,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="com.crtvu.Authority" %>
+<%@ page import="com.crtvu.auth.AuthInterceptor" %>
+<%@ page import="java.util.HashSet" %>
+<%
+    try{
+        //获取权限
+        Object object = session.getAttribute(AuthInterceptor.SESSION_AUTHS);
+        /*if(object==null) {
+            response.sendRedirect("/index");
+            return;
+        }
+        HashSet<String> authority = (HashSet<String>)object;
+        if(authority==null){
+            response.sendRedirect("/index");
+            return;
+        }
+        if(authority.contains(Authority.Member.toString())){
+            System.out.println("有member权限");
+        }*/
+    }catch (Exception e){
+        e.printStackTrace();
+        response.sendRedirect("/index");
+    }
+%>
 <section class="sidebar">
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -16,7 +40,7 @@
             <a href="#"><i class="fa fa-circle-o text-aqua"></i><span>用户管理</span><i
                     class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu" style="padding-left:20px">
-                <li><a href="#">用户管理</a></li>
+                <li><a href="/member/list">用户管理</a></li>
                 <li><a href="/role/list">角色管理</a></li>
             </ul>
         </li>

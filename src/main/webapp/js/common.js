@@ -5,7 +5,7 @@ $(window).on('load', function() {
 
 function resize() {
     var $content = $('.content');
-    $content.height($(this).height() - 120);
+    $content.css('min-height',$(this).height() - 120);
     //console.log("log",$(this));
     $content.find('iframe').each(function() {
         $(this).height($content.height());

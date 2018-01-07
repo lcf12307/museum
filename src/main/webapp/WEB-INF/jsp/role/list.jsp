@@ -19,7 +19,7 @@
             <div style="float:left;color:#fff;padding:15px 10px;">欢迎</div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li><a href="logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
                 </ul>
             </div>
         </nav>
@@ -53,16 +53,16 @@
                         </thead>
                         <tbody>
                         <c:choose>
-                            <c:when test="${roleList.size() != 0}">
-                                <c:forEach items="${roleList}" var="role">
+                            <c:when test="${roleJsons.size() != 0}">
+                                <c:forEach items="${roleJsons}" var="role">
                                     <tr>
                                         <td>${role.id}</td>
                                         <td>${role.name}</td>
                                         <td>${role.description}</td>
-                                        <td>${role.authority}</td>
+                                        <td>${role.authorityNames}</td>
                                         <td>
                                             <a class="btn btn-info btn-sm" href="/role/edit/${role.id}"><i class="fa fa-edit"></i>修改</a>
-                                            <a class="btn btn-danger btn-sm" onclick="deleteRole(${role.id})"><i class="fa fa-edit"></i>删除</a>
+                                            <a class="btn btn-danger btn-sm" onclick="deleteRole(${role.id})"><i class="fa fa-remove"></i>删除</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

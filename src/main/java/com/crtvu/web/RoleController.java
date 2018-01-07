@@ -1,7 +1,10 @@
 package com.crtvu.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.crtvu.Authority;
+import com.crtvu.dto.RoleJson;
 import com.crtvu.entity.Role;
 import com.crtvu.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,20 @@ public class RoleController {
 	@RequestMapping("/list")
 	public String getRoleList(String name,Model model){
 		List<Role> roles =  roleService.getAllRole(name);
-		model.addAttribute("roleList",roles);
+		List<RoleJson> roleJsons = new ArrayList<>();
+		RoleJson roleJson;
+		String temp = "";
+		for(Role role:roles){
+			roleJson=new RoleJson(role);
+			for(String e:Authority.getAuthorityNames(role.getAuthority())){
+				temp+="，"+e;
+			}
+			if(temp.length()>0)
+				temp=temp.substring(1);
+			roleJson.setAuthorityName(temp);
+			roleJsons.add(roleJson);
+		}
+		model.addAttribute("roleJsons",roleJsons);
 		return "/role/list";
 	}
 
@@ -41,13 +57,15 @@ public class RoleController {
 			for(int temp :authority){
 				auth+=temp;
 			}
-			if(roleService.insert(name, description, auth)>0){
+			int code =roleService.insert(name, description, auth);
+			if(code>0){
 				return R.ok();
-			}
+			}else if(code==-1)
+				return R.error("角色名重复，请换一个！");
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		return R.ok();
+		return R.error();
 	}
 
 	@RequestMapping("edit/{id}")
@@ -67,22 +85,26 @@ public class RoleController {
 			for(int temp :authority){
 				auth+=temp;
 			}
-			if(roleService.editRole(id,name,description,auth)>0)
+			int code = roleService.editRole(id,name,description,auth);
+			if(code>0)
 				return  R.ok();
-			else
-				return R.error("修改失败");
+			else if(code==-1)
+				return R.error("角色名重复，请换一个！");
 		}catch (Exception e){
 			e.printStackTrace();
-			return R.error();
 		}
+		return R.error();
 	}
 
 	@RequestMapping("/delete")
 	@ResponseBody
 	public R delete(int id){
 		try{
-			if(roleService.delete(id)>0){
+			int rtn = roleService.delete(id);
+			if(rtn>0){
 				return R.ok();
+			}else if(rtn==-1){
+				return R.error("删除失败，存在该角色的用户，不能删除");
 			}
 		}catch (Exception e){
 			e.printStackTrace();
