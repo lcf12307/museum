@@ -170,7 +170,7 @@
                                     </select>
                                 </div>
                                 <div id="addDiv"   >
-                                    <input type="file" name="file"/>
+                                    <input type="file" name="file" accept="application/vnd.ms-excel"/>
                                 </div>                   <br>
                                 <button type="submit" class="btn btn-primary" name="submitBtn">提交</button>
                             </form>

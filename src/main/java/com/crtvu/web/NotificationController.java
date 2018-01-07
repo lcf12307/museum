@@ -32,7 +32,7 @@ public class NotificationController {
 
     @RequestMapping(value = "/list")
     public  String list1(){
-        return "redirect: /notification/list/1";
+        return "redirect:/notification/list/1";
     }
     @RequestMapping(value = "/list/{page}",method = RequestMethod.GET)
     public String list(@RequestParam(value = "name",defaultValue = "") String name,@RequestParam(value = "year",defaultValue="0") int year,
