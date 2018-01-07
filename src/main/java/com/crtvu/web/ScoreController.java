@@ -58,8 +58,6 @@ public class ScoreController {
         List<String> experts = quotaService.selectByYearPoint(year);
         if (experts == null){
             experts = new ArrayList<>();
-            experts.add("hello");
-            experts.add("hello2");
         }
 
         return experts;

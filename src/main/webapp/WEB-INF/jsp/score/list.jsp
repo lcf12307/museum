@@ -6,7 +6,9 @@
     <%@include file="../common/head.jsp" %>
     <script type="text/javascript">
 
-
+        $(document).ready(function () {
+            getExperts();
+        });
 
         function  addFile() {
             var input = '<input type=\"file\">';
@@ -121,10 +123,10 @@
             <div class="modal-footer">
                 <form id="insertForm" action="/score/upload" method="POST" enctype="multipart/form-data" align="left">
                     <label>专家名字：</label>
-                    <select id="uploadName" name="uploadName" form="insertForm" onclick="getExperts()"></select>
+                    <select id="uploadName" name="uploadName" form="insertForm"></select>
                     <div align="left">
                         <label>请选择年份：</label>
-                        <select id="uploadYear" name="uploadYear" form="insertForm">
+                        <select id="uploadYear" name="uploadYear" form="insertForm" onchange="getExperts()">
                             <option value="2017">2017</option>
                             <option value="2016">2016</option>
                             <option value="2015">2015</option>
