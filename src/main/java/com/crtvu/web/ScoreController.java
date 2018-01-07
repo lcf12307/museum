@@ -28,6 +28,10 @@ public class ScoreController {
     @Autowired
     private com.crtvu.service.QuotaService quotaService;
 
+    @RequestMapping(value = "/list")
+    public  String list1(){
+        return "redirect: /score/list/1";
+    }
     @RequestMapping(value = "/list/{page}",method = RequestMethod.GET)
     public String list(@RequestParam(value = "name",defaultValue = "") String name, @RequestParam(value = "year",defaultValue="0") int year,
                        Model model, @PathVariable("page") int page)
@@ -58,8 +62,6 @@ public class ScoreController {
         List<String> experts = quotaService.selectByYearPoint(year);
         if (experts == null){
             experts = new ArrayList<>();
-            experts.add("hello");
-            experts.add("hello2");
         }
 
         return experts;
