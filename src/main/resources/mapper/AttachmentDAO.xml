@@ -51,7 +51,11 @@
         Where name LIKE #{name} and type = #{type}
         Limit #{start},#{perpage}
     </select>
-
+    <select id="selectAttachementByYear" resultType="AttachmentEntity">
+        SELECT *
+        FROM attachment
+        Where year = #{year} and type = #{type}
+    </select>
     <select id="countAttachementByLimit" resultType="int">
         SELECT COUNT(*) FROM attachment
         Where name LIKE #{name} and year = #{year} and type = #{type}
