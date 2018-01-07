@@ -45,7 +45,8 @@ create TABLE attachment(
     file VARCHAR(200) not null DEFAULT '' comment '文件路径',
     type int(4) not null DEFAULT 0 comment '附件类型'
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
+alter table attachment add addtime varchar(15) not null default '';
+alter table attachment add year int(4) not null default default 0 ;
 
 create TABLE point(
     id int(11) primary key not null auto_increment comment 'id',

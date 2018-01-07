@@ -198,6 +198,13 @@ public class QuotaController {
         }
         return com.crtvu.service.QuotaService.Result.YEAR_FAIL;//写着试试
     }
-
+    @RequestMapping(value = "/download/{yearKey}",method = RequestMethod.GET)
+    public String download(@PathVariable("yearKey") String yearKey , Model model){
+        String filename = QuotaService.download(yearKey);
+        System.out.println(filename);
+        String path = "/download/"+filename;
+        model.addAttribute("jump",path);
+        return  "museum/quota/jump";
+    }
 }
 

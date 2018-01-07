@@ -126,4 +126,8 @@ public interface QuotaService{
      */
     List<String> selectByYearPoint(String year);
 
+
+    String download(String year);
+
+
 }

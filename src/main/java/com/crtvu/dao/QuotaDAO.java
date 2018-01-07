@@ -102,6 +102,9 @@ public interface QuotaDAO{
      */
     int countAllExpert(String expertProperty);
 
+    /*
+    搜索某年份所有的专家
+     */
     List<Quota> selectExpertByYear(String expertProperty);
 
 }

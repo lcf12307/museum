@@ -27,8 +27,9 @@ public class RoleController {
 		List<Role> roles =  roleService.getAllRole(name);
 		List<RoleJson> roleJsons = new ArrayList<>();
 		RoleJson roleJson;
-		String temp = "";
+		String temp ;
 		for(Role role:roles){
+			temp="";
 			roleJson=new RoleJson(role);
 			for(String e:Authority.getAuthorityNames(role.getAuthority())){
 				temp+="，"+e;
