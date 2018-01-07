@@ -115,6 +115,7 @@
                 success: function(result){
                     if(result.code == 0){
                         alert('修改成功！');
+                        location.reload();
                     }else{
                         alert(result.msg);
                     }
