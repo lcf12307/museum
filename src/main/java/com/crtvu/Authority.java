@@ -1,5 +1,8 @@
 package com.crtvu;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 /**
  * Created by Jixw on 2017/12/26.
  */
@@ -23,6 +26,31 @@ public enum Authority {
         this.authority = authority;
     }
 
+    public static HashSet<String> getAuthority(int auth){
+        HashSet<String> set = new HashSet<>();
+        for(Authority e:Authority.values()){
+            if((e.authority&auth)>0)
+                set.add(e.toString());
+        }
+        return set;
+    }
 
+    public static HashSet<String> getAuthorityNames(int auth){
+        HashSet<String> set = new HashSet<>();
+        for(Authority e:Authority.values()){
+            if((e.authority&auth)>0)
+                set.add(e.name);
+        }
+        return set;
+    }
+
+    public static void main(String[] args) {
+
+        //test test
+        //System.out.println(Authority.NotificationForm.name);
+        //System.out.println(Authority.NotificationForm.authority);
+        System.out.println(getAuthority(255));
+        System.out.println(getAuthorityNames(255));
+    }
 
 }

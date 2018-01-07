@@ -22,13 +22,13 @@
             <div style="float:left;color:#fff;padding:15px 10px;">欢迎</div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li><a href="logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
                 </ul>
             </div>
         </nav>
     </header>
     <aside class="main-sidebar">
-        <jsp:include page="../common/sidebar.jsp"/>
+        <%@include file="../common/sidebar.jsp"%>
     </aside>
     <div class="content-wrapper">
         <section class="content-header">

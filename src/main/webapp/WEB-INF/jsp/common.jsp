@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>图书馆运行评估系统</title>
-    <jsp:include page="common/head.jsp"/>
+    <%@include file="common/head.jsp"%>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper" id="rrapp">
@@ -25,7 +25,7 @@
         </nav>
     </header>
     <aside class="main-sidebar">
-        <jsp:include page="common/sidebar.jsp"/>
+        <%@include file="common/sidebar.jsp"%>
     </aside>
     <div class="content-wrapper">
         <section class="content-header">
@@ -66,7 +66,7 @@
                                 <td>呵呵</td>
                                 <td>
                                     <a class="btn btn-info btn-sm" href="#"><i class="fa fa-edit"></i>修改</a>
-                                    <a class="btn btn-danger btn-sm" onclick="javascript:void(0);"><i class="fa fa-edit"></i>删除</a>
+                                    <a class="btn btn-danger btn-sm" onclick="javascript:void(0);"><i class="fa fa-remove"></i>删除</a>
                                 </td>
                             </tr>
                             <tr>

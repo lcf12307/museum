@@ -25,7 +25,7 @@
         </nav>
     </header>
     <aside class="main-sidebar">
-        <jsp:include page="../common/sidebar.jsp"/>
+        <%@include file="../common/sidebar.jsp"%>
     </aside>
     <div class="content-wrapper">
         <section class="content-header">
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <label for="confirmpassword" class="col-sm-2 control-label">确认新密码</label>
                             <div class="col-sm-10">
-                                <input class="form-control" id="confirmpassword" type="password" placeholder="确认密码" required/>
+                                <input class="form-control" id="confirmpassword" name="confirmpassword" type="password" placeholder="确认密码" required/>
                             </div>
                         </div>
                         <div class="form-group">

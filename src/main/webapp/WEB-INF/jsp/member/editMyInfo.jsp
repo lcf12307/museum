@@ -25,7 +25,7 @@
         </nav>
     </header>
     <aside class="main-sidebar">
-        <jsp:include page="../common/sidebar.jsp"/>
+        <%@include file="../common/sidebar.jsp"%>
     </aside>
     <div class="content-wrapper">
         <section class="content-header">
@@ -115,6 +115,7 @@
                 success: function(result){
                     if(result.code == 0){
                         alert('修改成功！');
+                        location.reload();
                     }else{
                         alert(result.msg);
                     }

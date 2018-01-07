@@ -1,5 +1,6 @@
 package com.crtvu.web;
 
+import com.crtvu.Authority;
 import com.crtvu.auth.Auth;
 import com.crtvu.auth.AuthInterceptor;
 import com.crtvu.dao.MemberDAO;
@@ -67,7 +68,6 @@ public class MainController extends AbstractController{
         if(member==null)
             return "login";
         else{
-            System.out.println("userLogin:"+member.toString());
             return "index";
         }
     }
@@ -88,8 +88,13 @@ public class MainController extends AbstractController{
             int role = member.getRole();
             if(role<=0)
                 return R.error("用户没有登录权限");
+            Role roleEntity=roleService.getRole(role);
+            if(roleEntity==null||roleEntity.getAuthority()<0)
+                return R.error("未知错误，请联系开发人员");
             session.setAttribute(AuthInterceptor.SESSION_USERID,member_id);
-            session.setAttribute(AuthInterceptor.SESSION_AUTHS, roleService.getAuthotity(role));
+            session.setAttribute(AuthInterceptor.SESSION_AUTHS, Authority.getAuthority(roleEntity.getAuthority()));
+            System.out.println("用户登录了:"+member.getName());
+            System.out.println("权限:"+Authority.getAuthority(roleEntity.getAuthority()));
             return R.ok();
         }
         return R.error();

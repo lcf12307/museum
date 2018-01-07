@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <meta charset="utf-8">
@@ -20,6 +20,6 @@
 <script src="${pageContext.request.contextPath}/statics/plugins/jqgrid/grid.locale-cn.js"></script>
 <script src="${pageContext.request.contextPath}/statics/plugins/jqgrid/jquery.jqGrid.min.js"></script>
 <script src="${pageContext.request.contextPath}/statics/libs/jquery.form.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/common.js?t=1.3"></script>
+<script src="${pageContext.request.contextPath}/js/common.js?t=1.6"></script>
 
 <!--new Date().getTime()-->

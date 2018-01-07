@@ -23,4 +23,44 @@
         SET age=#{age},phone=#{phone},email=#{email}
         WHERE id=#{id}
     </update>
+    <select id="getMemberListLimit" resultType="com.crtvu.entity.Member">
+        SELECT *
+        FROM museum.member
+        WHERE name LIKE CONCAT(CONCAT('%',#{name}),'%')
+        LIMIT #{index},#{count}
+    </select>
+    <select id="getAllCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM museum.member
+        WHERE name LIKE CONCAT(CONCAT('%',#{name}),'%')
+    </select>
+    <insert id="insert">
+        INSERT INTO
+        museum.member
+        (name, age, email, phone, password, role)
+        VALUES
+        (#{name},#{age},#{email},#{phone},#{password},#{role})
+    </insert>
+    <update id="edit">
+        UPDATE museum.member
+        SET age=#{age},email=#{email},phone=#{phone},password=#{password},role=#{role}
+        WHERE id=#{id}
+    </update>
+    <delete id="delete">
+        DELETE FROM
+        museum.member
+        WHERE id=#{id}
+    </delete>
+    <select id="getMemberCountByRole" resultType="Integer">
+        select count(*) from museum.member where role = #{role}
+    </select>
+    <select id="checkName" resultType="Integer">
+        SELECT COUNT(*) FROM museum.role where 1=1
+        <if test="id != -1">
+            and id != #{id}
+        </if>
+        <if test="name != null and name.trim() != ''">
+            and name like #{name}
+        </if>
+    </select>
 </mapper>
