@@ -1,9 +1,17 @@
 package com.crtvu.web;
 
 import com.crtvu.dto.DeleteJson;
+import com.crtvu.entity.AttachmentEntity;
+import com.crtvu.service.AttachmentService;
+import com.crtvu.service.PointService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.List;
 
 /**
  * Created by lcf12307 on 2018/1/2.
@@ -11,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/point")
 public class PointController {
-
+    @Autowired
+    private PointService pointService;
+    @Autowired
+    private AttachmentService attachmentService;
     @RequestMapping(value = "/index")
     public String index(){
         return "/point/index";
@@ -34,7 +45,24 @@ public class PointController {
     }
 
     @RequestMapping(value = "/quantitative")
-    public String quantitative(@RequestParam(value = "year") int year){
+    public String quantitative(@RequestParam(value = "year") int year,
+                    HttpServletRequest request){
+        List<AttachmentEntity> attachments = attachmentService.findByYear(year,2);
+        for (AttachmentEntity attachment : attachments){
+            String dir = attachment.getFile();
+            File file = new File(dir);
+            if (!file.exists()) {
+                break;
+            }
+            String[] files = file.list();
+            for(String file1: files){
+                if (file1.matches(".*博物馆运行评估申报书\\.doc$")){
+
+
+                    break;
+                };
+            }
+        }
         return "";
     }
 }

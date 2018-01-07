@@ -43,6 +43,9 @@ public class ScoreController {
             int pages = AttachmentService.page(year,name,2)/20 + 1;
             model.addAttribute("list",list);
             model.addAttribute("pages",pages);
+            if (year == 0){
+                year = 2018;
+            }
             List<String> experts = quotaService.selectByYearPoint(Integer.toString(year));
 
             model.addAttribute("experts",experts);
