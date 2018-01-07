@@ -57,7 +57,7 @@ public class PointController {
             String[] files = file.list();
             for(String file1: files){
                 if (file1.matches(".*博物馆运行评估申报书\\.doc$")){
-
+                    System.out.println(file1);
 
                     break;
                 };
