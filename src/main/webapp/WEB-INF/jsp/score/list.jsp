@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=UTF-8" language="java" %>
+<%@page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +31,9 @@
             } else{
                 window.location.href="/notification/list/${page-1}?name="+name+"&year="+year;
             }
+        }
+        function refresh() {
+            window.location.reload();
         }
         function delAttachment(id){
             var page = ${page};
@@ -111,44 +114,72 @@
 
     </script>
 </head>
-<body>
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">上传专家定性评估意见书</h4>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper" id="rrapp">
+    <header class="main-header">
+        <a href="javascript:void(0);" class="logo">
+            <span class="logo-mini"><b>博</b></span>
+            <span class="logo-lg"><b>博物馆运行评估系统</b></span>
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div style="float:left;color:#fff;padding:15px 10px;">欢迎</div>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li><a href="/logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
+                </ul>
             </div>
-            <div class="modal-footer">
-                <form id="insertForm" action="/score/upload" method="POST" enctype="multipart/form-data" align="left">
-                    <label>专家名字：</label>
-                    <select id="uploadName" name="uploadName" form="insertForm"></select>
-                    <div align="left">
-                        <label>请选择年份：</label>
-                        <select id="uploadYear" name="uploadYear" form="insertForm" onchange="getExperts()">
-                            <option value="2017">2017</option>
-                            <option value="2016">2016</option>
-                            <option value="2015">2015</option>
-                            <option value="2014">2014</option>
-                            <option value="2013">2013</option>
-                            <option value="2012">2012</option>
-                            <option value="2011">2011</option>
-                            <option value="2010">2010</option>
-                        </select>
-                    </div>
-                    <div id="addDiv"   >
-                        <input type="file" name="file"/>
-                    </div>                   <br>
-                    <button type="submit" class="btn btn-primary" name="submitBtn">提交</button>
-                </form>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <%@include file="../common/sidebar.jsp"%>
+    </aside>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <ol class="breadcrumb" id="nav_title" style="position:static;float:none;">
+                <li class="active"><i class="fa fa-home" style="font-size:20px;position:relative;top:2px;left:-3px;"></i> &nbsp; 博物馆运行评估系统</li>
+                <li class="active">位置导航</li>
+            </ol>
+        </section>
+        <section class="content" style="background:#fff;">
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">上传专家定性评估意见书</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <form id="insertForm" action="/score/upload" method="POST" enctype="multipart/form-data" align="left">
+                                <label>专家名字：</label>
+                                <select id="uploadName" name="uploadName" form="insertForm"></select>
+                                <div align="left">
+                                    <label>请选择年份：</label>
+                                    <select id="uploadYear" name="uploadYear" form="insertForm" onchange="getExperts()">
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2011">2011</option>
+                                        <option value="2010">2010</option>
+                                    </select>
+                                </div>
+                                <div id="addDiv"   >
+                                    <input type="file" name="file"/>
+                                </div>                   <br>
+                                <button type="submit" class="btn btn-primary" name="submitBtn">提交</button>
+                            </form>
 
+                        </div>
+
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
             </div>
-
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<div class="container">
     <div class="panel panel-default">
         <div class="panel-heading text-center">
             <h2>专家定性评估意见书</h2>
@@ -181,10 +212,7 @@
         </form>
 
         <div class="panel-body" >
-            <div class="panel-body" align="left">
-                <td><a class = "btn btn-primary btn-lg"  data-toggle="modal" data-target="#myModal">上传专家定性评估意见书</a></td>
-                </tr>
-            </div>
+            <a class = "btn btn-primary btn-default pull-right"  data-toggle="modal" data-target="#myModal"><li class="fa fa-upload"></li>上传专家评估意见书</a>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -210,16 +238,19 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <div align="right">
-                <td><a class="btn btn-info" href="/score/list/1" target="_self">第一页</a></td>
-                <td><a class="btn btn-info" href="#" onclick="ahead()" target="_self">前一页</a></td>
-                <td><a class="btn btn-info" href="#" onclick="behind()" target="_self">下一页</a></td>
-                </tr>
+            <div class="panel-footer" >
+                <!--分页-->
+                <div class="mailbox-controls">
+                    <button class="btn btn-default btn-sm" href="/score/list/1"><i class="glyphicon glyphicon glyphicon-home"></i></button>
+                    <button class="btn btn-default btn-sm" onclick="ahead()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button class="btn btn-default btn-sm" onclick="behind()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button class="btn btn-default btn-sm" onclick="refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
+                </div>
             </div>
         </div>
 
         <div class="panel-heading text-center">
-            <h2>未提交定性评估意见书专家名单</h2>
+            <h2>本年度未提交定性评估意见书专家名单</h2>
         </div>
         <table class="table table-hover">
             <thead>
@@ -236,8 +267,16 @@
             </tbody>
         </table>
     </div>
+        </section>
+    </div>
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    Version 1.0.0
+                </div>
+                Copyright &copy; 2017 <b>museum</b> All Rights Reserved
+            </footer>
+            <div class="control-sidebar-bg"></div>
 </div>
-
 
 </body>
 </html>
