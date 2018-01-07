@@ -32,7 +32,7 @@ public class QuotaServiceImpl implements QuotaService {
 
     @Autowired
     private QuotaDAO quotaDAO;
-    @Autowired
+   @Autowired
     private AttachmentService attachmentService;
     private static final int pageNumber = 10;
 
@@ -212,12 +212,74 @@ public class QuotaServiceImpl implements QuotaService {
            for(int i=0; i<asize; i++){
                Quota quo = list.get(i);
                String name = quo.getName();
-               if(attachmentService.findAttachment(year1,name,2) > 0){
+               if(attachmentService.findAttachment(year1,name,2) < 1){
                    list2.add(name);
                }
            }
            return list2;
 
        }
+
+    //下载文件
+
+    public String download(String year) {
+        List<Quota> list = quotaDAO.selectExpertByYear(year);
+        String name = String.valueOf(year)+"EXPERT"+".xls";
+        String fileName = buildQuotaExcel(list,name);
+        return fileName;
+    }
+
+    private String buildQuotaExcel(List<Quota> list, String fileName) {
+
+        String path = this.getClass().getResource("/").getPath().replaceFirst("/", "").replaceAll("/WEB-INF/classes/", "");
+        //path://C:~/jwgl/target/jwgl/
+        //设置目录下的download目录
+        String filePath = path + "/download/" ;
+        File file = new File(filePath);
+        if(!file.exists()){
+            file.mkdirs();
+        }
+        //生成表格
+        String columnName[] = {"专家姓名", "一级指标", "专家简介"};
+        WritableWorkbook book = null;
+
+        try {
+            //生成excel文件!
+            book = Workbook.createWorkbook(new File(filePath+fileName));
+            // 生成名为“sheet1”的工作表，参数0表示这是第一页
+            WritableSheet sheet = book.createSheet("sheet1", 0);
+            //表头导航
+            for (int i = 0; i < 3; i++) {
+                Label label = new Label(i, 0, columnName[i]);
+                sheet.addCell(label);
+            }
+            for (int i = 0; i < list.size(); i++) {
+
+                sheet.addCell(new Label(0, i + 1, list.get(i).getName()));
+                sheet.addCell(new Label(1, i + 1, list.get(i).getQuotaId()));
+                sheet.addCell(new Label(2, i + 1, list.get(i).getDescription()));
+            }
+            book.write();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "createFileERROR";
+        } catch (RowsExceededException e) {
+            e.printStackTrace();
+        } catch (WriteException e) {
+            e.printStackTrace();
+            return "WriteError";
+        }finally {
+            if(book!=null){
+                try {
+                    book.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (WriteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return fileName;
+    }
 
 }
