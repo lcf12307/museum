@@ -29,4 +29,6 @@ public interface AttachmentService {
     public int deleteDirectory(String dir);
 
     public AttachmentEntity findById(int id);
+
+    public List<AttachmentEntity> findByYear(int year,int type);
 }

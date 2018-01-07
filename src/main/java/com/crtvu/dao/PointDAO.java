@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PointDAO{
 
-    void insertPoint(@Param("name") String name, @Param("mid") int mid, @Param("year") int year, @Param("point") int point, @Param("type") int type);
+    int insertPoint(@Param("name") String name, @Param("mid") int mid, @Param("year") int year, @Param("point") int point, @Param("type") int type);
 
     int deletePoint(@Param("id") int id);
 
@@ -24,7 +24,7 @@ public interface PointDAO{
 
     List<PointEntity> selectPointByMid(@Param("mid") int mid, @Param("year") int year);
 
-    List<PointEntity> selectPointByType(@Param("mid") int mid, @Param("year") int year, @Param("type") String type);
+    List<PointEntity> selectPointByType(@Param("mid") int mid, @Param("year") int year, @Param("type") int type);
 
     int hasPointed(@Param("name") String name);
 

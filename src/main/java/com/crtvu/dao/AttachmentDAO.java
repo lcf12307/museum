@@ -39,4 +39,5 @@ public interface AttachmentDAO{
 
     int countAttachement(@Param("name") String name, @Param("year") int year, @Param("type") int type);
 
+    List<AttachmentEntity> selectAttachementByYear(@Param("year") int  year, @Param("type") int type);
 }

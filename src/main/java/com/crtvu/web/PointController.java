@@ -32,4 +32,9 @@ public class PointController {
     public String statics(@RequestParam(value = "statics") int type){
         return "";
     }
+
+    @RequestMapping(value = "/quantitative")
+    public String quantitative(@RequestParam(value = "year") int year){
+        return "";
+    }
 }
