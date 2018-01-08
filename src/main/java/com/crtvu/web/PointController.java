@@ -75,9 +75,8 @@ public class PointController {
                     int index=0,index1=0; PointEntity  point = new PointEntity();
                     if ( pointService.findPointByName(attachment.getName(),0,year) == null){
                         pointService.addPoint(attachment.getName(),0,year,0,0);
-
+                        point = pointService.findPointByName(attachment.getName(),0,year).get(0);
                     }
-                    point = pointService.findPointByName(attachment.getName(),0,year).get(0);
                     if (pointService.findPointByName(attachment.getName(),1,year) != null){
                         pointService.deleteByYear(year);
                     }
@@ -153,22 +152,22 @@ public class PointController {
                 }
             }
         }
-            for (FinalPoint newpoint : finalpoints){
-                newpoint.setPoint101(0.1*((((newpoint.getPoint101()-(sumRes[0]/finalpoints.size()))*0.4)/(maxRes[0] - (sumRes[0]/finalpoints.size())))+0.6));
-                newpoint.setPoint102(0.05*((((newpoint.getPoint102()-(sumRes[1]/finalpoints.size()))*0.4)/(maxRes[1] - (sumRes[1]/finalpoints.size())))+0.6));
-                newpoint.setPoint103(0.08*((((newpoint.getPoint103()-(sumRes[2]/finalpoints.size()))*0.4)/(maxRes[2] - (sumRes[2]/finalpoints.size())))+0.6));
-                newpoint.setPoint104(0.12*((((newpoint.getPoint104()-(sumRes[3]/finalpoints.size()))*0.4)/(maxRes[3] - (sumRes[3]/finalpoints.size())))+0.6));
-                newpoint.setPoint105(0.05*((((newpoint.getPoint105()-(sumRes[4]/finalpoints.size()))*0.4)/(maxRes[4] - (sumRes[4]/finalpoints.size())))+0.6));
-                newpoint.setPoint106(0.25*((((newpoint.getPoint106()-(sumRes[5]/finalpoints.size()))*0.4)/(maxRes[5] - (sumRes[5]/finalpoints.size())))+0.6));
-                newpoint.setPoint107(0.20*((((newpoint.getPoint107()-(sumRes[6]/finalpoints.size()))*0.4)/(maxRes[6] - (sumRes[6]/finalpoints.size())))+0.6));
-                newpoint.setPoint108(0.05*((((newpoint.getPoint108()-(sumRes[7]/finalpoints.size()))*0.4)/(maxRes[7] - (sumRes[7]/finalpoints.size())))+0.6));
-                newpoint.setPoint109(0.1 *((((newpoint.getPoint109()-(sumRes[7]/finalpoints.size()))*0.4)/(maxRes[7] - (sumRes[7]/finalpoints.size())))+0.6));
-                newpoint.setPoint11(newpoint.getPoint101()+newpoint.getPoint102());
-                newpoint.setPoint12(newpoint.getPoint103()+newpoint.getPoint104()+newpoint.getPoint105());
-                newpoint.setPoint13(newpoint.getPoint106()+newpoint.getPoint107());
-                newpoint.setPoint14(newpoint.getPoint108()+newpoint.getPoint109());
-                newpoint.setPoint1(newpoint.getPoint11()+newpoint.getPoint12()+newpoint.getPoint13()+newpoint.getPoint14());
-            }
+        for (FinalPoint newpoint : finalpoints){
+            newpoint.setPoint101(0.1*((((newpoint.getPoint101()-(sumRes[0]/finalpoints.size()))*0.4)/(maxRes[0] - (sumRes[0]/finalpoints.size())))+0.6));
+            newpoint.setPoint102(0.05*((((newpoint.getPoint102()-(sumRes[1]/finalpoints.size()))*0.4)/(maxRes[1] - (sumRes[1]/finalpoints.size())))+0.6));
+            newpoint.setPoint103(0.08*((((newpoint.getPoint103()-(sumRes[2]/finalpoints.size()))*0.4)/(maxRes[2] - (sumRes[2]/finalpoints.size())))+0.6));
+            newpoint.setPoint104(0.12*((((newpoint.getPoint104()-(sumRes[3]/finalpoints.size()))*0.4)/(maxRes[3] - (sumRes[3]/finalpoints.size())))+0.6));
+            newpoint.setPoint105(0.05*((((newpoint.getPoint105()-(sumRes[4]/finalpoints.size()))*0.4)/(maxRes[4] - (sumRes[4]/finalpoints.size())))+0.6));
+            newpoint.setPoint106(0.25*((((newpoint.getPoint106()-(sumRes[5]/finalpoints.size()))*0.4)/(maxRes[5] - (sumRes[5]/finalpoints.size())))+0.6));
+            newpoint.setPoint107(0.20*((((newpoint.getPoint107()-(sumRes[6]/finalpoints.size()))*0.4)/(maxRes[6] - (sumRes[6]/finalpoints.size())))+0.6));
+            newpoint.setPoint108(0.05*((((newpoint.getPoint108()-(sumRes[7]/finalpoints.size()))*0.4)/(maxRes[7] - (sumRes[7]/finalpoints.size())))+0.6));
+            newpoint.setPoint109(0.1 *((((newpoint.getPoint109()-(sumRes[7]/finalpoints.size()))*0.4)/(maxRes[7] - (sumRes[7]/finalpoints.size())))+0.6));
+            newpoint.setPoint11(newpoint.getPoint101()+newpoint.getPoint102());
+            newpoint.setPoint12(newpoint.getPoint103()+newpoint.getPoint104()+newpoint.getPoint105());
+            newpoint.setPoint13(newpoint.getPoint106()+newpoint.getPoint107());
+            newpoint.setPoint14(newpoint.getPoint108()+newpoint.getPoint109());
+            newpoint.setPoint1(newpoint.getPoint11()+newpoint.getPoint12()+newpoint.getPoint13()+newpoint.getPoint14());
+        }
 
 
         return "index";
