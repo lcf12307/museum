@@ -5,10 +5,10 @@ public class PointEntity{
     private String name;
     private int mid;
     private int year;
-    private int point;
+    private double point;
     private int type;
 
-    public PointEntity(int mid, int year, int point, int type) {
+    public PointEntity(int mid, int year, double point, int type) {
         this.mid = mid;
         this.year = year;
         this.point = point;
@@ -19,7 +19,7 @@ public class PointEntity{
 
     }
 
-    public PointEntity(int id, String name, int mid, int year, int point, int type) {
+    public PointEntity(int id, String name, int mid, int year, double point, int type) {
         this.id = id;
         this.name = name;
         this.mid = mid;
@@ -60,11 +60,11 @@ public class PointEntity{
         this.year = year;
     }
 
-    public int getPoint() {
+    public double getPoint() {
         return point;
     }
 
-    public void setPoint(int point) {
+    public void setPoint(double point) {
         this.point = point;
     }
 

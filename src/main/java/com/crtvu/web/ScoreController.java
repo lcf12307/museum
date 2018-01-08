@@ -17,7 +17,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -42,11 +41,6 @@ public class ScoreController {
             List<AttachmentEntity> list= AttachmentService.pagingAttachment(page,year , name,2);
             model.addAttribute("count",page);
             int pages = AttachmentService.page(year,name,2)/20 + 1;
-            String format = "yyyy-MM-dd HH:mm:ss";
-            SimpleDateFormat sdf = new SimpleDateFormat(format);
-            for(AttachmentEntity attament:list){
-                attament.setAddtime(sdf.format(new Date(Long.valueOf(attament.getAddtime()))));
-            }
             model.addAttribute("list",list);
             model.addAttribute("pages",pages);
             if (year == 0){

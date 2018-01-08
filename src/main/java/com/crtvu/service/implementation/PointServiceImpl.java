@@ -15,9 +15,25 @@ import java.util.List;
 public class PointServiceImpl implements PointService {
     @Autowired
     private PointDAO pointDAO;
+
     @Override
-    public int addPoint(String name, int mid, int year, int point, int type) {
+    public int deleteByYear(int year) {
+        return pointDAO.deletePointByYear(year);
+    }
+
+    @Override
+    public int addPoint(String name, int mid, int year, double point, int type) {
         return pointDAO.insertPoint(name, mid, year, point, type);
+    }
+
+    @Override
+    public List<PointEntity> findPointByName(String name, int type, int year) {
+        return pointDAO.selectPoints(name,year,type);
+    }
+
+    @Override
+    public List<PointEntity> findPoint(int type, int year) {
+        return pointDAO.selectPointByYear(year,type);
     }
 
     @Override
