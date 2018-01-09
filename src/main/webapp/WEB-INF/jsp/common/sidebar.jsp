@@ -43,11 +43,20 @@
             <a href="/point/index"><i class="fa fa-circle-o text-aqua"></i><span>计算得分</span> </a>
         </li>
         <li class="treeview">
+            <a href="#"><i class="fa fa-circle-o text-aqua"></i><span>统计表</span><i
+                    class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu" style="padding-left:20px">
+                <li><a href="/point/quantitative">查看定性统计表</a></li>
+                <li><a href="/point/quantitative">查看定量统计表</a></li>
+                <li><a href="/role/list">查看总分统计表</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
             <a href="#"><i class="fa fa-circle-o text-aqua"></i><span>查看排名</span><i
                     class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu" style="padding-left:20px">
-                <li><a href="/">查看定性排名</a></li>
-                <li><a href="/role/list">查看定量排名</a></li>
+                <li><a href="/point/quantitativelist">查看定性排名</a></li>
+                <li><a href="/point/quantitativelist">查看定量排名</a></li>
                 <li><a href="/role/list">查看总分排名</a></li>
             </ul>
         </li>

@@ -68,7 +68,8 @@
     <select id="selectPoints" resultType="PointEntity">
         SELECT *
         FROM point
-        Where name = #{name} and year = #{year} and type = #{type}
+        Where name LIKE #{name} and year = #{year} and type = #{type}
+        order by point desc
     </select>
 
     <select id="hasPointed" resultType="int">

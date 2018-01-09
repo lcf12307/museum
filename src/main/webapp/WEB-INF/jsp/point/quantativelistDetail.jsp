@@ -47,7 +47,7 @@
                     <div class="modal-content">
                         <div class="modal-header" align="right">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">定量数据统计表</h4>
+                            <h4 class="modal-title" id="myModalLabel">定量数据排名</h4>
                         </div>
 
 
@@ -56,15 +56,15 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
-                    <h2>${year}年度${quantative.name}定量数据详情</h2>
+                    <h2>${year}年度${quantative.name}定量数据排名详情</h2>
                 </div>
                 <div class="panel-body" >
 
                     <table class="table table-hover" border="1">
-                       <tr>
-                           <td>博物馆名字</td>
-                           <td>${quantative.name}</td>
-                       </tr>
+                        <tr>
+                            <td>博物馆名字</td>
+                            <td>${quantative.name}</td>
+                        </tr>
                         <tr>
                             <td>定量总分</td>
                             <td>${quantative.point1}</td>

@@ -5,7 +5,50 @@
     <title>生成分数和排名</title>
     <%@include file="../common/head.jsp" %>
     <script type="text/javascript">
+        function count111() {
+            var data = 'year=' + $('#QuantitativeYear').val();
+            var url = '/point/quantitativeinit';
+            if (confirm("确定要生成该年的数据吗")) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'json',
+                    data:data,
+                    success: function (result) {
+                        alert("生成成功");
+                    },
+                    error: function () {
+                        alert("生成失败");
+                    }
+                });
+            }
+        }
+        function count122() {
+            var data = 'year=' + $('#QuantitativeListYear').val();
+            var url = '/point/quantitativelistinit';
+            if (confirm("确定要生成该年的数据吗")) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'json',
+                    data:data,
+                    success: function (result) {
+                        if (result.code == 0) {
+                            alert(result.msg);
+                        } else {
+                            alert(result.msg);
+                        }
 
+                    },
+                    error: function () {
+                        alert("生成失败");
+                    }
+                });
+            }
+        }
+        function quantativeinitlist() {
+            alert("生成成功")
+        }
         function count(url) {
             if (confirm("确定要生成该年的数据吗")) {
                 $.ajax({
@@ -81,6 +124,7 @@
                 <div class="panel-body">
                     <label>按照年份生成：</label>
                     <select id="QuantitativeYear" name="QuantitativeYear">
+                        <option value="2018">2018</option>
                         <option value="2017">2017</option>
                         <option value="2016">2016</option>
                         <option value="2015">2015</option>
@@ -90,7 +134,7 @@
                         <option value="2011">2011</option>
                         <option value="2010">2010</option>
                     </select>
-                    <button class="btn btn-primary" name="QuantitativeButton" id="QuantitativeButton" onclick="window.location.href(www.baidu.com)">生成</button>
+                    <button class="btn btn-primary" name="QuantitativeButton" id="QuantitativeButton" onclick="count111()">生成</button>
                 </div>
             </div>
 
@@ -101,6 +145,7 @@
                 <div class="panel-body">
                     <label>按照年份生成：</label>
                     <select id="QuantitativeListYear" name="QuantitativeYear">
+                        <option value="2018">2018</option>
                         <option value="2017">2017</option>
                         <option value="2016">2016</option>
                         <option value="2015">2015</option>
@@ -110,7 +155,7 @@
                         <option value="2011">2011</option>
                         <option value="2010">2010</option>
                     </select>
-                    <button class="btn btn-primary" name="QuantitativeButton" id="QuantitativeListButton" onclick="window.location.href(www.baidu.com)">生成</button>
+                    <button class="btn btn-primary" name="QuantitativeButton" id="QuantitativeListButton" onclick="count122()">生成</button>
                 </div>
             </div>
         </div>
@@ -123,6 +168,7 @@
                 <div class="panel-body">
                     <label>按照年份生成：</label>
                     <select id="qualitativeYear" name="QuantitativeYear">
+                        <option value="2018">2018</option>
                         <option value="2017">2017</option>
                         <option value="2016">2016</option>
                         <option value="2015">2015</option>
@@ -143,6 +189,7 @@
                 <div class="panel-body">
                     <label>按照年份生成：</label>
                     <select id="qualitativeListYear" name="QuantitativeYear">
+                        <option value="2018">2018</option>
                         <option value="2017">2017</option>
                         <option value="2016">2016</option>
                         <option value="2015">2015</option>
@@ -165,6 +212,7 @@
                 <div class="panel-body">
                     <label>按照年份生成：</label>
                     <select id="pointYear" name="QuantitativeYear">
+                        <option value="2018">2018</option>
                         <option value="2017">2017</option>
                         <option value="2016">2016</option>
                         <option value="2015">2015</option>
@@ -185,6 +233,7 @@
                 <div class="panel-body">
                     <label>按照年份生成：</label>
                     <select id="pointListYear" name="QuantitativeYear">
+                        <option value="2018">2018</option>
                         <option value="2017">2017</option>
                         <option value="2016">2016</option>
                         <option value="2015">2015</option>
@@ -207,6 +256,7 @@
                 <div class="panel-body">
                     <label>按照年份生成：</label>
                     <select id="allYear" name="QuantitativeYear">
+                        <option value="2018">2018</option>
                         <option value="2017">2017</option>
                         <option value="2016">2016</option>
                         <option value="2015">2015</option>
