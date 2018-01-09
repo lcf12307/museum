@@ -73,7 +73,7 @@ public class PointController {
             for(String file1: files){
                 if (file1.matches(".*博物馆运行评估申报书\\.doc(x)?$")){
                     System.out.println(file1);
-                    float[] res = POI_Word.readData(dir+"/"+file1);
+                    float[] res = POI_Word.readData(dir+"\\"+file1);
                     int index=0,index1=0; PointEntity  point = new PointEntity();
                     System.out.println( pointService.findPointByName(attachment.getName(),0,year));
                     if ( pointService.findPointByName(attachment.getName(),0,year).size() == 0){
