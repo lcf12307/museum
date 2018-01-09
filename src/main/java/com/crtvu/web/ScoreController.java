@@ -3,6 +3,9 @@ package com.crtvu.web;
 
 import com.crtvu.dto.DeleteJson;
 import com.crtvu.entity.AttachmentEntity;
+import com.crtvu.service.ScoreService;
+import com.crtvu.utils.ExcelShower;
+import com.crtvu.utils.R;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,10 +30,12 @@ public class ScoreController {
     private com.crtvu.service.AttachmentService AttachmentService;
     @Autowired
     private com.crtvu.service.QuotaService quotaService;
+    @Autowired
+    ScoreService scoreService;
 
     @RequestMapping(value = "/list")
     public  String list1(){
-        return "redirect: /score/list/1";
+        return "redirect:/score/list/1";
     }
     @RequestMapping(value = "/list/{page}",method = RequestMethod.GET)
     public String list(@RequestParam(value = "name",defaultValue = "") String name, @RequestParam(value = "year",defaultValue="0") int year,
@@ -115,7 +120,7 @@ public class ScoreController {
             }else{
                 request.setAttribute("message", "success");
             }
-            String realname = fileName.substring(fileName.indexOf("_") + 1);
+            String realname = fileName.substring(fileName.lastIndexOf("\\") + 1);
             response.setHeader("content-disposition", "attachment;filename="
                     + URLEncoder.encode(realname, "UTF-8"));
             FileInputStream in = new FileInputStream( fileName);
@@ -136,6 +141,32 @@ public class ScoreController {
         } catch (Exception e) {
 
         }
+    }
+
+    @RequestMapping("/detail")
+    public String detail(int id,Model model) {
+        // 得到要下载的文件名
+        if(id<=0) {
+            model.addAttribute("table","参数错误");
+            return "/score/detail";
+        }
+        String table ="";
+        AttachmentEntity attachmentEntity = AttachmentService.findById(id);
+        String fileName = attachmentEntity.getFile();
+        if(fileName==null||fileName.equals("")) {
+            model.addAttribute("table","文件错误");
+            return "/score/detail";
+        }
+        try {
+            table = ExcelShower.read(fileName).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("table","文件错误");
+            return "/score/detail";
+        }
+        System.out.println(table);
+        model.addAttribute("table",table);
+        return "/score/detail";
     }
 
 
@@ -173,6 +204,36 @@ public class ScoreController {
             return "redirect:/score/listFile?dir="+name+"_"+year+"&add=1";
         }
         return "redirect:/score/list/1?upload=success";
+    }
+
+
+    @RequestMapping(value = "/dingxing")
+    @ResponseBody
+    public R dingxing(String year){
+        if(!canParseInt(year)||Integer.parseInt(year)<=0)
+            return R.error("参数错误");
+        R r = R.error(-99,"未知错误");
+        try {
+            r=scoreService.Calculate(String.valueOf(year));
+        } catch (Exception e) {
+            if(canParseInt(e.getMessage())){
+                if(Integer.parseInt(e.getMessage())<0){
+                    r=R.error(Integer.parseInt(e.getMessage()),e.getCause().getMessage());
+                }
+            }else{
+                r=R.error("未知错误！");
+            }
+        }
+        return r;
+    }
+
+    public static boolean canParseInt(String  str){
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

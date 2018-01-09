@@ -31,7 +31,7 @@
             <a href="/museum/quota/list"><i class="fa fa-circle-o text-aqua"></i><span>专家管理</span> </a>
         </li>
         <li class="treeview">
-            <a href="/admin/museum/list"><i class="fa fa-circle-o text-aqua"></i><span>博物馆管理</span> </a>
+            <a href="/museum/museum/list/1"><i class="fa fa-circle-o text-aqua"></i><span>博物馆管理</span> </a>
         </li>
         <li class="treeview">
             <a href="/notification/list"><i class="fa fa-circle-o text-aqua"></i><span>申报书管理</span> </a>
@@ -46,7 +46,7 @@
             <a href="#"><i class="fa fa-circle-o text-aqua"></i><span>查看排名</span><i
                     class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu" style="padding-left:20px">
-                <li><a href="/">查看定性排名</a></li>
+                <li><a href="#">查看定性排名</a></li>
                 <li><a href="/role/list">查看定量排名</a></li>
                 <li><a href="/role/list">查看总分排名</a></li>
             </ul>

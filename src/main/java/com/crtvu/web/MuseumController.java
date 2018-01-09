@@ -1,6 +1,7 @@
 package com.crtvu.web;
 
 
+import com.crtvu.dto.MuseumJson;
 import com.crtvu.entity.MuseumEntity;
 import com.crtvu.service.MuseumService;
 import org.slf4j.LoggerFactory;
@@ -19,11 +20,13 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static java.lang.System.in;
+
 /**
  * Created by 21441 on 2018/1/3.
  */
 @Controller
-@RequestMapping("admin/museum")
+@RequestMapping("/museum/museum")
 public class MuseumController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -43,12 +46,15 @@ public class MuseumController {
     }
 
     @RequestMapping(value = "/list/{page}",method = RequestMethod.GET)
-    public String list(@RequestParam(value = "searchKey",defaultValue = "") String museumProperty,
+    public String list(@RequestParam(value = "nameKey",defaultValue = "") String museumProperty,
                        Model model,@PathVariable("page") int page){
         //根据博物馆名字查询
         try{
-            museumProperty = new String(museumProperty.getBytes("ISO-8859-1"), "UTF-8");
+           //museumProperty = new String(museumProperty.getBytes("ISO-8859-1"), "UTF-8");
+            //museumProperty = new String(museumProperty.getBytes("ISO-8859-1"), "UTF-8");
+
             List<MuseumEntity> list= museumService.getMuseumList(page,museumProperty);
+            System.out.println("qqqqqqqqqqqqqqq"+museumProperty+list+"55555555555");
             int pages = museumService.getPageCount(museumProperty);
             model.addAttribute("pages",pages);
             model.addAttribute("list",list);
@@ -68,29 +74,47 @@ public class MuseumController {
     }
 
     //修改博物馆信息
-    @RequestMapping(value = "/updateInformation", method = RequestMethod.POST ,produces = {"application/json;charset=UTF-8"})
+    @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
+    public String edit(@PathVariable("id")int id, Model model){
+        try{
+            MuseumEntity museum =museumService.getMuseum(id);
+            if ( museum == null){
+                return "forward:/museum/museum/list/1";
+            }
+            model.addAttribute("museum",museum);
+            return "museum/museum/edit";
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return  "museum/index";
+    }
+
+    //跳转至修改博物馆页面
+    @RequestMapping(value = "/updateMuseum" ,method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public MuseumService.Result updateInformation(@RequestBody MuseumEntity museumEntity) {
-        return museumService.updateMuseum(museumEntity.getName(),museumEntity.getCategory(),museumEntity.getLevel(),
-        museumEntity.getYear(),museumEntity.getDescription(),museumEntity.getId());
+    public MuseumService.Result updateMuseum(@RequestBody MuseumJson museum){
+        System.out.println("ymymymymy"+museum);
+        return museumService.updateMuseum(museum.getName(),museum.getCategory(),museum.getLevel(),museum.getYear(),museum.getDescription(),museum.getId());
     }
 
     //根据ID删除博物馆
     @RequestMapping(value = "/delete",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public MuseumService.Result delete(@RequestBody MuseumEntity museumEntity) {
-        return museumService.deleteMuseum(museumEntity.getId());
+    public MuseumService.Result delete(@RequestBody MuseumJson museum) {
+        return museumService.deleteMuseum(museum.getId());
+
     }
 
     //添加博物馆
     @RequestMapping(value = "/insert" ,method = RequestMethod.POST ,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public MuseumService.Result insertMuseum(@RequestBody MuseumEntity museumEntity) {
+    public MuseumService.Result insert(@RequestBody MuseumJson museum ){
 
         try{
-            MuseumEntity museum = new MuseumEntity(museumEntity.getName(),museumEntity.getCategory(),
-                    museumEntity.getLevel(),museumEntity.getYear(),museumEntity.getDescription());
-            return museumService.insertMuseum(museum);
+            MuseumEntity museumEntity = new MuseumEntity(museum.getName(),museum.getCategory(),museum.getLevel(),museum.getYear(),museum.getDescription());
+            System.out.println(museumEntity);
+            return museumService.insertMuseum(museumEntity);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -99,7 +123,7 @@ public class MuseumController {
     }
 
     //跳转至增添博物馆页面
-    @RequestMapping(value = "/insertPage" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/insertInfo" ,method = RequestMethod.GET)
     public String insertInfo(){
         return "museum/museum/insert";
     }

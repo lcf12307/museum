@@ -1,6 +1,9 @@
 package com.crtvu.web;
 
+import com.crtvu.auth.Auth;
 import com.crtvu.dto.DeleteJson;
+import com.crtvu.service.ScoreService;
+import com.crtvu.utils.R;
 import com.crtvu.dto.FinalPoint;
 import com.crtvu.entity.AttachmentEntity;
 import com.crtvu.entity.PointEntity;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -24,10 +28,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/point")
 public class PointController {
+
     @Autowired
     private PointService pointService;
     @Autowired
     private AttachmentService attachmentService;
+
     @RequestMapping(value = "/index")
     public String index(){
         return "/point/index";

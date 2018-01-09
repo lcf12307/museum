@@ -119,7 +119,7 @@
 
                                         <div align="center">
                                             <button class="btn btn-primary edit-btn" onclick="updateQuota1();">提交</button>
-                                            <a class="btn btn-primary" href="/museum/quota/list/1" target="_self">返回</a>
+                                            <a class="btn btn-primary" href="/museum/quota/list/${page}" target="_self">返回</a>
                                         </div>
                                     </td>
 

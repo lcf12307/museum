@@ -4,15 +4,15 @@ public class MuseumEntity {
 
     private int id;
     private String name;
-    private int category;
-    private int level;
+    private String category;
+    private String level;
     private String year;
     private String description;
     public MuseumEntity(){
 
     }
 
-    public MuseumEntity(int id, String name, int category, int level, String year, String description){
+    public MuseumEntity(int id, String name, String category, String level, String year, String description){
         this.id = id;
         this.name = name;
         this.category = category;
@@ -21,7 +21,7 @@ public class MuseumEntity {
         this.description = description;
     }
 
-    public MuseumEntity(String name, int category, int level, String year, String description) {
+    public MuseumEntity(String name, String category, String level, String year, String description) {
         this.name = name;
         this.category = category;
         this.level = level;
@@ -44,19 +44,19 @@ public class MuseumEntity {
         this.name = name;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 

@@ -6,171 +6,192 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <!DOCTYPE html>
-
 <html>
 <head>
-    <title>教务管理系统</title>
+    <title>图书馆运行评估系统</title>
     <%@include file="../../common/head.jsp"%>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
-
-    <!--页首-->
+<div class="wrapper" id="rrapp">
     <header class="main-header">
-        <!-- Header Navbar -->
+        <a href="javascript:void(0);" class="logo">
+            <span class="logo-mini"><b>博</b></span>
+            <span class="logo-lg"><b>博物馆运行评估系统</b></span>
+        </a>
         <nav class="navbar navbar-static-top" role="navigation">
-            <!-- Sidebar toggle button-->
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">导航开关</span>
+                <span class="sr-only">Toggle navigation</span>
             </a>
-            <!-- Navbar Right Menu -->
+            <div style="float:left;color:#fff;padding:15px 10px;">欢迎</div>
             <div class="navbar-custom-menu">
-
                 <ul class="nav navbar-nav">
-                    <!-- User Account Menu -->
-                    <li class="dropdown user user-menu">
-                        <!-- Menu Toggle Button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/dist/img/avatar_ani.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">${sessionScope.get("teacherId")}</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- The user image in the menu -->
-                            <li class="user-header">
-                                <img src="/dist/img/avatar_ani.jpg" class="img-circle" alt="User Image">
-                                <p>
-                                    Talk is cheap show me the code.
-                                </p>
-                            </li>
-                            <!-- Menu Body -->
-
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">登出</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
+                    <li><a href="/logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
                 </ul>
             </div>
         </nav>
     </header>
-
-    <!--侧边-->
     <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="/dist/img/avatar_ani.jpg" class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <p>${sessionScope.get("teacherId")}</p>
-                </div>
-            </div>
-
-            <!-- Sidebar Menu -->
-            <ul class="sidebar-menu" id="sidebraMenu">
-                <li class="header">查询系统</li>
-                <li><a href="/teacher/${sessionScope.get("userid")}/teacherinfo"><i class="fa fa-link"></i><span>查看课表</span></a></li>
-                <li><a href="/teacher/${sessionScope.get("userid")}/grade/list"><i class="fa fa-link"></i><span>查看成绩</span></a></li>
-                <li class="header">毕设系统</li>
-                <li><a href="/teacher/insertSubject.action"><i class="fa fa-link"></i><span>添加新课题</span> </a></li>
-                <li><a href="/teacher/${sessionScope.get("userid")}/subjects"><i class="fa fa-link"></i><span>查看已发布课题</span> </a></li>
-                <li class="header">选课系统</li>
-                <li><a href="/teacher/${sessionScope.get("userid")}/tchcourselist"><i class="fa fa-link"></i><span>查看课表</span></a></li>
-                <li><a href="/teacher/${sessionScope.get("userid")}/coursestulist"><i class="fa fa-link"></i><span>查看学生信息</span></a></li>
-            </ul>
-            <!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
+        <%@include file="../../common/sidebar.jsp"%>
     </aside>
-
-    <!--核心-->
     <div class="content-wrapper">
-        <!--标题-->
         <section class="content-header">
-            <h1>
-                北京化工大学教务管理系统
-                <small>毕设系统</small>
-            </h1>
-            <!--位置导航-->
-            <ol class="breadcrumb">
-                <li><a href="#">Level</a></li>
-                <li class="active">Here</li>
+            <ol class="breadcrumb" id="nav_title" style="position:static;float:none;">
+                <li class="active"><i class="fa fa-home" style="font-size:20px;position:relative;top:2px;left:-3px;"></i> &nbsp; 博物馆运行评估系统</li>
+                <li class="active">位置导航</li>
             </ol>
         </section>
-
-        <!--网页正文-->
-        <section class="content">
+        <section class="content" style="background:#fff;">
+            <!--页面写在这里-->
             <div class="panel-heading text-center">
                 <h2>修改博物馆</h2>
             </div>
-            <form action="../edit/${getMuseum.id}" role = "form" name="museumForm" method="post" style="font-size:18px;line-height:2">
-                <label>博物馆序号:</label>
-                ${getMuseum.id}<br>
+            <form action="../edit/${museum.id}" role = "form" name="museumForm" method="post" style="font-size:18px;line-height:2">
+                <label>博物馆序号:${museum.id}</label>
+                <input name="id" id="id" type="hidden" value=${museum.id} readonly="true" class="form-control">
                 <div class="form-group" style="width: 50%">
-                    <label for="museumName">博物馆名称</label>
-                    <input id = "museumName" name="museumName" type="text" class="form-control" >
+                    <label for="name">博物馆名称</label>
+                    <input id = "name" name="name" type="text" value="${museum.name}"class="form-control" >
                 </div>
 
                 <%--</div>--%>
                 <div class="form-group" style="width: 50%">
                     <label>博物馆类型</label>
-                    <select>
-                        <option value=1>历史、文化及综合类</option>
-                        <option value=2>自然、科技与专题类</option>
-                        <option value=3>纪念类</option>
+                    <select name="category" id="category">
+                        <option>${museum.category}</option>
+                        <option value="历史文化与综合类">历史文化与综合类</option>
+                        <option value="自然、科技与专题类">自然、科技与专题类</option>
+                        <option value="纪念类">纪念类</option>
                     </select>
                 </div>
 
                 <div class="form-group" style="width: 50%">
                     <label>博物馆级别</label>
-                    <select>
-                        <option value=1>省级及省级以上</option>
-                        <option value=2>其他</option>
+                    <select name="level" id="level">
+                        <option>${museum.level}</option>
+                        <option value="省级及省级以上">省级及省级以上</option>
+                        <option value="其他">其他</option>
                     </select>
                 </div>
                 <div>
                     <label>评审年份</label>
-                    <label><input name="2012" type="checkbox" value="2012" />2012 </label>
-                    <label><input name="2013" type="checkbox" value="2013" />2013 </label>
-                    <label><input name="2014" type="checkbox" value="2014" />2014 </label>
-                    <label><input name="2015" type="checkbox" value="2015" />2015 </label>
-                    <label><input name="2016" type="checkbox" value="2016" />2016 </label>
-                    <label><input name="2017" type="checkbox" value="2017" />2017 </label>
+                    <input name="year" id="year" type="hidden" value=${museum.year} readonly="true" class="form-control">
+
+
+                    <label><input id="year2018" name="year" type="checkbox" value="2018" />2018 </label>
+                    <label><input id="year2017" name="year" type="checkbox" value="2017" />2017 </label>
+                    <label><input id="year2016" name="year" type="checkbox" value="2016" />2016 </label>
+                    <label><input id="year2015" name="year" type="checkbox" value="2015" />2015 </label>
+                    <label><input id="year2014" name="year" type="checkbox" value="2014" />2014 </label>
+                    <label><input id="year2013" name="year" type="checkbox" value="2013" />2013 </label>
+                    <label><input id="year2012" name="year" type="checkbox" value="2012" />2012 </label>
+                    <label><input id="year2011" name="year" type="checkbox" value="2011" />2011 </label>
+                    <label><input id="year2010" name="year" type="checkbox" value="2010" />2010 </label>
+                    <label><input id="year2009" name="year" type="checkbox" value="2009" />2009 </label>
+                    <label><input id="year2008" name="year" type="checkbox" value="2008" />2008 </label>
                 </div>
                 <div>
                     <label>详细资料</label>
-                    <textarea name="description" id="description" rows="8" class="form-control">${getMuseum.description}</textarea>
+                    <textarea name="description" id="description" rows="8" class="form-control">${museum.description}</textarea>
                 </div>
-                <div align="left">
-                    <input class="btn btn-success" type="submit" value="提交" >
+                <!-- <div align="left">
+                     <input class="btn btn-success" type="submit" value="提交" >
+                 </div>-->
+                <div>
+                    <button type="button" class="btn btn-default" onclick="updateMuseum()">提交</button>
                 </div>
             </form>
         </section>
-        <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
 
-    <!--页脚-->
     <footer class="main-footer">
-        <!-- To the right -->
         <div class="pull-right hidden-xs">
-            各位大佬强力驱动
+            Version 1.0.0
         </div>
-        <strong>Copyright &copy; 2017 <a href="#">CS1404</a>.</strong> All rights reserved.
+        Copyright &copy; 2017 <b>museum</b> All Rights Reserved
     </footer>
 
-
+    <div class="control-sidebar-bg"></div>
 </div>
+<script type="text/javascript">
+    function handleCheck() {
+        var str="";
+        var checkBoxs = document.getElementsByName("year");
+        for (var i = 0; i < checkBoxs .length; i++) {
+            if (checkBoxs[i].checked) {
+                str = str + checkBoxs[i].value + ',';
+            }
+        }
+        return str;
+    }
+    function updateMuseum() {
+        var name = $('#name').val();
+        var category = $('#category').val();
+        var level = $('#level').val();
+        var year = handleCheck();
+        var description = $('#description').val();
+        var id = $('#id').val();
+        if (name == "") {
+            alert("博物馆名字不能为空");
+        }
+        else {
 
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/museum/museum/updateMuseum',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=UTF-8',
+                    data:JSON.stringify({
+                        name:name,
+                        category:category,
+                        level:level,
+                        year:year,
+                        description:description,
+                        id:id
+                    }),  //提交json字符串数组
 
+                    success: function (data) {
+                        if (data == "SUCCESS") {
+                            alert("添加成功");
+                            window.location.href = "/museum/museum/list";
+                        }
+                        else if(data == "NAME_FAIL"){
+                            alert("名错");
+                        }
+                        else if(data =="YEAR_FAIL"){
+                            alert("年错");
+                        }
+                        else if(data =="CATEGORY_FAIL"){
+                            alert("类错");
+                        }
+                        else if(data =="LEVEL_FAIL"){
+                            alert("级错");
+                        }
+                        else {
+                            alert("添加失败");
+                        }
+                    },
+                    error: function () {
+                        alert("插入数据失败");
+                    }
+                });
+        }
+    }
+    $(document).ready(function () {
+        function1('${museum.year}');
+    });
+    function function1(year){
+        var list2 = new Array();
+        list2 = year.split(",");
+        for(var ye in list2){
+            $("input[type=checkbox][id=\"year"+list2[ye]+"\"]").prop('checked', true);
+
+        }
+    }
+</script>
 </body>
 </html>
+
 
 
