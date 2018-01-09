@@ -33,8 +33,8 @@ create TABLE quota(
 create TABLE museum(
     id int(11) primary key not null auto_increment comment '博物馆id',
     name VARCHAR(200) not null DEFAULT '' COMMENT '类别名',
-    category int(4) not null DEFAULT 0 comment '种类',
-    level int(4) not null DEFAULT 0 comment '等级',
+    category VARCHAR(200) not null DEFAULT 0 comment '种类',
+    level VARCHAR(200) not null DEFAULT 0 comment '等级',
     year VARCHAR(200) not null DEFAULT '' comment '年份',
     description VARCHAR(200) not null DEFAULT '' comment '博物馆简介'
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
@@ -43,10 +43,10 @@ create TABLE attachment(
     id int(11) primary key not null auto_increment comment '附件id',
     name VARCHAR(200) not null DEFAULT '' COMMENT '附件名',
     file VARCHAR(200) not null DEFAULT '' comment '文件路径',
-    type int(4) not null DEFAULT 0 comment '附件类型'
+    type int(4) not null DEFAULT 0 comment '附件类型',
+    addtime varchar(15) not null default '' comment '附件类型',
+    year int(4) not null default 0 comment '年份'
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-alter table attachment add addtime varchar(15) not null default '';
-alter table attachment add year int(4) not null default 0 ;
 
 drop table point;
 create TABLE point(

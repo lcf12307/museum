@@ -47,4 +47,27 @@
         GROUP BY mid
         ORDER BY mid;
     </insert>
+    <select id="getDingXingScore" resultType="com.crtvu.entity.PointEntity">
+        select id,mid,(select name from museum m where m.id= p.mid) as name,year,sum(point) as point,type from museum.point p
+        where <![CDATA[ year=#{year} AND type>=#{typeFrom} AND type <= #{typeTo} ]]>
+        <if test="museumName != null and museumName.trim() != ''">
+            and name like CONCAT(CONCAT('%',#{museumName}),'%')
+        </if>
+          group by mid,type  order by type asc,mid asc
+        <if test="orderString != null and orderString.trim() != ''">
+             ,#{orderString}
+        </if>
+            ASC
+    </select>
+    <select id="getOneMuseumScore" resultType="com.crtvu.entity.PointEntity">
+        select id,mid,name,year,cast(sum(point)/count(point) as DECIMAL(5,2)) as point,type from museum.point
+        where <![CDATA[ mid=#{id} and year=#{year} AND type>=21 AND type <= 25 ]]> GROUP BY type
+    </select>
+    <select id="getAllMuseum" resultType="com.crtvu.entity.MuseumEntity">
+        select * from museum where locate(#{year},year)>0 order by id
+    </select>
+    <select id="getTotalStatic" resultType="com.crtvu.entity.PointEntity">
+        select * from museum.point where type=#{type} and year=#{year} and name=#{name}
+    </select>
+
 </mapper>

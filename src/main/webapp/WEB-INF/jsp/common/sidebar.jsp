@@ -47,8 +47,17 @@
                     class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu" style="padding-left:20px">
                 <li><a href="#">查看定性排名</a></li>
-                <li><a href="/role/list">查看定量排名</a></li>
-                <li><a href="/role/list">查看总分排名</a></li>
+                <li><a href="#">查看定量排名</a></li>
+                <li><a href="#">查看总分排名</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#"><i class="fa fa-circle-o text-aqua"></i><span>统计表</span><i
+                    class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu" style="padding-left:20px">
+                <li><a href="/score/total/2018">总分统计表</a></li>
+                <li><a href="#">定量评估结果统计表</a></li>
+                <li><a href="/score/listDingXingScore/2018">定性评估结果统计表</a></li>
             </ul>
         </li>
         <li class="treeview">

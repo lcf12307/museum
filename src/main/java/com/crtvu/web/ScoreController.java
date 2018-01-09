@@ -1,8 +1,13 @@
 package com.crtvu.web;
 
 
+import com.crtvu.dao.MuQASDAO;
 import com.crtvu.dto.DeleteJson;
+import com.crtvu.dto.DingxingScore;
+import com.crtvu.dto.TotalScore;
 import com.crtvu.entity.AttachmentEntity;
+import com.crtvu.entity.MuseumEntity;
+import com.crtvu.entity.PointEntity;
 import com.crtvu.service.ScoreService;
 import com.crtvu.utils.ExcelShower;
 import com.crtvu.utils.R;
@@ -32,6 +37,8 @@ public class ScoreController {
     private com.crtvu.service.QuotaService quotaService;
     @Autowired
     ScoreService scoreService;
+    @Autowired
+    MuQASDAO muQASDAO;
 
     @RequestMapping(value = "/list")
     public  String list1(){
@@ -225,6 +232,66 @@ public class ScoreController {
             }
         }
         return r;
+    }
+
+    @RequestMapping("/listDingXingScore/{year}")
+    public String dingXingScore(@PathVariable("year") int year,Model model){
+        List<MuseumEntity> museumList = muQASDAO.getAllMuseum(year);
+        List<DingxingScore> scoreList = new ArrayList<>();
+        double total ;
+        for(MuseumEntity museum: museumList){
+            total=0;
+            List<PointEntity> points = muQASDAO.getOneMuseumScore(museum.getId(),year);
+            DingxingScore score = new DingxingScore();
+            for(PointEntity point:points){
+
+                if(point.getType()==21){
+                    score.setScore21(point.getPoint());
+                    total+=point.getPoint()*0.2;
+                }else if(point.getType()==22){
+                    score.setScore22(point.getPoint());
+                    total+=point.getPoint()*0.2;
+                }else if(point.getType()==23){
+                    score.setScore23(point.getPoint());
+                    total+=point.getPoint()*0.35;
+                }else if(point.getType()==24){
+                    score.setScore24(point.getPoint());
+                    total+=point.getPoint()*0.15;
+                }else if(point.getType()==25){
+                    score.setScore25(point.getPoint());
+                    total+=point.getPoint()*0.1;
+                }
+                score.setName(point.getName());
+                score.setYear(point.getType());
+            }
+            score.setTotal(total);
+            scoreList.add(score);
+        }
+
+        model.addAttribute("scoreList",scoreList);
+        model.addAttribute("year",year);
+        return "/score/listDingXingScore";
+    }
+
+    @RequestMapping("/total/{year}")
+    public String getTotalStatic(@PathVariable("year") int year,Model model){
+        List<MuseumEntity> museumList = muQASDAO.getAllMuseum(year);
+        List<TotalScore> totalScoreList = new ArrayList<>();
+        PointEntity point;
+        for(MuseumEntity museum: museumList){
+            TotalScore totalScore = new TotalScore();
+            totalScore.setName(museum.getName());
+            totalScore.setYear(year);
+            point = muQASDAO.getTotalStatic(museum.getName(),1,year);
+            totalScore.setDingliang(point==null?0:point.getPoint());
+            point = muQASDAO.getTotalStatic(museum.getName(),2,year);
+            totalScore.setDingxing(point==null?0:point.getPoint());
+            totalScore.setTotal();
+            totalScoreList.add(totalScore);
+        }
+        model.addAttribute("year",year);
+        model.addAttribute("totalScoreList",totalScoreList);
+        return "/score/total";
     }
 
     public static boolean canParseInt(String  str){

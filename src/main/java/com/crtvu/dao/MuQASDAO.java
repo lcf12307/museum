@@ -2,6 +2,7 @@ package com.crtvu.dao;
 
 import com.crtvu.dto.StrValue;
 import com.crtvu.entity.MuseumEntity;
+import com.crtvu.entity.PointEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
@@ -43,4 +44,12 @@ public interface MuQASDAO {
      * @return
      */
     int staticsTotal(int year);
+
+    List<PointEntity> getDingXingScore(@Param("year") int year,@Param("museumName") String museumName,@Param("orderString") String orderString);
+
+    List<MuseumEntity> getAllMuseum(int year);
+
+    List<PointEntity>  getOneMuseumScore(@Param("id") int museum_id,@Param("year") int year);
+
+    PointEntity getTotalStatic(@Param("name") String name,@Param("type") int type,@Param("year") int year);
 }
