@@ -112,6 +112,34 @@ public class PointController {
         model.addAttribute("year",year);
         return "/point/quantativelistDetail";
     }
+    @RequestMapping(value = "totallist")
+    public  String quantitative122(@RequestParam(value = "name" ,defaultValue = "" ) String name,@RequestParam(value = "year",defaultValue = "2018") int year,
+                                    Model model){
+        List<PointEntity> points = pointService.findPointByName("%"+name+"%",5,year);
+        List<FinalPoint> finalPoints = new ArrayList<>();
+        FinalPoint fp;
+        for (PointEntity point : points){
+            int mid = point.getMid();
+            fp = new FinalPoint();
+            fp.setName(point.getName());
+            fp.setYear(point.getYear());
+            fp.setMid(point.getId());
+
+            if(pointService.findPointByType(5,year,mid).size() != 0){
+                fp.setPoint1(pointService.findPointByType(5,year,mid).get(0).getPoint());
+            }
+            if (pointService.findPointByType(3,year,mid).size() !=0) {
+                fp.setPoint1(pointService.findPointByType(3, year, mid).get(0).getPoint());
+            }
+            if (pointService.findPointByName(point.getName(),40,year).size() != 0) {
+                fp.setPoint2(pointService.findPointByName(point.getName(), 40, year).get(0).getPoint());
+            }
+            finalPoints.add(fp);
+        }
+        model.addAttribute("quantative",finalPoints);
+        model.addAttribute("year",year);
+        return "/point/totallist";
+    }
     @RequestMapping(value = "quantitative")
     public  String quantitative1(@RequestParam(value = "year" ,defaultValue = "2018" ) int year,@RequestParam(value = "name" ,defaultValue = "") String name,
                                  Model model){
@@ -372,6 +400,44 @@ public class PointController {
                 index++;
             }
         }
+        return R.ok("生成成功");
+    }
+
+    @RequestMapping(value = "/totalinit")
+    @ResponseBody
+    public R quantitativeq12312qq(@RequestParam(value = "year") int year, Model model,
+                             HttpServletRequest request){
+        List<PointEntity> attachments = pointService.findPoint(1,year);
+        if (attachments.size()==0){
+            return R.error("请先确认已经生成定量数据");
+        }
+       attachments = pointService.findPoint(2,year);
+        if (attachments.size()==0){
+            return R.error("请先确认已经生成定性数据");
+        }
+       attachments = pointService.findPoint(0,year);
+        for (PointEntity point : attachments){
+            double liang = pointService.findPointByName(point.getName(),1,year).get(0).getPoint();
+            double xing = pointService.findPointByName(point.getName(),2,year).get(0).getPoint();
+            double total = 0.3*liang+0.7*xing;
+            pointService.updateById(point.getId(),total);
+        }
+        return R.ok("生成成功");
+    }
+    @RequestMapping(value = "/totallistinit")
+    @ResponseBody
+    public R quantitativeq1212qq(@RequestParam(value = "year") int year, Model model,
+                                  HttpServletRequest request){
+        List<PointEntity> attachments = pointService.findPoint(0,year);
+        if (attachments.size()==0){
+            return R.error("请先确认已经生成数据");
+        }
+        attachments = pointService.findPoint(0,year);
+        int index=1;
+        for (PointEntity point : attachments){
+            pointService.addPoint(point.getName(),point.getMid(),point.getYear(),index,5);
+        }
+
         return R.ok("生成成功");
     }
 }

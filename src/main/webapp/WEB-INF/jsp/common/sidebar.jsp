@@ -57,7 +57,7 @@
             <ul class="treeview-menu" style="padding-left:20px">
                 <li><a href="/point/quantitativelist">查看定性排名</a></li>
                 <li><a href="/point/quantitativelist">查看定量排名</a></li>
-                <li><a href="/role/list">查看总分排名</a></li>
+                <li><a href="/point/totallist">查看总分排名</a></li>
             </ul>
         </li>
         <li class="treeview">

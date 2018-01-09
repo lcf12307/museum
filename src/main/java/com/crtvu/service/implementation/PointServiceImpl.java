@@ -32,6 +32,11 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
+    public int updateById(int id, double point) {
+        return pointDAO.updatePoint(id,point);
+    }
+
+    @Override
     public List<PointEntity> findPoint(int type, int year) {
         return pointDAO.selectPointByYear(year,type);
     }

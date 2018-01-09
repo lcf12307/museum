@@ -23,6 +23,52 @@
                 });
             }
         }
+        function count133() {
+            var data = 'year=' + $('#pointYear').val();
+            var url = '/point/totalinit';
+            if (confirm("确定要生成该年的数据吗")) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'json',
+                    data:data,
+                    success: function (result) {
+                        if (result.code == 0) {
+                            alert(result.msg);
+                        } else {
+                            alert(result.msg);
+                        }
+
+                    },
+                    error: function () {
+                        alert("生成失败");
+                    }
+                });
+            }
+        }
+        function count144() {
+            var data = 'year=' + $('#pointListYear').val();
+            var url = '/point/totallistinit';
+            if (confirm("确定要生成该年的数据吗")) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'json',
+                    data:data,
+                    success: function (result) {
+                        if (result.code == 0) {
+                            alert(result.msg);
+                        } else {
+                            alert(result.msg);
+                        }
+
+                    },
+                    error: function () {
+                        alert("生成失败");
+                    }
+                });
+            }
+        }
         function count122() {
             var data = 'year=' + $('#QuantitativeListYear').val();
             var url = '/point/quantitativelistinit';
@@ -222,7 +268,7 @@
                         <option value="2011">2011</option>
                         <option value="2010">2010</option>
                     </select>
-                    <button class="btn btn-primary" name="QuantitativeButton" id="PointButton" onclick="window.location.href(www.baidu.com)">计算总分得分</button>
+                    <button class="btn btn-primary" name="QuantitativeButton" id="PointButton" onclick="count133()">计算总分得分</button>
                 </div>
             </div>
 
@@ -243,7 +289,7 @@
                         <option value="2011">2011</option>
                         <option value="2010">2010</option>
                     </select>
-                    <button class="btn btn-primary" name="QuantitativeButton" id="PointListButton" onclick="window.location.href(www.baidu.com)">计算总分排名</button>
+                    <button class="btn btn-primary" name="QuantitativeButton" id="PointListButton" onclick="count144()">计算总分排名</button>
                 </div>
             </div>
         </div>

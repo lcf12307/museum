@@ -17,7 +17,7 @@ public interface PointDAO{
 
     int deletePointByNameAndYear(@Param("name") String name, @Param("year") int year);
 
-    int updatePoint(@Param("id") int id, @Param("point") int point);
+    int updatePoint(@Param("id") int id, @Param("point") double point);
 
     PointEntity selectPoint(@Param("id") int id);
 

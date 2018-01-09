@@ -14,4 +14,5 @@ public interface PointService {
    public List<PointEntity> findPoint(int type,int year);
    public List<PointEntity> findPointByName(String name,int type,int year);
    public int deleteByYear(int year);
+   public int updateById(int id,double point);
 }
