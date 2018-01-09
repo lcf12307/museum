@@ -28,7 +28,7 @@
             $("#addDiv").append(input);
         }
         function refresh() {
-            window.location.reload();
+            window.location.re
         }
         function ahead(){
             name = typeof (request('name'))=="undefined"?"":request('name');
@@ -148,6 +148,7 @@
                                 <div align="left">
                                     <label>请选择年份：</label>
                                     <select id="uploadYear" name="uploadYear" form="insertForm">
+                                        <option value="2018">2018</option>
                                         <option value="2017">2017</option>
                                         <option value="2016">2016</option>
                                         <option value="2015">2015</option>
@@ -189,6 +190,7 @@
                             <div class="form-group">
                                 <label class="col-5">请选择年份</label>
                                 <select id="searchYear" name="searchYear">
+                                    <option value="2018">2018</option>
                                     <option value="2017">2017</option>
                                     <option value="2016">2016</option>
                                     <option value="2015">2015</option>

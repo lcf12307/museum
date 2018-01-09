@@ -36,4 +36,11 @@ public interface MuQASDAO {
      * @return
      */
     int deletePoint(@Param("year") int year,@Param("typeFrom")  int typeFrom,@Param("typeTo")  int typeTo);
+
+    /**
+     * 计算某年的定性总分
+     * @param year
+     * @return
+     */
+    int staticsTotal(int year);
 }

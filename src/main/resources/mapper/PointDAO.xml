@@ -19,7 +19,11 @@
         FROM point
         WHERE name = #{name}
     </delete>
-
+    <delete id = "deletePointByYear">
+        DELETE
+        FROM point
+        WHERE year = #{year} and (type=1 OR (type>=100 and 200 > type ))
+    </delete>
     <delete id = "deletePointByNameAndYear">
         DELETE
         FROM point
@@ -43,6 +47,11 @@
         FROM point
         Where name = #{name} and mid = #{mid} and year = #{year}
     </select>
+    <select id="selectPointByYear" resultType="PointEntity">
+        SELECT *
+        FROM point
+        Where type = #{type}  and year = #{year}
+    </select>
 
     <select id="selectPointByMid" resultType="PointEntity">
         SELECT *
@@ -54,6 +63,12 @@
         SELECT *
         FROM point
         Where mid = #{mid} and year = #{year} and type = #{type}
+    </select>
+
+    <select id="selectPoints" resultType="PointEntity">
+        SELECT *
+        FROM point
+        Where name = #{name} and year = #{year} and type = #{type}
     </select>
 
     <select id="hasPointed" resultType="int">

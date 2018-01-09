@@ -48,12 +48,13 @@ create TABLE attachment(
 alter table attachment add addtime varchar(15) not null default '';
 alter table attachment add year int(4) not null default 0 ;
 
+drop table point;
 create TABLE point(
     id int(11) primary key not null auto_increment comment 'id',
     name VARCHAR(200) not null DEFAULT '' COMMENT '专家名',
     mid int(4) not null DEFAULT 0 comment '博物馆id',
     year int(11) not null DEFAULT 0  comment '年份',
-    point int(11) not null DEFAULT 0 comment '分数',
+    point DECIMAL(5,2) not null DEFAULT 0 comment '分数',
     type int(4) not null DEFAULT 0 comment '分数类型'
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 

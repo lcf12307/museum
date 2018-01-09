@@ -20,6 +20,31 @@
         where year is not null and locate(#{year},year)>0
     </select>
     <delete id="deletePoint">
-        DELETE FROM museum.point where <![CDATA[ year=#{year} AND type>=#{typeFrom} AND type <= #{typeTo} ]]>
+        DELETE FROM museum.point where <![CDATA[ year=#{year} AND type>=#{typeFrom} AND type <= #{typeTo} ]]>;
     </delete>
+    <insert id="staticsTotal">
+      INSERT INTO point (mid,name, year, type, point)
+        SELECT
+        mid,
+        (select name from museum where id=p.mid) as name,
+        year,
+        2 AS type,
+        sum(
+            CASE WHEN type = 21
+              THEN (point * 0.2)
+            WHEN type = 22
+              THEN (point * 0.2)
+            WHEN type = 23
+              THEN (point * 0.35)
+            WHEN type = 24
+              THEN (point * 0.15)
+            WHEN type = 25
+              THEN (point * 0.10)
+            ELSE 0 END
+        ) AS point
+        FROM POINT p
+        WHERE YEAR = #{year}
+        GROUP BY mid
+        ORDER BY mid;
+    </insert>
 </mapper>

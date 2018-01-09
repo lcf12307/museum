@@ -26,6 +26,27 @@
                 });
             }
         }
+        function count2(url) {
+            if (confirm("确定要生成该年的数据吗")) {
+                var data = 'year='+$('#qualitativeYear').val();
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: "json",
+                    data:data,
+                    success: function (result) {
+                        if (result.code == 0) {
+                            alert(result.msg);
+                        } else {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function () {
+                        alert('连接失败，请稍后再试！');
+                    }
+                });
+            }
+        }
     </script>
 
 </head>
@@ -132,7 +153,7 @@
                         <option value="2011">2011</option>
                         <option value="2010">2010</option>
                     </select>
-                    <button class="btn btn-primary" name="QuantitativeButton" id="qualitativeButton" onclick="window.location.href(www.baidu.com)">计算定性得分</button>
+                    <button class="btn btn-primary" name="QuantitativeButton" id="qualitativeButton" onclick="count2('/score/dingxing')">计算定性得分</button>
                 </div>
             </div>
 

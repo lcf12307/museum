@@ -131,13 +131,16 @@ public class ScoreServiceImpl implements ScoreService{
 
         //4、删除之前的该年的定性打分数据
         muQASDAO.deletePoint(Integer.parseInt(year),21,25);
+        muQASDAO.deletePoint(Integer.parseInt(year),2,2);//总分
 
         //5、读所有文件并写入定性打分数据
         HashSet<String> museumSet2 = new HashSet<>();
         List<AttachmentEntity> attachments = attachmentService.findByYear(Integer.parseInt(year),2);
-        int pointType = 0;
-        String quota_id="";
+        int pointType ;
+        String quota_id;
         for(AttachmentEntity e:attachments){
+            pointType=0;
+            quota_id="";
             quota_id = quotaService.getExpert(e.getName()).getQuotaId();
             if(quota_id==null||quota_id.equals(""))
                 throw new RuntimeException();
@@ -170,16 +173,21 @@ public class ScoreServiceImpl implements ScoreService{
             for(String key:museumPointmap.keySet()){
                 //pointType需要根据专家类型来判断，新写一个查询
                 if(pointService.addPoint(e.getName(),museumMap.get(key),Integer.parseInt(year),museumPointmap.get(key),pointType)<=0)
-                    throw new RuntimeException("-6",new Throwable("插入分数时异常"));
+                    throw new RuntimeException("-6",new Throwable("插入定性分数时异常"));
             }
-            pointType=0;
-            quota_id="";
             museumSet2.clear();
         }
         //计算总分
-        
+        //一级指标 占比 type
+        //科学研究 20%  21
+        //藏品管理 20%  22
+        //公共关系与服务 35%  23
+        //陈列展览与社会教育 15%  24
+        //博物馆管理发展建设 10%  25
+        if(muQASDAO.staticsTotal(Integer.parseInt(year))<=0)
+            throw new RuntimeException("-6",new Throwable("统计定性总分时发生错误"));;
 
-        return R.ok("生成成功");
+        return R.ok("定性数据生成成功");
     }
 	
 	

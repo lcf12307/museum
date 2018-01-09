@@ -62,7 +62,7 @@
             var name = $('#searchName').val();
             var year = $('#searchYear').val();
             console.log(year);
-            window.location.href="/notification/list/1?name="+name+"&year="+year;
+            window.location.href="/score/list/1?name="+name+"&year="+year;
         }
 
        function getExperts() {
@@ -92,7 +92,7 @@
 
         function searchByName() {
             var name = $('#searchName').val();
-            window.location.href="/notification/list/1?name="+name;
+            window.location.href="/score/list/1?name="+name;
         }
 
         function request(strParame) {
@@ -159,6 +159,7 @@
                                 <div align="left">
                                     <label>请选择年份：</label>
                                     <select id="uploadYear" name="uploadYear" form="insertForm" onchange="getExperts()">
+                                        <option value="2018">2018</option>
                                         <option value="2017">2017</option>
                                         <option value="2016">2016</option>
                                         <option value="2015">2015</option>
@@ -197,6 +198,7 @@
                 <div class="form-group">
                     <label class="col-5">请选择年份</label>
                     <select id="searchYear" name="searchYear">
+                        <option value="2018">2018</option>
                         <option value="2017">2017</option>
                         <option value="2016">2016</option>
                         <option value="2015">2015</option>
@@ -217,7 +219,7 @@
                 <thead>
                 <tr>
                     <th>序号</th>
-                    <th>博物馆名称</th>
+                    <th>专家姓名</th>
                     <th>上传时间</th>
                     <th>参评年份</th>
                     <th> 操作 </th>

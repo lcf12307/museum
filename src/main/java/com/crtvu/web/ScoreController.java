@@ -3,7 +3,9 @@ package com.crtvu.web;
 
 import com.crtvu.dto.DeleteJson;
 import com.crtvu.entity.AttachmentEntity;
+import com.crtvu.service.ScoreService;
 import com.crtvu.utils.ExcelShower;
+import com.crtvu.utils.R;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,8 @@ public class ScoreController {
     private com.crtvu.service.AttachmentService AttachmentService;
     @Autowired
     private com.crtvu.service.QuotaService quotaService;
+    @Autowired
+    ScoreService scoreService;
 
     @RequestMapping(value = "/list")
     public  String list1(){
@@ -44,6 +48,9 @@ public class ScoreController {
             int pages = AttachmentService.page(year,name,2)/20 + 1;
             model.addAttribute("list",list);
             model.addAttribute("pages",pages);
+            if (year == 0){
+                year = 2018;
+            }
             List<String> experts = quotaService.selectByYearPoint(Integer.toString(year));
 
             model.addAttribute("experts",experts);
@@ -200,5 +207,33 @@ public class ScoreController {
     }
 
 
+    @RequestMapping(value = "/dingxing")
+    @ResponseBody
+    public R dingxing(String year){
+        if(!canParseInt(year)||Integer.parseInt(year)<=0)
+            return R.error("参数错误");
+        R r = R.error(-99,"未知错误");
+        try {
+            r=scoreService.Calculate(String.valueOf(year));
+        } catch (Exception e) {
+            if(canParseInt(e.getMessage())){
+                if(Integer.parseInt(e.getMessage())<0){
+                    r=R.error(Integer.parseInt(e.getMessage()),e.getCause().getMessage());
+                }
+            }else{
+                r=R.error("未知错误！");
+            }
+        }
+        return r;
+    }
+
+    public static boolean canParseInt(String  str){
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 }
