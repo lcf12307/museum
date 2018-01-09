@@ -10,6 +10,7 @@ import com.crtvu.entity.PointEntity;
 import com.crtvu.service.AttachmentService;
 import com.crtvu.service.PointService;
 import com.crtvu.utils.POI_Word;
+import com.crtvu.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,10 +55,140 @@ public class PointController {
     public String statics(@RequestParam(value = "statics") int type){
         return "";
     }
+    @RequestMapping(value = "quantitativedetail")
+    public  String quantitative1(@RequestParam(value = "id" ,defaultValue = "0" ) int id,@RequestParam(value = "year",defaultValue = "2018") int year,
+                                 Model model){
+        List<PointEntity> points = pointService.findPointByType(1,year,id);
+        FinalPoint fp;
+        PointEntity point = points.get(0);
+        int mid = point.getMid();
+        fp = new FinalPoint();
+        fp.setName(point.getName());
+        fp.setYear(point.getYear());
+        fp.setPoint1(pointService.findPointByType(1,year,mid).get(0).getPoint());
+        fp.setPoint11(pointService.findPointByType(11,year,mid).get(0).getPoint());
+        fp.setPoint12(pointService.findPointByType(12,year,mid).get(0).getPoint());
+        fp.setPoint13(pointService.findPointByType(13,year,mid).get(0).getPoint());
+        fp.setPoint14(pointService.findPointByType(14,year,mid).get(0).getPoint());
 
-    @RequestMapping(value = "/quantitative")
-    public String quantitative(@RequestParam(value = "year") int year,Model model,
-                    HttpServletRequest request){
+
+        fp.setPoint101(pointService.findPointByType(101,year,mid).get(0).getPoint());
+        fp.setPoint102(pointService.findPointByType(102,year,mid).get(0).getPoint());
+        fp.setPoint103(pointService.findPointByType(103,year,mid).get(0).getPoint());
+        fp.setPoint104(pointService.findPointByType(104,year,mid).get(0).getPoint());
+        fp.setPoint105(pointService.findPointByType(105,year,mid).get(0).getPoint());
+        fp.setPoint106(pointService.findPointByType(106,year,mid).get(0).getPoint());
+        fp.setPoint107(pointService.findPointByType(107,year,mid).get(0).getPoint());
+        fp.setPoint108(pointService.findPointByType(108,year,mid).get(0).getPoint());
+        fp.setPoint109(pointService.findPointByType(109,year,mid).get(0).getPoint());
+
+        model.addAttribute("quantative",fp);
+        model.addAttribute("year",year);
+        return "/point/quantativeDetail";
+    }
+    @RequestMapping(value = "quantitativelistdetail")
+    public  String quantitative1232(@RequestParam(value = "id" ,defaultValue = "0" ) int id,@RequestParam(value = "year",defaultValue = "2018") int year,
+                                 Model model){
+        List<PointEntity> points = pointService.findPointByType(1,year,id);
+        FinalPoint fp;
+        PointEntity point = points.get(0);
+        int mid = point.getMid();
+        fp = new FinalPoint();
+        fp.setName(point.getName());
+        fp.setYear(point.getYear());
+        fp.setPoint1(pointService.findPointByType(3,year,mid).get(0).getPoint());
+        fp.setPoint11(pointService.findPointByType(31,year,mid).get(0).getPoint());
+        fp.setPoint12(pointService.findPointByType(32,year,mid).get(0).getPoint());
+        fp.setPoint13(pointService.findPointByType(33,year,mid).get(0).getPoint());
+        fp.setPoint14(pointService.findPointByType(34,year,mid).get(0).getPoint());
+
+
+        fp.setPoint101(pointService.findPointByType(301,year,mid).get(0).getPoint());
+        fp.setPoint102(pointService.findPointByType(302,year,mid).get(0).getPoint());
+        fp.setPoint103(pointService.findPointByType(303,year,mid).get(0).getPoint());
+        fp.setPoint104(pointService.findPointByType(304,year,mid).get(0).getPoint());
+        fp.setPoint105(pointService.findPointByType(305,year,mid).get(0).getPoint());
+        fp.setPoint106(pointService.findPointByType(306,year,mid).get(0).getPoint());
+        fp.setPoint107(pointService.findPointByType(307,year,mid).get(0).getPoint());
+        fp.setPoint108(pointService.findPointByType(308,year,mid).get(0).getPoint());
+        fp.setPoint109(pointService.findPointByType(309,year,mid).get(0).getPoint());
+
+        model.addAttribute("quantative",fp);
+        model.addAttribute("year",year);
+        return "/point/quantativelistDetail";
+    }
+    @RequestMapping(value = "quantitative")
+    public  String quantitative1(@RequestParam(value = "year" ,defaultValue = "2018" ) int year,@RequestParam(value = "name" ,defaultValue = "") String name,
+                                 Model model){
+        List<PointEntity> points = pointService.findPointByName("%"+name+"%",0,year);
+        List<FinalPoint> finalPoints = new ArrayList<>();
+        FinalPoint fp;
+        for (PointEntity point : points){
+            int mid = point.getId();
+            fp = new FinalPoint();
+            fp.setName(point.getName());
+            fp.setYear(point.getYear());
+            fp.setMid(point.getId());
+            fp.setPoint1(pointService.findPointByType(1,year,mid).get(0).getPoint());
+            fp.setPoint11(pointService.findPointByType(11,year,mid).get(0).getPoint());
+            fp.setPoint12(pointService.findPointByType(12,year,mid).get(0).getPoint());
+            fp.setPoint13(pointService.findPointByType(13,year,mid).get(0).getPoint());
+            fp.setPoint14(pointService.findPointByType(14,year,mid).get(0).getPoint());
+
+
+            fp.setPoint101(pointService.findPointByType(101,year,mid).get(0).getPoint());
+            fp.setPoint102(pointService.findPointByType(102,year,mid).get(0).getPoint());
+            fp.setPoint103(pointService.findPointByType(103,year,mid).get(0).getPoint());
+            fp.setPoint104(pointService.findPointByType(104,year,mid).get(0).getPoint());
+            fp.setPoint105(pointService.findPointByType(105,year,mid).get(0).getPoint());
+            fp.setPoint106(pointService.findPointByType(106,year,mid).get(0).getPoint());
+            fp.setPoint107(pointService.findPointByType(107,year,mid).get(0).getPoint());
+            fp.setPoint108(pointService.findPointByType(108,year,mid).get(0).getPoint());
+            fp.setPoint109(pointService.findPointByType(109,year,mid).get(0).getPoint());
+            finalPoints.add(fp);
+        }
+        model.addAttribute("quantative",finalPoints);
+        model.addAttribute("year",year);
+        return "/point/quantative";
+    }
+    @RequestMapping(value = "quantitativelist")
+    public  String quantitative121(@RequestParam(value = "year" ,defaultValue = "2018" ) int year,@RequestParam(value = "name" ,defaultValue = "") String name,
+                                 Model model){
+        List<PointEntity> points = pointService.findPointByName("%"+name+"%",0,year);
+        List<FinalPoint> finalPoints = new ArrayList<>();
+        FinalPoint fp;
+        for (PointEntity point : points){
+            int mid = point.getId();
+            fp = new FinalPoint();
+            fp.setName(point.getName());
+            fp.setYear(point.getYear());
+            fp.setMid(point.getId());
+            fp.setPoint1(pointService.findPointByType(3,year,mid).get(0).getPoint());
+            fp.setPoint11(pointService.findPointByType(31,year,mid).get(0).getPoint());
+            fp.setPoint12(pointService.findPointByType(32,year,mid).get(0).getPoint());
+            fp.setPoint13(pointService.findPointByType(33,year,mid).get(0).getPoint());
+            fp.setPoint14(pointService.findPointByType(34,year,mid).get(0).getPoint());
+
+
+            fp.setPoint101(pointService.findPointByType(301,year,mid).get(0).getPoint());
+            fp.setPoint102(pointService.findPointByType(302,year,mid).get(0).getPoint());
+            fp.setPoint103(pointService.findPointByType(303,year,mid).get(0).getPoint());
+            fp.setPoint104(pointService.findPointByType(304,year,mid).get(0).getPoint());
+            fp.setPoint105(pointService.findPointByType(305,year,mid).get(0).getPoint());
+            fp.setPoint106(pointService.findPointByType(306,year,mid).get(0).getPoint());
+            fp.setPoint107(pointService.findPointByType(307,year,mid).get(0).getPoint());
+            fp.setPoint108(pointService.findPointByType(308,year,mid).get(0).getPoint());
+            fp.setPoint109(pointService.findPointByType(309,year,mid).get(0).getPoint());
+            finalPoints.add(fp);
+        }
+        model.addAttribute("quantative",finalPoints);
+        model.addAttribute("year",year);
+        return "/point/quantativelist";
+    }
+    @RequestMapping(value = "/quantitativeinit")
+    @ResponseBody
+    public R quantitative(@RequestParam(value = "year") int year, Model model,
+                          HttpServletRequest request){
         List<AttachmentEntity> attachments = attachmentService.findByYear(year,1);
         List<FinalPoint> finalpoints = new ArrayList<>();
         FinalPoint finalPoint;
@@ -214,6 +345,38 @@ public class PointController {
 
         model.addAttribute("quantative",finalpoints);
         model.addAttribute("year",year);
-        return "/point/quantative";
+        return R.ok();
+    }
+
+    @RequestMapping(value = "/quantitativelistinit")
+    @ResponseBody
+    public R quantitativeqqq(@RequestParam(value = "year") int year, Model model,
+                          HttpServletRequest request){
+        List<PointEntity> attachments = pointService.findPoint(1,year);
+        if (attachments.size()==0){
+            return R.error("请先确认已经生成定量数据");
+        }
+        int index=1;
+        for (PointEntity pointEntity:attachments){
+            pointService.addPoint(pointEntity.getName(),pointEntity.getMid(),pointEntity.getYear(),index,3);
+            index++;
+        }
+        for (int type = 11;type<15;type++){
+            attachments = pointService.findPoint(type,year);
+            index=1;
+            for (PointEntity pointEntity:attachments){
+                pointService.addPoint(pointEntity.getName(),pointEntity.getMid(),pointEntity.getYear(),index,type+20);
+                index++;
+            }
+        }
+        for (int type = 101;type<110;type++){
+            attachments = pointService.findPoint(type,year);
+            index=1;
+            for (PointEntity pointEntity:attachments){
+                pointService.addPoint(pointEntity.getName(),pointEntity.getMid(),pointEntity.getYear(),index,type+200);
+                index++;
+            }
+        }
+        return R.ok("生成成功");
     }
 }

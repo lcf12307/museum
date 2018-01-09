@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>统计表
+    <title>排名
 
 
     </title>
@@ -12,7 +12,7 @@
             var name = $('#searchName').val();
             var year = $('#searchYear').val();
             console.log(year);
-            window.location.href="/point/quantitative?name="+name+"&year="+year;
+            window.location.href="/point/quantitativelist?name="+name+"&year="+year;
         }
 
     </script>
@@ -53,7 +53,7 @@
                     <div class="modal-content">
                         <div class="modal-header" align="right">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">定量数据统计表</h4>
+                            <h4 class="modal-title" id="myModalLabel">定量数据排名 </h4>
                         </div>
 
 
@@ -62,7 +62,7 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
-                    <h2>${year}年度定量数据统计表</h2>
+                    <h2>${year}年度定量排名</h2>
                 </div>
                 <div class="panel-body" >
                     <form class="navbar-form navbar-left" role="search">
@@ -113,8 +113,8 @@
                                 <td>${point.point12}</td>
                                 <td>${point.point13}</td>
                                 <td>${point.point14}</td>
-                                <td><a class="btn btn-info" href="/point/quantitativedetail?id=${point.mid}&year=${year}" target="_blank">详细信息</a>
-                                    </td>
+                                <td><a class="btn btn-info" href="/point/quantitativelistdetail?id=${point.mid}&year=${year}" target="_blank">详细信息</a>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
