@@ -46,12 +46,16 @@
                     </div>
                     <div class="input-group">
                         <select name="yearKey" id = "yearKey" type = "commit" style="height:30px;">
-                            <option value="">请选择</option>
-                            <option value="2008">2008</option>
-                            <option value="2009">2009</option>
-                            <option value="2010">2010</option>
-                            <option value="2011">2011</option>
-                            <option value="2012">2012</option>
+                            <option value="${yearKey+4}">${yearKey+4}</option>
+                            <option value="${yearKey+3}">${yearKey+3}</option>
+                            <option value="${yearKey+2}">${yearKey+2}</option>
+                            <option value="${yearKey+1}">${yearKey+1}</option>
+                            <option value="${yearKey}">${yearKey}</option>
+                            <option value="${yearKey-1}">${yearKey-1}</option>
+                            <option value="${yearKey-2}">${yearKey-2}</option>
+                            <option value="${yearKey-3}">${yearKey-3}</option>
+                            <option value="${yearKey-4}">${yearKey-4}</option>
+                            <option value="${yearKey-5}">${yearKey-5}</option>
                             <c:if test="${yearKey!=null}">
                                 <script>
                                     $('#yearKey').val("${yearKey}");
@@ -105,6 +109,7 @@
                         <button class="btn btn-default btn-sm" onclick="prev()"><i class="glyphicon glyphicon-chevron-left"></i></button>
                         <button class="btn btn-default btn-sm" onclick="next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
                         <button class="btn btn-default btn-sm" onclick="refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
+                        <h5>共${pages}页</h5>
                     </div>
                 </div>
             </div>

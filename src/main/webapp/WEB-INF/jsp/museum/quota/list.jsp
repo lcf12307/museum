@@ -74,8 +74,8 @@
                                         <td><%=s%></td>
                                         <td>${quota.name}</td>
                                         <td>${quota.quotaId}</td>
-                                        <td><a class="btn btn-sm btn-info" href="/museum/quota/detail/${quota.id}" target="_self"><i class="fa fa-info"></i>查看</a>
-                                            <a class="btn btn-sm btn-info" href="/museum/quota/edit/${quota.id}" target="_self"><i class="fa fa-edit"></i>编辑</a>
+                                        <td><a class="btn btn-sm btn-info" href="/museum/quota/detail/${quota.id}?page=${page}" target="_self"><i class="fa fa-info"></i>查看</a>
+                                            <a class="btn btn-sm btn-info" href="/museum/quota/edit/${quota.id}?page=${page}" target="_self"><i class="fa fa-edit"></i>编辑</a>
                                             <a class="btn btn-sm btn-danger" onclick="delQuota('${quota.name}')" target="_blank"><i class="fa fa-remove"></i>删除</a>
                                         </td>
                                     </tr>
@@ -96,6 +96,7 @@
                         <button class="btn btn-default btn-sm" onclick="prev()"><i class="glyphicon glyphicon-chevron-left"></i></button>
                         <button class="btn btn-default btn-sm" onclick="next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
                         <button class="btn btn-default btn-sm" onclick="refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
+                        <h5>共 ${pages} 页 , 当前为 ${page} 页</h5>
                     </div>
                 </div>
             </div>
@@ -118,7 +119,7 @@
     }
     /**上一页**/
     function prev(){
-        if(${page} == 1 ) {
+        if(${ page} == 1 ) {
             alert("当前已是第一页");
         }
         else{

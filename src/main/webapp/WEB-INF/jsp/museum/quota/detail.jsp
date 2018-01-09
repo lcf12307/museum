@@ -70,7 +70,7 @@
                             <td>
                                 <div align="center">
                                     <h5></h5>
-                                    <a class="btn btn-primary" href="/museum/quota/list/1" target="_self">返回</a>
+                                    <a class="btn btn-primary" href="/museum/quota/list/${page}" target="_self">返回</a>
                                 </div>
                             </td>
                         </tr>
@@ -105,95 +105,7 @@
     function refresh(){
         window.location.reload();
     }
-    function updateQuota(){
-        var id = $('#id').val();
-        var name = $('#name').val();
-        var quotaId = $('#quotaId').val();
-        var description = $('#description').val();
 
-        if (name == "") {
-            alert("专家名字不能为空");
-        } else if (description == "") {
-            alert("专家简介不能为空");
-        } else {
-
-            $.ajax(
-                {
-                    type: 'POST',
-                    url: '/museum/quota/updateExpert',
-                    dataType: 'json',
-                    contentType: 'application/json;charset=UTF-8',
-                    data: JSON.stringify({
-                        id:id,
-                        name: name,
-                        quotaId: quotaId,
-                        description: description
-                    }),  //提交json字符串数组
-                    success: function (data) {
-                        if (data == "SUCCESS") {
-                            alert("修改成功");
-                            window.location.href = "/museum/quota/list";
-                        }
-                        else if (data == "NAME_FAIL") {
-                            alert("专家名字重复");
-                        }
-                        else if(data =="ID_FAIL"){
-                            alert("修改失败");
-                        }else {
-                            alert("未知的错误");
-                        }
-                    },
-                    error: function () {
-                        alert("修改数据失败");
-                    }
-                });
-        }
-    }
-
-    function updateQuota1(){
-        var id = $('#id1').val();
-        var name = $('#name1').val();
-        var quotaId = $('#quotaId1').val();
-        var description = $('#description1').val();
-
-        if (name == "") {
-            alert("专家名字不能为空");
-        } else if (description == "") {
-            alert("专家简介不能为空");
-        } else {
-
-            $.ajax(
-                {
-                    type: 'POST',
-                    url: '/museum/quota/updateExpert',
-                    dataType: 'json',
-                    contentType: 'application/json;charset=UTF-8',
-                    data: JSON.stringify({
-                        id:id,
-                        name: name,
-                        quotaId: quotaId,
-                        description: description
-                    }),  //提交json字符串数组
-                    success: function (data) {
-                        if (data == "SUCCESS") {
-                            alert("修改成功");
-                            window.location.href = "/museum/quota/list";
-                        }
-                        else if (data == "NAME_FAIL") {
-                            alert("专家名字重复");
-                        }
-                        else if(data =="ID_FAIL"){
-                            alert("修改失败");
-                        }else {
-                            alert("未知的错误");
-                        }
-                    },
-                    error: function () {
-                        alert("修改数据失败");
-                    }
-                });
-        }
-    }
 
 </script>
 </body>

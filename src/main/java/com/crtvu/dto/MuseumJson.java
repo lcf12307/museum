@@ -6,15 +6,15 @@ package com.crtvu.dto;
 public class MuseumJson {
     private int id;
     private String name;
-    private int category;
-    private int level;
+    private String category;
+    private String level;
     private String year;
     private String description;
     public MuseumJson(){
 
     }
 
-    public MuseumJson(int id, String name, int category, int level, String year, String description){
+    public MuseumJson(int id, String name, String category, String level, String year, String description){
         this.id = id;
         this.name = name;
         this.category = category;
@@ -23,7 +23,7 @@ public class MuseumJson {
         this.description = description;
     }
 
-    public MuseumJson(String name, int category, int level, String year, String description) {
+    public MuseumJson(String name, String category, String level, String year, String description) {
         this.name = name;
         this.category = category;
         this.level = level;
@@ -46,19 +46,19 @@ public class MuseumJson {
         this.name = name;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 

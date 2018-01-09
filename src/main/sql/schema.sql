@@ -46,7 +46,7 @@ create TABLE attachment(
     type int(4) not null DEFAULT 0 comment '附件类型'
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 alter table attachment add addtime varchar(15) not null default '';
-alter table attachment add year int(4) not null default default 0 ;
+alter table attachment add year int(4) not null default 0 ;
 
 create TABLE point(
     id int(11) primary key not null auto_increment comment 'id',

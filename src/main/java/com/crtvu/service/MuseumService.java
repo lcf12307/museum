@@ -25,10 +25,10 @@ public interface MuseumService {
 
     /**
      * 按年份搜索博物馆并翻页
-     * @param page
+     * @param museumProperty
      * @return
      */
-    List<MuseumEntity> getMuseumListByYear(int page, String museumProperty);
+    List<MuseumEntity> getMuseumListByYear(String museumProperty);
 
     /**
      * 找出总页数
@@ -71,7 +71,7 @@ public interface MuseumService {
      * @param description
      * @param id
      */
-    Result updateMuseum(String name, int category, int level, String year, String description, int id);
+    Result updateMuseum(String name, String category, String level, String year, String description, int id);
 
 
 }

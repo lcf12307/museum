@@ -4,7 +4,7 @@
 <mapper namespace = "com.crtvu.dao.PointDAO">
 
     <insert id = "insertPoint">
-        INSERT INTO point
+        INSERT INTO museum.point (name, mid, year, point, type)
         VALUES (#{name},#{mid},#{year},#{point},#{type})
     </insert>
 

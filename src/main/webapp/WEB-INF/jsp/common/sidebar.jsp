@@ -31,7 +31,7 @@
             <a href="/museum/quota/list"><i class="fa fa-circle-o text-aqua"></i><span>专家管理</span> </a>
         </li>
         <li class="treeview">
-            <a href="/admin/museum/list"><i class="fa fa-circle-o text-aqua"></i><span>博物馆管理</span> </a>
+            <a href="/museum/museum/list/1"><i class="fa fa-circle-o text-aqua"></i><span>博物馆管理</span> </a>
         </li>
         <li class="treeview">
             <a href="/notification/list"><i class="fa fa-circle-o text-aqua"></i><span>申报书管理</span> </a>

@@ -3,6 +3,7 @@ package com.crtvu.web;
 
 import com.crtvu.dto.DeleteJson;
 import com.crtvu.entity.AttachmentEntity;
+import com.crtvu.utils.ExcelShower;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -112,7 +113,7 @@ public class ScoreController {
             }else{
                 request.setAttribute("message", "success");
             }
-            String realname = fileName.substring(fileName.indexOf("_") + 1);
+            String realname = fileName.substring(fileName.lastIndexOf("\\") + 1);
             response.setHeader("content-disposition", "attachment;filename="
                     + URLEncoder.encode(realname, "UTF-8"));
             FileInputStream in = new FileInputStream( fileName);
@@ -133,6 +134,32 @@ public class ScoreController {
         } catch (Exception e) {
 
         }
+    }
+
+    @RequestMapping("/detail")
+    public String detail(int id,Model model) {
+        // 得到要下载的文件名
+        if(id<=0) {
+            model.addAttribute("table","参数错误");
+            return "/score/detail";
+        }
+        String table ="";
+        AttachmentEntity attachmentEntity = AttachmentService.findById(id);
+        String fileName = attachmentEntity.getFile();
+        if(fileName==null||fileName.equals("")) {
+            model.addAttribute("table","文件错误");
+            return "/score/detail";
+        }
+        try {
+            table = ExcelShower.read(fileName).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("table","文件错误");
+            return "/score/detail";
+        }
+        System.out.println(table);
+        model.addAttribute("table",table);
+        return "/score/detail";
     }
 
 
@@ -171,5 +198,7 @@ public class ScoreController {
         }
         return "redirect:/score/list/1?upload=success";
     }
+
+
 
 }

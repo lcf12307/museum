@@ -1,13 +1,21 @@
 package com.crtvu.service.implementation;
 
+import com.crtvu.dao.MuQASDAO;
+import com.crtvu.dao.PointDAO;
+import com.crtvu.dto.StrValue;
+import com.crtvu.entity.AttachmentEntity;
 import com.crtvu.entity.MuseumEntity;
-import com.crtvu.service.MuseumService;
-import com.crtvu.service.ScoreService;
+import com.crtvu.entity.Quota;
+import com.crtvu.service.*;
 import com.crtvu.utils.CheckExcelFileTypeUtil;
 import com.crtvu.utils.R;
+import com.crtvu.utils.ReadExcelUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,15 +26,26 @@ import java.util.*;
 /**
  * Created by Jixw on 2018/1/7.
  */
+@Service
 public class ScoreServiceImpl implements ScoreService{
+
+    @Autowired
+    AttachmentService attachmentService;
 
     @Autowired
     MuseumService museumService;
 
-    private POIFSFileSystem fs;
-    private HSSFWorkbook wb;
-    private HSSFSheet sheet;
-    private HSSFRow row;
+    @Autowired
+    QuotaService quotaService;
+
+    @Autowired
+    PointService pointService;
+
+    @Autowired
+    PointDAO pointDAO;
+
+    @Autowired
+    MuQASDAO muQASDAO;
 
     @Override
     public Map<Integer, HashMap<String, Integer>> ReadScoreExcel22() {
@@ -36,193 +55,143 @@ public class ScoreServiceImpl implements ScoreService{
     /**
      *
      * @param path
-     * @param year
      * @return
-     *  code>=0时 ,Object 为 LIst<String,int>类型
-     *  code<0时，Object为String类型的错误提示信息
+     *  code=0时 ,Object 为 LIst<String,int>类型
+     *  code为其他时，Object为String类型的错误提示信息
      */
-    public R ReadScoreExcel(String path, String year) {
+    public Map<String,Integer> ReadScoreExcel(String path) {
 
-        List<MuseumEntity> museums = new ArrayList<>();
-        museums.add(new MuseumEntity(1,"博物馆1",2,1,"",""));
-        museums.add(new MuseumEntity(1,"博物馆2",2,1,"",""));
-        //List<MuseumEntity> museums = museumService.getallbyyear;
 
-        File file = new File("path");
-        if(file.exists()||!file.isFile())
-            return R.error(-1,"未找到文件");
-        if(CheckExcelFileTypeUtil.getFileType(file).equals("xls"))
-            return R.error(-2,"文件格式错误");
-        if(museums==null||museums.isEmpty())
-            return R.error(-3,"未在数据库中查询到博物馆信息");
+        File file = new File(path);
+        if(!file.exists()||!file.isFile())
+            return null;
+        if(!CheckExcelFileTypeUtil.getFileType(file).equals("xls"))
+            return null;
+        try{
+            HSSFSheet sheet = ReadExcelUtils.getSheet(file,0);//拿第一个sheet
+            String[] titles = ReadExcelUtils.readExcelTitle(sheet);
 
+            if(titles==null||titles.length!=2){
+                return null;
+            }
+            return ReadExcelUtils.readMuseumScore(sheet,2);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return null;
     }
 
-    public String[] readExcelTitle(InputStream is) {
-        try {
-            fs = new POIFSFileSystem(is);
-            wb = new HSSFWorkbook(fs);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        sheet = wb.getSheetAt(0);
-        row = sheet.getRow(0);
-        // 标题总列数
-        int colNum = row.getPhysicalNumberOfCells();
-        System.out.println("colNum:" + colNum);
-        String[] title = new String[colNum];
-        for (int i = 0; i < colNum; i++) {
-            //title[i] = getStringCellValue(row.getCell((short) i));
-            title[i] = getCellFormatValue(row.getCell((short) i));
-        }
-        return title;
-    }
+    @Transactional(propagation= Propagation.REQUIRED, rollbackFor=Exception.class)
+    public R Calculate(String year) throws Exception{
+        HashSet<String> quota_ids=new HashSet<>();
+        quota_ids.add("科学研究");
+        quota_ids.add("藏品管理");
+        quota_ids.add("公共关系与服务");
+        quota_ids.add("陈列展览与社会教育");
+        quota_ids.add("博物馆管理发展建设");
+        String tempString = "";
+        int tempInt=0;
 
-    /**
-     * 读取Excel数据内容
-     * @param
-     * @return Map 包含单元格数据内容的Map对象
-     */
-    public Map<Integer, String> readExcelContent(InputStream is) {
-        Map<Integer, String> content = new HashMap<Integer, String>();
-        String str = "";
-        try {
-            fs = new POIFSFileSystem(is);
-            wb = new HSSFWorkbook(fs);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        sheet = wb.getSheetAt(0);
-        // 得到总行数
-        int rowNum = sheet.getLastRowNum();
-        row = sheet.getRow(0);
-        int colNum = row.getPhysicalNumberOfCells();
-        // 正文内容应该从第二行开始,第一行为表头的标题
-        for (int i = 1; i <= rowNum; i++) {
-            row = sheet.getRow(i);
-            int j = 0;
-            while (j < colNum) {
-                // 每个单元格的数据内容用"-"分割开，以后需要时用String类的replace()方法还原数据
-                // 也可以将每个单元格的数据设置到一个javabean的属性中，此时需要新建一个javabean
-                // str += getStringCellValue(row.getCell((short) j)).trim() +
-                // "-";
-                str += getCellFormatValue(row.getCell((short) j)).trim() + "    ";
-                j++;
+        if(year==null&&year.equals(""))
+            return R.error(-1,"年份参数错误");
+
+        //1、检查每个指标的参评专家数量是否为大于等于3的奇数
+        List<StrValue> strValues=muQASDAO.getQuotaIdCount(year);
+        System.out.println(strValues);
+        for(StrValue strValue:strValues){
+            if(quota_ids.contains(strValue.getStr())&&strValue.getValue()>=3&&strValue.getValue()%2==1){
+                quota_ids.remove(strValue.getStr());
             }
-            content.put(i, str);
-            str = "";
         }
-        return content;
-    }
-
-    /**
-     * 获取单元格数据内容为字符串类型的数据
-     *
-     * @param cell Excel单元格
-     * @return String 单元格数据内容
-     */
-    private String getStringCellValue(HSSFCell cell) {
-        String strCell = "";
-        switch (cell.getCellType()) {
-            case HSSFCell.CELL_TYPE_STRING:
-                strCell = cell.getStringCellValue();
-                break;
-            case HSSFCell.CELL_TYPE_NUMERIC:
-                strCell = String.valueOf(cell.getNumericCellValue());
-                break;
-            case HSSFCell.CELL_TYPE_BOOLEAN:
-                strCell = String.valueOf(cell.getBooleanCellValue());
-                break;
-            case HSSFCell.CELL_TYPE_BLANK:
-                strCell = "";
-                break;
-            default:
-                strCell = "";
-                break;
-        }
-        if (strCell.equals("") || strCell == null) {
-            return "";
-        }
-        if (cell == null) {
-            return "";
-        }
-        return strCell;
-    }
-
-    /**
-     * 获取单元格数据内容为日期类型的数据
-     *
-     * @param cell
-     *            Excel单元格
-     * @return String 单元格数据内容
-     */
-    private String getDateCellValue(HSSFCell cell) {
-        String result = "";
-        try {
-            int cellType = cell.getCellType();
-            if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {
-                Date date = cell.getDateCellValue();
-                result = (date.getYear() + 1900) + "-" + (date.getMonth() + 1)
-                        + "-" + date.getDate();
-            } else if (cellType == HSSFCell.CELL_TYPE_STRING) {
-                String date = getStringCellValue(cell);
-                result = date.replaceAll("[年月]", "-").replace("日", "").trim();
-            } else if (cellType == HSSFCell.CELL_TYPE_BLANK) {
-                result = "";
+        if(quota_ids.size()>0) {
+            for(String e:quota_ids){
+                tempString += ","+e;
             }
-        } catch (Exception e) {
-            System.out.println("日期格式不正确!");
-            e.printStackTrace();
+            tempString=tempString.substring(1);
+            return R.error(-2, "有（"+tempString+"）等一级指标指定的专家数不满足条件：专家数量应该为大于或等于3的奇数");
         }
-        return result;
-    }
 
-    /**
-     * 根据HSSFCell类型设置数据
-     * @param cell
-     * @return
-     */
-    private String getCellFormatValue(HSSFCell cell) {
-        String cellvalue = "";
-        if (cell != null) {
-            // 判断当前Cell的Type
-            switch (cell.getCellType()) {
-                // 如果当前Cell的Type为NUMERIC
-                case HSSFCell.CELL_TYPE_NUMERIC:
-                case HSSFCell.CELL_TYPE_FORMULA: {
-                    // 判断当前的cell是否为Date
-                    if (HSSFDateUtil.isCellDateFormatted(cell)) {
-                    // 如果是Date类型则，转化为Data格式
-                    //方法1：这样子的data格式是带时分秒的：2011-10-12 0:00:00
-                        // cellvalue = cell.getDateCellValue().toLocaleString();
+        //2、检查该年份所有的参评专家是否都上传了文件
+        List<String> quotas = quotaService.selectByYearPoint(year);
+        if (quotas!=null&&quotas.size()>0){
+            return R.error(-3,"还有"+quotas.size()+"个参审专家没有上传打分表！");
+        }
 
-                    //方法2：这样子的data格式是不带带时分秒的：2011-10-12
-                        Date date = cell.getDateCellValue();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        cellvalue = sdf.format(date);
+        //3、读所有参评博物馆
+        List<MuseumEntity> museums = muQASDAO.getAllMuseums(year);
+        if(museums==null|museums.size()==0){
+            return R.error(-4,"系统错误，没有参评博物馆");
+        }
+        HashSet<String> museumSet = new HashSet<>();
+        HashMap<String,Integer> museumMap = new HashMap<>();
+        for(MuseumEntity museum:museums){
+            museumSet.add(museum.getName());
+            museumMap.put(museum.getName(),museum.getId());
+        }
 
-                    }
-                    // 如果是纯数字
-                    else {
-                        // 取得当前Cell的数值
-                        cellvalue = String.valueOf(cell.getNumericCellValue());
-                    }
-                    break;
-                }
-                // 如果当前Cell的Type为STRIN
-                case HSSFCell.CELL_TYPE_STRING:
-                    // 取得当前的Cell字符串
-                    cellvalue = cell.getRichStringCellValue().getString();
-                    break;
-                    // 默认的Cell值
-                default:
-                    cellvalue = " ";
+        //4、删除之前的该年的定性打分数据
+        muQASDAO.deletePoint(Integer.parseInt(year),21,25);
+
+        //5、读所有文件并写入定性打分数据
+        HashSet<String> museumSet2 = new HashSet<>();
+        List<AttachmentEntity> attachments = attachmentService.findByYear(Integer.parseInt(year),2);
+        int pointType = 0;
+        String quota_id="";
+        for(AttachmentEntity e:attachments){
+            quota_id = quotaService.getExpert(e.getName()).getQuotaId();
+            if(quota_id==null||quota_id.equals(""))
+                throw new RuntimeException();
+            if(quota_id.equals("科学研究"))
+                pointType=21;
+            else if(quota_id.equals("藏品管理"))
+                pointType=22;
+            else if(quota_id.equals("公共关系与服务"))
+                pointType=23;
+            else if(quota_id.equals("陈列展览与社会教育"))
+                pointType=24;
+            else if(quota_id.equals("博物馆管理发展建设"))
+                pointType=25;
+            else
+                throw new RuntimeException();
+            Map<String,Integer> museumPointmap = ReadScoreExcel(e.getFile());
+            if(museumPointmap==null||museumPointmap.size()==0){
+				throw new RuntimeException("-5",new Throwable("专家："+e.getName()+"上传的文件格式存在问题，请检查"));
             }
-        } else {
-            cellvalue = "";
+            for(String key:museumPointmap.keySet()){
+                museumSet2.add(key);
+            }
+            if(museumSet2.size()!=museumPointmap.size()){
+				throw new RuntimeException("-5",new Throwable(e.getName()+"上传的文件的博物馆存在重复的博物馆名，请检查"));
+            }
+            if(!museumSet.equals(museumSet2)){
+                throw new RuntimeException("-5",new Throwable(e.getName()+"上传的文件的博物馆数量存在问题，请检查"));
+                //return R.error(-5,"专家："+e.getName()+"上传的文件的博物馆数量存在问题，请检查");
+            }
+            for(String key:museumPointmap.keySet()){
+                //pointType需要根据专家类型来判断，新写一个查询
+                if(pointService.addPoint(e.getName(),museumMap.get(key),Integer.parseInt(year),museumPointmap.get(key),pointType)<=0)
+                    throw new RuntimeException("-6",new Throwable("插入分数时异常"));
+            }
+            pointType=0;
+            quota_id="";
+            museumSet2.clear();
         }
-        return cellvalue;
+        //计算总分
+        
+
+        return R.ok("生成成功");
+    }
+	
+	
+
+    @Transactional
+    public void testTran() throws RuntimeException{
+        pointDAO.insertPoint("1",1,2017,8,21);
+        pointDAO.insertPoint("2",1,2017,8,21);
+        if(pointDAO.insertPoint("4",1,2017,8,21)>0){
+            throw new RuntimeException("回滚");
+        }
+        pointDAO.insertPoint("3",1,2017,8,21);
 
     }
 }

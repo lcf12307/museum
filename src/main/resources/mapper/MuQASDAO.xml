@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crtvu.dao.MuQASDAO">
+
+    <select id="getQuotaIdCount" resultType="com.crtvu.dto.StrValue">
+        select quota_id as str ,count(*) as value from quota where locate(#{year},year)>0 group by str
+    </select>
+    <select id="">
+        select q.quota_id,a.year,count(*) from attachment a,quota q
+        where a.type=2
+        and a.name = q.name
+        and a.year is not null
+        and q.year is not null
+        and locate(a.year,cast(q.year as char))>0
+        group by q.quota_id,a.year ;
+    </select>
+    <select id="getAllMuseums" resultType="com.crtvu.entity.MuseumEntity">
+        select * from museum.museum
+        where year is not null and locate(#{year},year)>0
+    </select>
+    <delete id="deletePoint">
+        DELETE FROM museum.point where <![CDATA[ year=#{year} AND type>=#{typeFrom} AND type <= #{typeTo} ]]>
+    </delete>
+</mapper>

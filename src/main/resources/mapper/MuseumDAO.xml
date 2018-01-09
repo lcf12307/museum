@@ -41,7 +41,6 @@
         SELECT id,name,category,level,year
         FROM museum.museum
         WHERE year LIKE CONCAT(CONCAT('%',#{museumProperty}),'%')
-        LIMIT #{index},#{count}
     </select>
 
     <select id="countAllMuseum" resultType="int">
