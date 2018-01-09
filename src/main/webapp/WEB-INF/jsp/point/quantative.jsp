@@ -57,7 +57,7 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
-                    <h2>申报书列表</h2>
+                    <h2>定量数据统计表</h2>
                 </div>
                 <div class="panel-body" >
                     <form class="navbar-form navbar-left" role="search">
@@ -86,7 +86,6 @@
                             <button type="button" class="btn btn-default" onclick="search()">搜索</button>
                         </div>
                     </form>
-                    <a class = "btn btn-primary btn-default pull-right"  data-toggle="modal" data-target="#myModal"><li class="fa fa-upload"></li>上传申报书</a>
                     <table class="table table-hover" border="1">
                         <thead>
                         <tr>
@@ -104,12 +103,14 @@
                         <c:forEach items="${quantative}" var="point">
                             <tr>
                                 <td>${point.name}</td>
-                                <td>${attachment.addtime}</td>
-                                <td>${attachment.year}</td>
-                                <td><a class="btn btn-info" href="/notification/listFile?dir=${attachment.name}_${attachment.year}" target="_blank">下载申报书</a>
-                                    <a class="btn btn-info" href="/notification/listFile?dir=${attachment.name}_${attachment.year}&add=1"  target="_blank">文件管理</a>
-                                    <a class="btn btn-info" onclick="delAttachment(${attachment.id})" target="_blank">删除申报书</a>
-                                </td>
+                                <td>${point.year}</td>
+                                <td>${point.point1}</td>
+                                <td>${point.point11}</td>
+                                <td>${point.point12}</td>
+                                <td>${point.point13}</td>
+                                <td>${point.point14}</td>
+                                <td><a class="btn btn-info" href="/quantative/detail?name=${point.name}" target="_blank">详细信息</a>
+                                    </td>
                             </tr>
                         </c:forEach>
                         </tbody>

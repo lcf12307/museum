@@ -75,10 +75,11 @@ public class PointController {
                     System.out.println(file1);
                     float[] res = POI_Word.readData(dir+"/"+file1);
                     int index=0,index1=0; PointEntity  point = new PointEntity();
-                    if ( pointService.findPointByName(attachment.getName(),0,year) == null){
+                    System.out.println( pointService.findPointByName(attachment.getName(),0,year));
+                    if ( pointService.findPointByName(attachment.getName(),0,year).size() == 0){
                         pointService.addPoint(attachment.getName(),0,year,0,0);
-                        point = pointService.findPointByName(attachment.getName(),0,year).get(0);
                     }
+                    point = pointService.findPointByName(attachment.getName(),0,year).get(0);
                     if (pointService.findPointByName(attachment.getName(),1,year) != null){
                         pointService.deleteByYear(year);
                     }
