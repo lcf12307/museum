@@ -119,7 +119,7 @@ public class PointController {
         List<FinalPoint> finalPoints = new ArrayList<>();
         FinalPoint fp;
         for (PointEntity point : points){
-            int mid = point.getMid();
+            int mid = pointService.findPointByName(point.getName(),0,point.getYear()).get(0).getId();
             fp = new FinalPoint();
             fp.setName(point.getName());
             fp.setYear(point.getYear());
