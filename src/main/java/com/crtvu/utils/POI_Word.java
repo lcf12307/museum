@@ -24,6 +24,8 @@ public class POI_Word{
                         TableRow tr=tb.getRow(i);
                         TableCell td;
                         td=tr.getCell(4);
+                        System.out.println(td.text().split("FORMTEXT ")[1].trim());
+                        System.out.println(Float.valueOf(td.text().split("FORMTEXT ")[1].trim()));
                         s[index++] = Float.valueOf(td.text().split("FORMTEXT ")[1].trim());
 
                     }
