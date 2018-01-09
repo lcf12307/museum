@@ -69,5 +69,13 @@
     <select id="getTotalStatic" resultType="com.crtvu.entity.PointEntity">
         select * from museum.point where type=#{type} and year=#{year} and name=#{name}
     </select>
-
+    <select id="getRank" resultType="com.crtvu.entity.PointEntity">
+        select * from museum.point where type=2 and year=#{year} order by point desc
+    </select>
+    <select id="getDingXingRank" resultType="com.crtvu.entity.PointEntity">
+        select * from museum.point WHERE  type = 40 and year = #{year} order by point ASC
+    </select>
+    <select id="findPointByid" resultType="com.crtvu.entity.PointEntity">
+        select * from museum.point where id=#{id}
+    </select>
 </mapper>

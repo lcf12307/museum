@@ -52,4 +52,12 @@ public interface MuQASDAO {
     List<PointEntity>  getOneMuseumScore(@Param("id") int museum_id,@Param("year") int year);
 
     PointEntity getTotalStatic(@Param("name") String name,@Param("type") int type,@Param("year") int year);
+
+    int CalculateRank(int year);
+
+    List<PointEntity> getRank(int year);
+
+    List<PointEntity> getDingXingRank(int year);
+
+    PointEntity findPointByid(int id);
 }

@@ -18,4 +18,7 @@ public interface ScoreService {
     void testTran();
 
     R Calculate(String year) throws Exception;
+
+    R CalculateRank(int year);
+
 }

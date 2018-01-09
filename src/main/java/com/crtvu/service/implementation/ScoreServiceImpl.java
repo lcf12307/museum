@@ -189,8 +189,14 @@ public class ScoreServiceImpl implements ScoreService{
 
         return R.ok("定性数据生成成功");
     }
-	
-	
+
+    @Override
+    public R CalculateRank(int year) {
+        muQASDAO.deletePoint(year,40,40);
+        if(muQASDAO.CalculateRank(year)>0)
+            return R.ok("生成定性总分排名成功");
+        return R.error("生成定性排名失败");
+    }
 
     @Transactional
     public void testTran() throws RuntimeException{

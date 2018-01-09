@@ -8,6 +8,7 @@ import com.crtvu.dto.TotalScore;
 import com.crtvu.entity.AttachmentEntity;
 import com.crtvu.entity.MuseumEntity;
 import com.crtvu.entity.PointEntity;
+import com.crtvu.service.PointService;
 import com.crtvu.service.ScoreService;
 import com.crtvu.utils.ExcelShower;
 import com.crtvu.utils.R;
@@ -39,6 +40,8 @@ public class ScoreController {
     ScoreService scoreService;
     @Autowired
     MuQASDAO muQASDAO;
+    @Autowired
+    PointService pointService;
 
     @RequestMapping(value = "/list")
     public  String list1(){
@@ -234,6 +237,35 @@ public class ScoreController {
         return r;
     }
 
+    @RequestMapping(value = "/dingxingRank")
+    @ResponseBody
+    public R dingxingRank(String year){
+        if(!canParseInt(year)||Integer.parseInt(year)<=0)
+            return R.error("参数错误");
+        int i=0;
+        List<PointEntity> pointList = muQASDAO.getRank(Integer.parseInt(year));
+        if(pointList==null||pointList.size()==0){
+            return R.error("请先生成定性数据！");
+        }
+        muQASDAO.deletePoint(Integer.parseInt(year),40,40);
+        for(PointEntity pointEntity:pointList){
+            i++;
+            pointService.addPoint(pointEntity.getName(),pointEntity.getId(),Integer.parseInt(year),i,40);
+        }
+        return R.ok("生成定性排名成功");
+    }
+
+    @RequestMapping(value = "/listDingXingRank/{year}")
+    public String listDingxingRank(@PathVariable("year") int year,Model model){
+        List<PointEntity> rankList = muQASDAO.getDingXingRank(year);
+        for(PointEntity pointEntity:rankList){
+            pointEntity.setPoint(muQASDAO.findPointByid(pointEntity.getMid()).getPoint());
+        }
+        model.addAttribute("rankList",rankList);
+        model.addAttribute("year",year);
+        return "/score/listDingXingRank";
+    }
+
     @RequestMapping("/listDingXingScore/{year}")
     public String dingXingScore(@PathVariable("year") int year,Model model){
         List<MuseumEntity> museumList = muQASDAO.getAllMuseum(year);
@@ -293,6 +325,8 @@ public class ScoreController {
         model.addAttribute("totalScoreList",totalScoreList);
         return "/score/total";
     }
+
+
 
     public static boolean canParseInt(String  str){
         try {
