@@ -158,6 +158,8 @@ public class PointController {
                         }
                         index++;
                     }
+                    finalPoint.setName(attachment.getName());
+                    finalPoint.setMid(point.getId());
                     finalpoints.add(finalPoint);
                     break;
                 }
@@ -187,9 +189,24 @@ public class PointController {
             newpoint.setPoint13(newpoint.getPoint106()+newpoint.getPoint107());
             newpoint.setPoint14(newpoint.getPoint108()+newpoint.getPoint109());
             newpoint.setPoint1(newpoint.getPoint11()+newpoint.getPoint12()+newpoint.getPoint13()+newpoint.getPoint14());
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint101(),101);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint102(),102);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint103(),103);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint104(),104);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint105(),105);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint106(),106);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint107(),107);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint108(),108);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint109(),109);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint11(),11);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint12(),12);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint13(),13);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint14(),14);
+            pointService.addPoint(newpoint.getName(),newpoint.getMid(),year,newpoint.getPoint1(),1);
         }
 
         model.addAttribute("quantative",finalpoints);
-        return "quantative";
+        model.addAttribute("year",year);
+        return "/point/quantative";
     }
 }
