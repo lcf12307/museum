@@ -26,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -54,6 +55,11 @@ public class ScoreController {
         try{
             name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
             List<AttachmentEntity> list= AttachmentService.pagingAttachment(page,year , name,2);
+            String format = "yyyy-MM-dd HH:mm:ss";
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            for(AttachmentEntity attament:list){
+                attament.setAddtime(sdf.format(new Date(Long.valueOf(attament.getAddtime()))));
+            }
             model.addAttribute("count",page);
             int pages = AttachmentService.page(year,name,2)/20 + 1;
             model.addAttribute("list",list);
@@ -231,6 +237,7 @@ public class ScoreController {
                     r=R.error(Integer.parseInt(e.getMessage()),e.getCause().getMessage());
                 }
             }else{
+                e.printStackTrace();
                 r=R.error("未知错误！");
             }
         }
@@ -258,6 +265,7 @@ public class ScoreController {
     @RequestMapping(value = "/listDingXingRank/{year}")
     public String listDingxingRank(@PathVariable("year") int year,Model model){
         List<PointEntity> rankList = muQASDAO.getDingXingRank(year);
+
         for(PointEntity pointEntity:rankList){
             pointEntity.setPoint(muQASDAO.findPointByid(pointEntity.getMid()).getPoint());
         }

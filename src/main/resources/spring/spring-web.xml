@@ -27,8 +27,8 @@
                         <prop key="kaptcha.border">no</prop>
                         <prop key="kaptcha.textproducer.font.color">black</prop>
                         <prop key="kaptcha.textproducer.char.space">4</prop>
-                        <prop key="kaptcha.textproducer.char.length">1</prop>
-                        <prop key="kaptcha.textproducer.char.string">1</prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                        <prop key="kaptcha.textproducer.char.string">1234567890zxcvbnm</prop>
                     </props>
                 </constructor-arg>
             </bean>

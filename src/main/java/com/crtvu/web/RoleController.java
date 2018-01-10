@@ -21,7 +21,8 @@ public class RoleController {
 	
 	@Autowired
 	RoleService roleService;
-	
+
+	@Auth("Member")
 	@RequestMapping("/list")
 	public String getRoleList(String name,Model model){
 		List<Role> roles =  roleService.getAllRole(name);
@@ -43,6 +44,7 @@ public class RoleController {
 		return "/role/list";
 	}
 
+	@Auth("Member")
 	@RequestMapping("/add")
 	public String add(){
 		return "/role/add";
@@ -69,6 +71,7 @@ public class RoleController {
 		return R.error();
 	}
 
+	@Auth("Member")
 	@RequestMapping("edit/{id}")
 	public String edit(@PathVariable("id") int id,Model model){
 		Role role = roleService.getRole(id);
@@ -76,6 +79,7 @@ public class RoleController {
 		return "/role/edit";
 	}
 
+	@Auth("Member")
 	@RequestMapping("editProcess/{id}")
 	@ResponseBody
 	public R editProcess(@PathVariable("id") int id,String name,String description,int[] authority){
@@ -97,6 +101,7 @@ public class RoleController {
 		return R.error();
 	}
 
+	@Auth("Member")
 	@RequestMapping("/delete")
 	@ResponseBody
 	public R delete(int id){

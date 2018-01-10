@@ -23,6 +23,24 @@
                 });
             }
         }
+        function count1113() {
+            var data = 'year=' + $('#QuantitativeYear').val();
+            var url = '/point/quantitativeinit';
+            if (confirm("确定要生成该年的数据吗")) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'json',
+                    data:data,
+                    success: function (result) {
+                        alert("生成成功");
+                    },
+                    error: function () {
+                        alert("生成失败");
+                    }
+                });
+            }
+        }
         function count133() {
             var data = 'year=' + $('#pointYear').val();
             var url = '/point/totalinit';

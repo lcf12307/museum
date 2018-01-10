@@ -1,6 +1,7 @@
 package com.crtvu.web;
 
 
+import com.crtvu.auth.Auth;
 import com.crtvu.dto.MuseumJson;
 import com.crtvu.entity.MuseumEntity;
 import com.crtvu.service.MuseumService;
@@ -40,11 +41,14 @@ public class MuseumController {
         model.addAttribute("list",list);
         return "/museum/list";//WEB-INF/jsp/
     }*/
+
+    @Auth("Museum")
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public String list(){
         return "redirect:/museum/museum/list/1";
     }
 
+    @Auth("Museum")
     @RequestMapping(value = "/list/{page}",method = RequestMethod.GET)
     public String list(@RequestParam(value = "nameKey",defaultValue = "") String museumProperty,
                        Model model,@PathVariable("page") int page){
@@ -66,6 +70,7 @@ public class MuseumController {
     }
 
     //详细信息
+    @Auth("Museum")
     @RequestMapping(value = "/detail/{museumId}", method = RequestMethod.GET)
     public String detail(@PathVariable("museumId") int museumId, Model model) {
         MuseumEntity museumEntity = museumService.getMuseum(museumId);
@@ -74,6 +79,7 @@ public class MuseumController {
     }
 
     //修改博物馆信息
+    @Auth("Museum")
     @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
     public String edit(@PathVariable("id")int id, Model model){
         try{
@@ -91,6 +97,7 @@ public class MuseumController {
     }
 
     //跳转至修改博物馆页面
+    @Auth("Museum")
     @RequestMapping(value = "/updateMuseum" ,method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public MuseumService.Result updateMuseum(@RequestBody MuseumJson museum){
@@ -99,6 +106,7 @@ public class MuseumController {
     }
 
     //根据ID删除博物馆
+    @Auth("Museum")
     @RequestMapping(value = "/delete",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public MuseumService.Result delete(@RequestBody MuseumJson museum) {
@@ -107,6 +115,7 @@ public class MuseumController {
     }
 
     //添加博物馆
+    @Auth("Museum")
     @RequestMapping(value = "/insert" ,method = RequestMethod.POST ,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public MuseumService.Result insert(@RequestBody MuseumJson museum ){
@@ -123,6 +132,7 @@ public class MuseumController {
     }
 
     //跳转至增添博物馆页面
+    @Auth("Museum")
     @RequestMapping(value = "/insertInfo" ,method = RequestMethod.GET)
     public String insertInfo(){
         return "museum/museum/insert";

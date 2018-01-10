@@ -28,6 +28,7 @@ public class MemberController extends AbstractController{
     @Autowired
     RoleService roleService;
 
+    @Auth("Member")
     @RequestMapping("/add")
     public String add(Model model){
         List<Role> roles =  roleService.getAllRole("");
@@ -35,6 +36,7 @@ public class MemberController extends AbstractController{
         return "/member/add";
     }
 
+    @Auth("Member")
     @RequestMapping(value = "/addProcess",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public R addProcess(@RequestBody MemberJson memberJson){
@@ -61,6 +63,7 @@ public class MemberController extends AbstractController{
         return "/member/edit";
     }
 
+    @Auth("Member")
     @RequestMapping(value = "/editProcess/{id}",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"} )
     @ResponseBody
     public R editProcess(@PathVariable("id") int id,@RequestBody MemberJson memberJson){
@@ -73,17 +76,20 @@ public class MemberController extends AbstractController{
         return R.error();
     }
 
+    @Auth("Member")
     @RequestMapping("/delete")
     @ResponseBody
     public R delete(int id){
         return memberService.delete(id)>0?R.ok():R.error();
     }
 
+    @Auth("Member")
     @RequestMapping("/list")
     public String listJump(){
         return "redirect:/member/list/1";
     }
 
+    @Auth("Member")
     @RequestMapping("/list/{page}")
     public String list(@PathVariable int page,@RequestParam(value = "nameKey",defaultValue = "") String nameKey,Model model){
         try {

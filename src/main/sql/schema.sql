@@ -9,7 +9,7 @@ create TABLE member(
     email VARCHAR(200) not null DEFAULT '' comment '邮箱',
     phone VARCHAR (11) not null ,
     password VARCHAR(200) not null DEFAULT '' comment '密码',
-    role int(4) not null DEFAULT 0 comment '权限'
+    role int(4) not null DEFAULT 0 comment '角色'
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
@@ -57,4 +57,8 @@ create TABLE point(
     point DECIMAL(5,2) not null DEFAULT 0 comment '分数',
     type int(4) not null DEFAULT 0 comment '分数类型'
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+INSERT into role values(1,'超级管理员','超级管理员',255);
+/*密码为1*/
+insert into member values(1,'admin',21,'admin@admin.com','13000000000','39bfd36f6e86817d55b10aea02fcb9e7',1);
 

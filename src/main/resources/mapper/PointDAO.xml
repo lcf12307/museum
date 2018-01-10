@@ -51,6 +51,7 @@
         SELECT *
         FROM point
         Where type = #{type}  and year = #{year}
+        order by point desc
     </select>
 
     <select id="selectPointByMid" resultType="PointEntity">

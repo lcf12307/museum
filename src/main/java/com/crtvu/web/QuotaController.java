@@ -1,5 +1,6 @@
 package com.crtvu.web;
 
+import com.crtvu.auth.Auth;
 import com.crtvu.dto.DeleteQuoJson;
 import com.crtvu.dto.ErrorQuoJson;
 import com.crtvu.dto.QuotaJson;
@@ -40,6 +41,7 @@ public class QuotaController {
     }
 
     //根据专家名字查询
+    @Auth("Quota")
     @RequestMapping(value = "/list/{page}",method = RequestMethod.GET)
     public String list(@RequestParam(value = "nameKey",defaultValue = "") String expertProperty,
                        Model model,@PathVariable("page") int page){
@@ -59,6 +61,7 @@ public class QuotaController {
     }
 
     //根据评审年份查询
+    @Auth("Quota")
     @RequestMapping(value = "/appoint/{page}",method = RequestMethod.GET)
     public String appoint(@RequestParam(value = "yearKey",defaultValue = "2018" ) String expertProperty,
                           Model model,@PathVariable("page") int page){
@@ -79,6 +82,7 @@ public class QuotaController {
         return "museum/quota/appoint";
     }
 
+    @Auth("Quota")
     @RequestMapping(value = "/appoint2/{page}",method = RequestMethod.GET)
     public String appoint2(@RequestParam(value = "yearKey",defaultValue = "2018") String expertProperty,
                           Model model,@PathVariable("page") int page){
@@ -102,7 +106,8 @@ public class QuotaController {
         return "museum/quota/appoint2";
     }
 
-//修改专家信息
+    //修改专家信息
+    @Auth("Quota")
     @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
     public String edit(@PathVariable("id")int id,@RequestParam("page") int page, Model model){
             try{
@@ -121,6 +126,7 @@ public class QuotaController {
     }
 
     //专家详情
+    @Auth("Quota")
     @RequestMapping(value = "/detail/{id}",method = RequestMethod.GET)
     public String detail(@PathVariable("id")int id,@RequestParam("page") int page, Model model){
 
@@ -140,19 +146,21 @@ public class QuotaController {
         return  "museum/index";
     }
     //删除专家信息
+    @Auth("Quota")
     @RequestMapping(value = "/delete",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public QuotaService.Result delete(@RequestBody DeleteQuoJson DeleteQuoJson){
         return QuotaService.deleteExpert(DeleteQuoJson.getName());
     }
 
-
+    @Auth("Quota")
     @RequestMapping(value = "/insertInfo" ,method = RequestMethod.GET)
     public String insertInfo(){
         return "museum/quota/insert";
     }
 
    //添加专家信息
+    @Auth("Quota")
     @RequestMapping(value = "/insert" ,method = RequestMethod.POST ,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public QuotaService.Result insert(@RequestBody QuotaJson quota ){
@@ -168,6 +176,7 @@ public class QuotaController {
     }
 
     //更新专家信息
+    @Auth("Quota")
     @RequestMapping(value = "/updateExpert" ,method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public QuotaService.Result updateExpert(@RequestBody QuotaJson quota){
@@ -175,6 +184,7 @@ public class QuotaController {
     }
 
     //取消专家评审
+    @Auth("Quota")
     @RequestMapping(value = "/cancel",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public QuotaService.Result cancel(@RequestBody QuotaJson quota){
@@ -190,7 +200,7 @@ public class QuotaController {
     }
 
     //添加专家评审
-
+    @Auth("Quota")
     @RequestMapping(value = "/add",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public QuotaService.Result add(@RequestBody QuotaJson quota){
@@ -205,6 +215,8 @@ public class QuotaController {
         }
         return com.crtvu.service.QuotaService.Result.YEAR_FAIL;//写着试试
     }
+
+    @Auth("Quota")
     @RequestMapping(value = "/download/{yearKey}",method = RequestMethod.GET)
     public String download(@PathVariable("yearKey") String yearKey , Model model){
         String filename = QuotaService.download(yearKey);

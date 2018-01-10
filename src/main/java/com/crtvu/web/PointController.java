@@ -1,6 +1,7 @@
 package com.crtvu.web;
 
 import com.crtvu.auth.Auth;
+import com.crtvu.dao.MuQASDAO;
 import com.crtvu.dto.DeleteJson;
 import com.crtvu.service.ScoreService;
 import com.crtvu.utils.R;
@@ -34,7 +35,8 @@ public class PointController {
     private PointService pointService;
     @Autowired
     private AttachmentService attachmentService;
-
+    @Autowired
+    private MuQASDAO muQASDAO;
     @RequestMapping(value = "/index")
     public String index(){
         return "/point/index";
@@ -187,6 +189,11 @@ public class PointController {
         FinalPoint fp;
         for (PointEntity point : points){
             int mid = point.getId();
+            if (pointService.findPointByType(3,year,mid).size() == 0){
+                model.addAttribute("error","请先生成分数");
+
+                return "error";
+            }
             fp = new FinalPoint();
             fp.setName(point.getName());
             fp.setYear(point.getYear());
@@ -373,6 +380,7 @@ public class PointController {
 
         model.addAttribute("quantative",finalpoints);
         model.addAttribute("year",year);
+
         return R.ok();
     }
 
@@ -385,6 +393,9 @@ public class PointController {
             return R.error("请先确认已经生成定量数据");
         }
         int index=1;
+        muQASDAO.deletePoint(year,3,3);
+        muQASDAO.deletePoint(year,30,39);
+        muQASDAO.deletePoint(year,300,399);
         for (PointEntity pointEntity:attachments){
             pointService.addPoint(pointEntity.getName(),pointEntity.getMid(),pointEntity.getYear(),index,3);
             index++;
