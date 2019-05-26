@@ -1,8 +1,17 @@
 package com.crtvu.web;
 
 
+import com.crtvu.dao.MuQASDAO;
 import com.crtvu.dto.DeleteJson;
+import com.crtvu.dto.DingxingScore;
+import com.crtvu.dto.TotalScore;
 import com.crtvu.entity.AttachmentEntity;
+import com.crtvu.entity.MuseumEntity;
+import com.crtvu.entity.PointEntity;
+import com.crtvu.service.PointService;
+import com.crtvu.service.ScoreService;
+import com.crtvu.utils.ExcelShower;
+import com.crtvu.utils.R;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -27,10 +37,16 @@ public class ScoreController {
     private com.crtvu.service.AttachmentService AttachmentService;
     @Autowired
     private com.crtvu.service.QuotaService quotaService;
+    @Autowired
+    ScoreService scoreService;
+    @Autowired
+    MuQASDAO muQASDAO;
+    @Autowired
+    PointService pointService;
 
     @RequestMapping(value = "/list")
     public  String list1(){
-        return "redirect: /score/list/1";
+        return "redirect:/score/list/1";
     }
     @RequestMapping(value = "/list/{page}",method = RequestMethod.GET)
     public String list(@RequestParam(value = "name",defaultValue = "") String name, @RequestParam(value = "year",defaultValue="0") int year,
@@ -39,6 +55,11 @@ public class ScoreController {
         try{
             name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
             List<AttachmentEntity> list= AttachmentService.pagingAttachment(page,year , name,2);
+            String format = "yyyy-MM-dd HH:mm:ss";
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            for(AttachmentEntity attament:list){
+                attament.setAddtime(sdf.format(new Date(Long.valueOf(attament.getAddtime()))));
+            }
             model.addAttribute("count",page);
             int pages = AttachmentService.page(year,name,2)/20 + 1;
             model.addAttribute("list",list);
@@ -115,7 +136,7 @@ public class ScoreController {
             }else{
                 request.setAttribute("message", "success");
             }
-            String realname = fileName.substring(fileName.indexOf("_") + 1);
+            String realname = fileName.substring(fileName.lastIndexOf("\\") + 1);
             response.setHeader("content-disposition", "attachment;filename="
                     + URLEncoder.encode(realname, "UTF-8"));
             FileInputStream in = new FileInputStream( fileName);
@@ -136,6 +157,32 @@ public class ScoreController {
         } catch (Exception e) {
 
         }
+    }
+
+    @RequestMapping("/detail")
+    public String detail(int id,Model model) {
+        // 得到要下载的文件名
+        if(id<=0) {
+            model.addAttribute("table","参数错误");
+            return "/score/detail";
+        }
+        String table ="";
+        AttachmentEntity attachmentEntity = AttachmentService.findById(id);
+        String fileName = attachmentEntity.getFile();
+        if(fileName==null||fileName.equals("")) {
+            model.addAttribute("table","文件错误");
+            return "/score/detail";
+        }
+        try {
+            table = ExcelShower.read(fileName).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("table","文件错误");
+            return "/score/detail";
+        }
+        System.out.println(table);
+        model.addAttribute("table",table);
+        return "/score/detail";
     }
 
 
@@ -173,6 +220,129 @@ public class ScoreController {
             return "redirect:/score/listFile?dir="+name+"_"+year+"&add=1";
         }
         return "redirect:/score/list/1?upload=success";
+    }
+
+
+    @RequestMapping(value = "/dingxing")
+    @ResponseBody
+    public R dingxing(String year){
+        if(!canParseInt(year)||Integer.parseInt(year)<=0)
+            return R.error("参数错误");
+        R r = R.error(-99,"未知错误");
+        try {
+            r=scoreService.Calculate(String.valueOf(year));
+        } catch (Exception e) {
+            if(canParseInt(e.getMessage())){
+                if(Integer.parseInt(e.getMessage())<0){
+                    r=R.error(Integer.parseInt(e.getMessage()),e.getCause().getMessage());
+                }
+            }else{
+                e.printStackTrace();
+                r=R.error("未知错误！");
+            }
+        }
+        return r;
+    }
+
+    @RequestMapping(value = "/dingxingRank")
+    @ResponseBody
+    public R dingxingRank(String year){
+        if(!canParseInt(year)||Integer.parseInt(year)<=0)
+            return R.error("参数错误");
+        int i=0;
+        List<PointEntity> pointList = muQASDAO.getRank(Integer.parseInt(year));
+        if(pointList==null||pointList.size()==0){
+            return R.error("请先生成定性数据！");
+        }
+        muQASDAO.deletePoint(Integer.parseInt(year),40,40);
+        for(PointEntity pointEntity:pointList){
+            i++;
+            pointService.addPoint(pointEntity.getName(),pointEntity.getId(),Integer.parseInt(year),i,40);
+        }
+        return R.ok("生成定性排名成功");
+    }
+
+    @RequestMapping(value = "/listDingXingRank/{year}")
+    public String listDingxingRank(@PathVariable("year") int year,Model model){
+        List<PointEntity> rankList = muQASDAO.getDingXingRank(year);
+
+        for(PointEntity pointEntity:rankList){
+            pointEntity.setPoint(muQASDAO.findPointByid(pointEntity.getMid()).getPoint());
+        }
+        model.addAttribute("rankList",rankList);
+        model.addAttribute("year",year);
+        return "/score/listDingXingRank";
+    }
+
+    @RequestMapping("/listDingXingScore/{year}")
+    public String dingXingScore(@PathVariable("year") int year,Model model){
+        List<MuseumEntity> museumList = muQASDAO.getAllMuseum(year);
+        List<DingxingScore> scoreList = new ArrayList<>();
+        double total ;
+        for(MuseumEntity museum: museumList){
+            total=0;
+            List<PointEntity> points = muQASDAO.getOneMuseumScore(museum.getId(),year);
+            DingxingScore score = new DingxingScore();
+            for(PointEntity point:points){
+
+                if(point.getType()==21){
+                    score.setScore21(point.getPoint());
+                    total+=point.getPoint()*0.2;
+                }else if(point.getType()==22){
+                    score.setScore22(point.getPoint());
+                    total+=point.getPoint()*0.2;
+                }else if(point.getType()==23){
+                    score.setScore23(point.getPoint());
+                    total+=point.getPoint()*0.35;
+                }else if(point.getType()==24){
+                    score.setScore24(point.getPoint());
+                    total+=point.getPoint()*0.15;
+                }else if(point.getType()==25){
+                    score.setScore25(point.getPoint());
+                    total+=point.getPoint()*0.1;
+                }
+                score.setName(point.getName());
+                score.setYear(point.getType());
+            }
+            score.setTotal(total);
+            scoreList.add(score);
+        }
+
+        model.addAttribute("scoreList",scoreList);
+        model.addAttribute("year",year);
+        return "/score/listDingXingScore";
+    }
+
+    @RequestMapping("/total/{year}")
+    public String getTotalStatic(@PathVariable("year") int year,Model model){
+        List<MuseumEntity> museumList = muQASDAO.getAllMuseum(year);
+        List<TotalScore> totalScoreList = new ArrayList<>();
+        PointEntity point;
+        for(MuseumEntity museum: museumList){
+            TotalScore totalScore = new TotalScore();
+            totalScore.setName(museum.getName());
+            totalScore.setYear(year);
+            point = muQASDAO.getTotalStatic(museum.getName(),1,year);
+            totalScore.setDingliang(point==null?0:point.getPoint());
+            point = muQASDAO.getTotalStatic(museum.getName(),2,year);
+            totalScore.setDingxing(point==null?0:point.getPoint());
+            totalScore.setTotal();
+            totalScoreList.add(totalScore);
+        }
+        model.addAttribute("year",year);
+        model.addAttribute("totalScoreList",totalScoreList);
+        return "/score/total";
+    }
+
+
+
+    public static boolean canParseInt(String  str){
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

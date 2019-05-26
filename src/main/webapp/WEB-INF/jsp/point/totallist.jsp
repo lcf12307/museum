@@ -12,7 +12,7 @@
             var name = $('#searchName').val();
             var year = $('#searchYear').val();
             console.log(year);
-            window.location.href="/point/quantitative?name="+name+"&year="+year;
+            window.location.href="/point/totallist?name="+name+"&year="+year;
         }
 
     </script>

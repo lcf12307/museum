@@ -1,23 +1,14 @@
 package com.crtvu.service.implementation;
 
+import com.crtvu.dao.MuseumDAO;
 import com.crtvu.entity.MuseumEntity;
 import com.crtvu.service.MuseumService;
-import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.crtvu.dao.MuseumDAO;
-import org.springframework.util.DigestUtils;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
-
-
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by 21441 on 2018/1/3/0016.
@@ -43,11 +34,8 @@ public class MuseumServiceImpl implements MuseumService {
         return page_count;
     }
 
-    public List<MuseumEntity> getMuseumListByYear (int page,String museumProperty) {
-        if(page<=0||page>getPageCount(museumProperty)) {
-            return null;
-        }
-        return museumDAO.selectMuseumByYear(museumProperty,(page-1)*pageNumber,pageNumber);
+    public List<MuseumEntity> getMuseumListByYear (String museumProperty) {
+        return museumDAO.selectMuseumByYear(museumProperty);
     }
 
 
@@ -60,15 +48,16 @@ public class MuseumServiceImpl implements MuseumService {
     }
 
     public Result insertMuseum(MuseumEntity museum) {
+
         if(museum.getName().length() < 0){
             return Result.NAME_FAIL;
         }
-        if (museum.getCategory() != 1&&museum.getCategory() != 2){
+        /*if (museum.getCategory() != "历史文化与综合类"||museum.getCategory() != "自然、科技与专题类"||museum.getCategory()!="纪念类"){
             return Result.CATEGORY_FAIL;
         }
-        if (museum.getLevel() != 1&&museum.getLevel() != 2) {
+        if (museum.getLevel() != "省级及省级以上"&&museum.getLevel() != "其他") {
             return Result.LEVEL_FAIL;
-        }
+        }*/
         if(museum.getYear().length() < 0){
             return Result.YEAR_FAIL;
         }
@@ -83,19 +72,20 @@ public class MuseumServiceImpl implements MuseumService {
     public Result deleteMuseum(int id){
         return museumDAO.deleteMuseum(id)>0?Result.SUCCESS:Result.ID_FAIL;
     }
-    public Result updateMuseum(String name,int category,int level,String year,String description,int id){
+    public Result updateMuseum(String name,String category,String level,String year,String description,int id){
         if(name.length() < 0){
             return Result.NAME_FAIL;
         }
-        if (category!= 1&&category!= 2){
+       /* if (category != "历史文化与综合类"&&category != "自然、科技与专题类"&category!="纪念类"){
             return Result.CATEGORY_FAIL;
         }
-        if (level != 1&&level != 2) {
+        if (level != "省级及省级以上"&&level != "其他") {
             return Result.LEVEL_FAIL;
-        }
+        }*/
         if(year.length() < 0){
             return Result.YEAR_FAIL;
         }
+        //System.out.println(id+name+category+level+year+description);
         int result;
         try{
             result = museumDAO.updateMuseum(name, category, level, year, description, id);

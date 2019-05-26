@@ -23,6 +23,24 @@
                 });
             }
         }
+        function count1113() {
+            var data = 'year=' + $('#QuantitativeYear').val();
+            var url = '/point/quantitativeinit';
+            if (confirm("确定要生成该年的数据吗")) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'json',
+                    data:data,
+                    success: function (result) {
+                        alert("生成成功");
+                    },
+                    error: function () {
+                        alert("生成失败");
+                    }
+                });
+            }
+        }
         function count133() {
             var data = 'year=' + $('#pointYear').val();
             var url = '/point/totalinit';
@@ -111,6 +129,49 @@
                     },
                     error: function () {
                         alert("生成失败");
+                    }
+                });
+            }
+        }
+        function count2(url) {
+            if (confirm("确定要生成该年的数据吗")) {
+                var data = 'year='+$('#qualitativeYear').val();
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: "json",
+                    data:data,
+                    success: function (result) {
+                        if (result.code == 0) {
+                            alert(result.msg);
+                        } else {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function () {
+                        alert('连接失败，请稍后再试！');
+                    }
+                });
+            }
+        }
+        function count3(url) {
+            //dingxingRank
+            if (confirm("确定要生成该年的定性排名吗")) {
+                var data = 'year='+$('#qualitativeListYear').val();
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: "json",
+                    data:data,
+                    success: function (result) {
+                        if (result.code == 0) {
+                            alert(result.msg);
+                        } else {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function () {
+                        alert('连接失败，请稍后再试！');
                     }
                 });
             }
@@ -224,7 +285,7 @@
                         <option value="2011">2011</option>
                         <option value="2010">2010</option>
                     </select>
-                    <button class="btn btn-primary" name="QuantitativeButton" id="qualitativeButton" onclick="window.location.href(www.baidu.com)">计算定性得分</button>
+                    <button class="btn btn-primary" name="QuantitativeButton" id="qualitativeButton" onclick="count2('/score/dingxing')">计算定性得分</button>
                 </div>
             </div>
 
@@ -245,7 +306,7 @@
                         <option value="2011">2011</option>
                         <option value="2010">2010</option>
                     </select>
-                    <button class="btn btn-primary" name="QuantitativeButton" id="qualitativeListButton" onclick="window.location.href(www.baidu.com)">计算定性排名</button>
+                    <button class="btn btn-primary" name="QuantitativeButton" id="qualitativeListButton" onclick="count3('/score/dingxingRank')">计算定性排名</button>
                 </div>
             </div>
         </div>

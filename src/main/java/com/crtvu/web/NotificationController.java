@@ -1,5 +1,6 @@
 package com.crtvu.web;
 
+import com.crtvu.auth.Auth;
 import com.crtvu.dto.DeleteJson;
 import com.crtvu.entity.AttachmentEntity;
 import com.crtvu.service.AttachmentService;
@@ -27,10 +28,13 @@ public class NotificationController {
     @Autowired
     private AttachmentService AttachmentService;
 
+    @Auth("NotificationForm")
     @RequestMapping(value = "/list")
     public  String list1(){
         return "redirect:/notification/list/1";
     }
+
+    @Auth("NotificationForm")
     @RequestMapping(value = "/list/{page}",method = RequestMethod.GET)
     public String list(@RequestParam(value = "name",defaultValue = "") String name,@RequestParam(value = "year",defaultValue="0") int year,
                        Model model, @PathVariable("page") int page)
@@ -53,6 +57,8 @@ public class NotificationController {
         }
         return "notification/list";
     }
+
+    @Auth("NotificationForm")
     @RequestMapping(value = "/delete",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public DeleteJson delete(@RequestBody DeleteJson deletejson)
@@ -62,6 +68,7 @@ public class NotificationController {
         return deletejson;
     }
 
+    @Auth("NotificationForm")
     @RequestMapping(value = "/upload")
     public String handleFormUpload(@RequestParam("uploadName") String name,@RequestParam("uploadYear") int year,Model model,
                                    @RequestParam("file") MultipartFile[] myfiles,HttpServletRequest request) throws Exception{
@@ -149,6 +156,7 @@ public class NotificationController {
 
 
 
+    @Auth("NotificationForm")
     @RequestMapping("/listFile")
     public String listFile(@RequestParam("dir") String dir,
                            HttpServletRequest request,   HttpServletResponse response) {
@@ -191,6 +199,7 @@ public class NotificationController {
         return "notification/listFile";
     }
 
+    @Auth("NotificationForm")
     @RequestMapping("/downFile")
     public void downFile(HttpServletRequest request,
                          HttpServletResponse response) {
@@ -240,6 +249,7 @@ public class NotificationController {
         }
     }
 
+    @Auth("NotificationForm")
     @RequestMapping(value = "deleteFile",method = RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public DeleteJson deleteFiles(@RequestBody DeleteJson deleteJson,
@@ -267,6 +277,7 @@ public class NotificationController {
         return deleteJson;
     }
 
+    @Auth("NotificationForm")
     @RequestMapping(value = "/downloadZip")
     public void downloadFiles(@RequestParam("dir") String dir, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

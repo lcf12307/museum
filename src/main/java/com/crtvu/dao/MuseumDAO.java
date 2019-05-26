@@ -13,7 +13,7 @@ public interface MuseumDAO {
      * @param year
      * @param description
      */
-    void insertMuseum(@Param("name") String name, @Param("category") int category, @Param("level") int level, @Param("year") String year, @Param("description") String description);
+    void insertMuseum(@Param("name") String name, @Param("category") String category, @Param("level") String level, @Param("year") String year, @Param("description") String description);
 
     /**
      * 修改博物馆实体
@@ -24,7 +24,7 @@ public interface MuseumDAO {
      * @param year
      * @param description
      */
-    int updateMuseum(@Param("name") String name, @Param("category") int category, @Param("level") int level, @Param("year") String year, @Param("description") String description, @Param("id") int id);
+    int updateMuseum(@Param("name") String name, @Param("category") String category, @Param("level") String level, @Param("year") String year, @Param("description") String description, @Param("id") int id);
 
     /**
      *删除博物馆实体
@@ -55,12 +55,10 @@ public interface MuseumDAO {
     List<MuseumEntity> selectMuseumByLimit(@Param("museumProperty") String museumProperty, @Param("index") int index, @Param("count") int count);
 
     /**
-     * 通过年份查询博物馆并分页
+     * 通过年份查询博物馆
      * @param museumProperty
-     * @param index
-     * @param count
      */
-    List<MuseumEntity> selectMuseumByYear(@Param("museumProperty") String museumProperty, @Param("index") int index, @Param("count") int count);
+    List<MuseumEntity> selectMuseumByYear(@Param("museumProperty") String museumProperty);
 
     /**
      * 查询博物馆数量
